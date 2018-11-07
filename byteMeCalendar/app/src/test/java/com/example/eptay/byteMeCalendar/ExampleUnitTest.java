@@ -1,4 +1,4 @@
-package com.example.eptay.helloworld;
+package com.example.eptay.byteMeCalendar;
 
 import org.junit.Test;
 
