@@ -1,4 +1,4 @@
-package com.example.eptay.helloworld;
+package com.example.eptay.byteMeCalendar;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
