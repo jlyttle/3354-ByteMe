@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">helloWorld</string>
+    <string name="title_activity_weekly_view">WeeklyView</string>
+    <string name="weekname">WeekName</string>
 </resources>
