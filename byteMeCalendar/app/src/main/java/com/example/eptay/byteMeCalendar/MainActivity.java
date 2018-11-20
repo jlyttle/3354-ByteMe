@@ -1,16 +1,20 @@
 package com.example.eptay.byteMeCalendar;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.widget.Button;
 import android.widget.CalendarView;
 
 public class MainActivity extends AppCompatActivity {
     /* MEMBER VARIABLES */
     CalendarView calendarView;
     FloatingActionButton fab;
+    Button ChangeScreen ;
+
 
     int m_month = 0;
     int m_day = 0;
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         //Instantiate each widget on the layout
         calendarView = findViewById(R.id.calendarView);
         fab = findViewById(R.id.floatingActionButton);
+        ChangeScreen = findViewById(R.id.Change);
 
         //On changing the date, change the text to be new date
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -45,5 +50,16 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        ChangeScreen.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(MainActivity.this , WeeklyView.class);
+                startActivity(intent);
+
+             }
+        });
+
+
     }
 }
