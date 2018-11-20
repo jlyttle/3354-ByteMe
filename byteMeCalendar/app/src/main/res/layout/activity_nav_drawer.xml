@@ -30,8 +30,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:focusable="auto"
         app:headerLayout="@layout/nav_header_nav_drawer"
-        app:menu="@menu/activity_nav_drawer_drawer" >
+        app:menu="@menu/activity_nav_drawer_drawer">
 
     </android.support.design.widget.NavigationView>
 

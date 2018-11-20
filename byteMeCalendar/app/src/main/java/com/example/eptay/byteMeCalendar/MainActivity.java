@@ -64,23 +64,26 @@ public class MainActivity extends AppCompatActivity {
         */
 
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
-                        // close drawer when item is tapped
-                        switch (menuItem.getItemId()) {
-                            case R.id.nav_camera:
-                                throw new Error("Hit camera button");
-                                //break;
-                                //startActivity(new Intent(MainActivity.this, TestActivity.class));
-                        }
-                        //mDrawerLayout.closeDrawers();
+                        mDrawerLayout.closeDrawers();
 
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
+                        // close drawer when item is tapped
+                        mDrawerLayout.closeDrawers();
+
+                        switch (menuItem.getItemId()) {
+                            //case R.id.nav_camera:
+                                //TODO: Fill out switch case for every activity in the drawer
+                                //startActivity(new Intent(MainActivity.this, ActivityName.class));
+                                //break;
+                            default:
+                                break;
+                        }
 
                         return true;
                     }
@@ -97,6 +100,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }
