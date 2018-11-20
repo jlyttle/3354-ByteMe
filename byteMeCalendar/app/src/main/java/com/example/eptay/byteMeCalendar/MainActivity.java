@@ -17,8 +17,8 @@ import android.widget.CalendarView;
 public class MainActivity extends AppCompatActivity {
     /* MEMBER VARIABLES */
     private DrawerLayout mDrawerLayout;
-    CalendarView calendarView;
-   // FloatingActionButton fab;
+    private CalendarView calendarView;
+    private FloatingActionButton fab;
 
     int m_month = 0;
     int m_day = 0;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Instantiate each widget on the layout
         calendarView = findViewById(R.id.calendarView);
-        //fab = findViewById(R.id.floatingActionButton);
+        fab = findViewById(R.id.floatingActionButton);
 
         //On changing the date, change the text to be new date
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-       /* //TODO: On clicking the action button, should change view to event adding form
+        //TODO: On clicking the action button, should change view to event adding form
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        */
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.bringToFront();
