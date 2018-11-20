@@ -17,13 +17,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WeeklyView"
-            android:label="@string/title_activity_weekly_view"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
             android:name=".NavDrawer"
             android:label="@string/title_activity_nav_drawer"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" /></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name="WeeklyView"></activity>
     </application>
 
 </manifest>
