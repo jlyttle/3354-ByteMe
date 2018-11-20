@@ -17,5 +17,4 @@ public class Event {
     void setStartingTime(int startingTime) { m_startingTime = startingTime; }
     void setEndingTime(int endingTime) { m_endingTime = endingTime; }
 
-
 }

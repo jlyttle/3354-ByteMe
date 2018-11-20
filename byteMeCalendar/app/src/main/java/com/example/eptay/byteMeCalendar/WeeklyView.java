@@ -9,12 +9,16 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class WeeklyView extends AppCompatActivity {
@@ -35,6 +39,7 @@ public class WeeklyView extends AppCompatActivity {
         TableLayout table = (TableLayout)findViewById(R.id.AddEvent );
         ListView list = (ListView)findViewById(R.id.WeekList);
 
+        /*
         ArrayList<String> weekNames = new ArrayList<>();
         weekNames.add("Monday");
         weekNames.add("Tuesday");
@@ -43,8 +48,18 @@ public class WeeklyView extends AppCompatActivity {
         weekNames.add("Friday");
         weekNames.add("Saturday");
         weekNames.add("Sunday");
+        */
 
-        ArrayAdapter adapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1, weekNames);
+        List<Map<String,String>> data = new ArrayList<Map<String,String>>();
+        Map<String,String> weekNames = new HashMap<String , String>(2);
+        weekNames.put("Monday",week);
+        data.add(weekNames);
+
+        SimpleAdapter adapter = new SimpleAdapter()
+
+
+
+       // ArrayAdapter adapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1, weekNames);
         list.setAdapter(adapter);
 
         TextView weekHeader = findViewById(R.id.WeekName);
