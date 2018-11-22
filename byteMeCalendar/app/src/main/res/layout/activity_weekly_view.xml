@@ -18,7 +18,7 @@
         app:layout_constraintTop_toBottomOf="@+id/WeekName" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/AddEvent"
+        android:id="@+id/NextWeek"
         android:layout_width="47dp"
         android:layout_height="41dp"
         android:layout_marginEnd="36dp"
@@ -38,9 +38,9 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/weekname"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="121dp" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
