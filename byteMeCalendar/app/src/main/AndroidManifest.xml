@@ -19,9 +19,9 @@
         <activity
             android:name=".NavDrawer"
             android:label="@string/title_activity_nav_drawer"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name="WeeklyView"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".WeeklyView" />
+        <activity android:name=".AddEvent"></activity>
     </application>
 
 </manifest>
-
