@@ -72,6 +72,70 @@
             app:layout_constraintBottom_toBottomOf="@+id/calendarView"
             app:layout_constraintEnd_toEndOf="@+id/calendarView"
             app:srcCompat="@android:drawable/ic_input_add" />
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="340dp"
+            android:layout_height="330dp"
+            app:layout_constraintBottom_toBottomOf="@+id/calendarView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/calendarView"
+            app:layout_constraintVertical_bias="0.72">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="Open..." />
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:text="Ctrl-O" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="Open..." />
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:text="Ctrl-O" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="Open..." />
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:text="Ctrl-O" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="Open..." />
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:text="Ctrl-O" />
+            </TableRow>
+        </TableLayout>
     </android.support.constraint.ConstraintLayout>
 
 

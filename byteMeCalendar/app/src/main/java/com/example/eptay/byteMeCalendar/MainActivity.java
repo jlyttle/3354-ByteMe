@@ -14,22 +14,26 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.widget.CalendarView;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class MainActivity extends AppCompatActivity {
     /* MEMBER VARIABLES */
-    private DrawerLayout mDrawerLayout;
-    private CalendarView calendarView;
-    private FloatingActionButton fab;
+    private DrawerLayout m_drawerLayout;
+    private CalendarView m_calendarView;
+    private FloatingActionButton m_fab;
+    private Calendar m_calendar = new GregorianCalendar();
 
-    int m_month = 0;
-    int m_day = 0;
-    int m_year = 0;
+    int m_month = m_calendar.get(Calendar.MONTH);
+    int m_day = m_calendar.get(Calendar.DAY_OF_MONTH);
+    int m_year = m_calendar.get(Calendar.YEAR);
 
     /* METHODS */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_drawer);
-        mDrawerLayout = findViewById(R.id.drawer_layout);
+        m_drawerLayout = findViewById(R.id.drawer_layout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -39,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Instantiate each widget on the layout
-        calendarView = findViewById(R.id.calendarView);
-        fab = findViewById(R.id.floatingActionButton);
+        m_calendarView = findViewById(R.id.calendarView);
+        m_fab = findViewById(R.id.floatingActionButton);
 
         //On changing the date, change the text to be new date
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        m_calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
                 m_year = year;
@@ -54,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //TODO: On clicking the action button, should change view to event adding form
-        fab.setOnClickListener(new View.OnClickListener() {
+        m_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Month = " + (m_month + 1) + " Day = " + m_day + " Year = " + m_year, Snackbar.LENGTH_LONG)
@@ -70,16 +74,18 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
+                        m_drawerLayout.closeDrawers();
 
                         // close drawer when item is tapped
-                        mDrawerLayout.closeDrawers();
+                        m_drawerLayout.closeDrawers();
 
                         switch (menuItem.getItemId()) {
-                            //case R.id.nav_camera:
+                            case R.id.day_view:
+                                break;
+                            case R.id.week_view:
                                 //TODO: Fill out switch case for every activity in the drawer
                                 //startActivity(new Intent(MainActivity.this, ActivityName.class));
-                                //break;
+                                break;
                             default:
                                 break;
                         }
@@ -94,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
+                m_drawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
         return super.onOptionsItemSelected(item);
