@@ -76,9 +76,10 @@ public class MainActivity extends AppCompatActivity {
                         mDrawerLayout.closeDrawers();
 
                         switch (menuItem.getItemId()) {
-                            //case R.id.nav_camera:
+                            case R.id.nav_camera:
                                 //TODO: Fill out switch case for every activity in the drawer
-                                //startActivity(new Intent(MainActivity.this, ActivityName.class));
+                                //setContentView(R.layout.activity_dayviewactivity);
+                                startActivity(new Intent(MainActivity.this, Dayviewactivity.class));
                                 //break;
                             default:
                                 break;
