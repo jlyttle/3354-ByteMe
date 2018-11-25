@@ -10,7 +10,8 @@ public class Day {
         m_month = month;
         m_day = day;
         Calendar calendar = new GregorianCalendar(year, month, day);
-        m_dayName = m_weekdays[calendar.get(Calendar.DAY_OF_WEEK)];
+        m_dayNumInWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        m_dayName = m_weekdays[m_dayNumInWeek];
     }
 
     String[] m_weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
@@ -19,12 +20,14 @@ public class Day {
     private int m_month;
     private int m_day;
     private String m_dayName;
+    private int m_dayNumInWeek;
 
     public int getYear() { return m_year; }
     public int getMonth() { return m_month; }
     public int getDayNum() { return m_day; }
     public String getDayName() { return m_dayName; }
     public ArrayList<Event> getEvents() { return m_events; }
+    public int getDayNumInWeek() { return m_dayNumInWeek; }
 
     public void addEvent(Event event) { m_events.add(event); }
     public void removeEvent(Event event) throws Exception {

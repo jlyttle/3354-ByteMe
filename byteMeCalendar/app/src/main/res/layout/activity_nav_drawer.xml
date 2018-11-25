@@ -89,12 +89,42 @@
                 <TextView
                     android:layout_column="1"
                     android:padding="3dip"
-                    android:text="Open..." />
+                    android:text="S" />
 
                 <TextView
                     android:gravity="right"
                     android:padding="3dip"
-                    android:text="Ctrl-O" />
+                    android:text="M" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="T" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="W" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="T" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="F" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="S" />
             </TableRow>
 
             <TableRow>

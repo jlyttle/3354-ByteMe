@@ -14,6 +14,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.widget.CalendarView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     int m_month = m_calendar.get(Calendar.MONTH);
     int m_day = m_calendar.get(Calendar.DAY_OF_MONTH);
     int m_year = m_calendar.get(Calendar.YEAR);
+    int m_numDaysInMonth = m_calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    ArrayList<Day> m_daysInMonth = new ArrayList<Day>();
 
     /* METHODS */
     @Override
@@ -41,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.menu);
 
+        for (int i = 0; i < m_numDaysInMonth; ++i) {
+            m_daysInMonth.add(new Day(m_year, m_month, i+1));
+        }
+
+        for (int i = 0; i < m_daysInMonth.get(0).getDayNumInWeek(); ++i) {
+            //If Sunday is the first day of the month, we can initialize the table layout starting from Sunday.
+        }
 
         //Instantiate each widget on the layout
         m_calendarView = findViewById(R.id.calendarView);
