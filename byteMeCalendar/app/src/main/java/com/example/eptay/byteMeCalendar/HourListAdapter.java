@@ -14,24 +14,17 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Date;
 
-
-
 public class HourListAdapter extends ArrayAdapter<Time>{
 
     private static final String TAG = "HourListAdapter";
     private Context mContext;
-    int mResourse;
-
-
-
+    int mResource;
 
     public HourListAdapter(Context context, int resource, ArrayList<Time> objects){
         super(context, resource, objects);
         mContext = context;
-        mResourse =  resource;
-
+        mResource =  resource;
     }
-
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -41,7 +34,7 @@ public class HourListAdapter extends ArrayAdapter<Time>{
 
        Time time = new Time(hour, title, desc);
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        convertView = inflater.inflate(mResourse, parent, false);
+        convertView = inflater.inflate(mResource, parent, false);
 
         TextView tvHour = (TextView) convertView.findViewById(R.id.textView1);
         TextView tvTitle = (TextView) convertView.findViewById(R.id.textView2);
