@@ -28,7 +28,7 @@ public class Dayviewactivity extends AppCompatActivity {
         Time fiveam = new Time("5am", "", "");
         Time sixam = new Time("6am", "", "");
         Time sevenam = new Time("7am", "", "");
-        Time eightam = new Time("8m", "", "");
+        Time eightam = new Time("8pm", "", "");
         Time nineam = new Time("9am", "", "");
         Time tenam = new Time("10am", "", "");
         Time elevenam = new Time("11am", "", "");
@@ -72,7 +72,7 @@ public class Dayviewactivity extends AppCompatActivity {
         hourList.add(tenpm);
         hourList.add(elevenpm);
 
-        HourListAdapter adapter = new HourListAdapter(this, R.layout.activity_dayviewactivity, hourList);
+        HourListAdapter adapter = new HourListAdapter(this, R.layout.adapter_view_layout, hourList);
         mListView.setAdapter(adapter);
     }
 }

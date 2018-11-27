@@ -32,8 +32,7 @@ public class HourListAdapter extends ArrayAdapter<Time>{
 
     }
 
-    @NonNull
-    @Override
+
     public View getView(int position, View convertView, ViewGroup parent) {
 
        String hour = getItem(position).getHour();
