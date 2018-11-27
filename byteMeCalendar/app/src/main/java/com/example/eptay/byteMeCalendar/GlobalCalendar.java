@@ -37,4 +37,8 @@ public class GlobalCalendar {
     public static int getMinute() {
         return instance.get(Calendar.MINUTE);
     }
+
+    public static int getDayOfWeek() {
+        return instance.get(Calendar.DAY_OF_WEEK);
+    }
 }
