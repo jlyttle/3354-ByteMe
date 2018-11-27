@@ -5,8 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 
 public class EventCache {
+    private static EventCache instance;
     List<Event> m_nonRepeatingEvents = new ArrayList<>();
     HashMap<Integer, List<Event>> m_repeatingEvents = new HashMap();
+
+    static {
+        instance = new EventCache();
+    }
+
+    public static EventCache getInstance() {
+        return instance;
+    }
 
     public void add(Event event) {
         if (event.isRepeating()) {
