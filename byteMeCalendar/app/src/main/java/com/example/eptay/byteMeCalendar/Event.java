@@ -13,7 +13,7 @@ public class Event {
     private boolean m_repeating = false;
     private Day m_startingDay;
     private Day m_endingDay;
-    private RepeatingType m_repeatingType;
+    private RepeatingType m_repeatingType = RepeatingType.NONE;
 
     public RepeatingType getRepeatingType() { return m_repeatingType; }
     public String getName() { return m_name; }
