@@ -12,8 +12,11 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Date;
 
-public class HourListAdapter extends ArrayAdapter<Day>{
+
+
+public class HourListAdapter extends ArrayAdapter<Time>{
 
     private static final String TAG = "HourListAdapter";
     private Context mContext;
@@ -22,20 +25,22 @@ public class HourListAdapter extends ArrayAdapter<Day>{
 
 
 
-    public HourListAdapter(Context context, int resource, ArrayList<Day> objects){
+    public HourListAdapter(Context context, int resource, ArrayList<Time> objects){
         super(context, resource, objects);
         mContext = context;
         mResourse =  resource;
+
     }
 
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
        String hour = getItem(position).getHour();
        String title = getItem(position).getTitle();
        String desc = getItem(position).getDesc();
 
-       Day day = new Day(hour, title, desc);
+       Time time = new Time(hour, title, desc);
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResourse, parent, false);
 
