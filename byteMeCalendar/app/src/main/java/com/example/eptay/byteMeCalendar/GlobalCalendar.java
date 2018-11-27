@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class GlobalCalendar {
-    private static GregorianCalendar instance = null;
+    private static GregorianCalendar instance = new GregorianCalendar();
 
     private GlobalCalendar() {
         getInstance();

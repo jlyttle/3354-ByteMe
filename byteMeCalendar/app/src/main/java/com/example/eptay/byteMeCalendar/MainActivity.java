@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         m_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, TimeSelector.class));
+                startActivity(new Intent(MainActivity.this, EventView.class));
             }
         });
 
