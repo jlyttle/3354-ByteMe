@@ -6,7 +6,9 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Dayviewactivity extends AppCompatActivity {
 
@@ -18,6 +20,10 @@ public class Dayviewactivity extends AppCompatActivity {
         setContentView(R.layout.activity_dayviewactivity);
         Log.d(TAG, "onCreate: Started.");
         ListView mListView = (ListView) findViewById(R.id.listview);
+
+        Day day = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
+        EventCache eventCache = EventCache.getInstance();
+        List<Event> eventArrayList = eventCache.get(day);
 
 
         Time twelveam = new Time("12am", "", "");
