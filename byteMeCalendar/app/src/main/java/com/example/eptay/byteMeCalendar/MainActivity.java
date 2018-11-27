@@ -72,8 +72,7 @@ public class MainActivity extends AppCompatActivity {
         m_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Month = " + (m_month + 1) + " Day = " + m_day + " Year = " + m_year, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(MainActivity.this, TimeSelector.class));
             }
         });
 
@@ -85,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
-                        m_drawerLayout.closeDrawers();
 
                         // close drawer when item is tapped
                         m_drawerLayout.closeDrawers();
