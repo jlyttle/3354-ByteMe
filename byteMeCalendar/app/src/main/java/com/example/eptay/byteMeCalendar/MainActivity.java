@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.day_view:
                                 //TODO: Fill out switch case for every activity in the drawer
                                 //setContentView(R.layout.activity_dayviewactivity);
-                                startActivity(new Intent(MainActivity.this, Dayviewactivity.class));
+                                startActivity(new Intent(MainActivity.this, scrollingdayview.class));
                                 break;
                             case R.id.week_view:
                                 //TODO: Fill out switch case for every activity in the drawer
