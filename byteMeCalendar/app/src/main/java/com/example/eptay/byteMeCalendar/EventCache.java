@@ -8,6 +8,7 @@ public class EventCache {
     private static EventCache instance;
     List<Event> m_nonRepeatingEvents = new ArrayList<>();
     HashMap<Integer, List<Event>> m_repeatingEvents = new HashMap();
+    List<EventCategory> m_eventCategories = new ArrayList<>();
 
     static {
         instance = new EventCache();
@@ -26,6 +27,10 @@ public class EventCache {
         }
         else {
             m_nonRepeatingEvents.add(event);
+        }
+
+        if (event.getCategory() != null) {
+            m_eventCategories.add(event.getCategory());
         }
     }
 
@@ -115,5 +120,9 @@ public class EventCache {
         }
 
         return events;
+    }
+
+    public List<EventCategory> getCategories() {
+        return m_eventCategories;
     }
 }

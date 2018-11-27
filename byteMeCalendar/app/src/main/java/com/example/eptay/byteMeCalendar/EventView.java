@@ -9,8 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EventView extends AppCompatActivity {
     private Spinner repeatMode;
+    private Spinner selectCategory;
     private Button startingTimeViewButton;
     private Button endingTimeViewButton;
     private final int DATE_START_SELECTOR = 0;
@@ -37,8 +41,13 @@ public class EventView extends AppCompatActivity {
         startingTimeViewButton = findViewById(R.id.startingTimeViewButton);
         endingTimeViewButton = findViewById(R.id.endingTimeViewButton);
         repeatMode = findViewById(R.id.spinner);
+        selectCategory = findViewById(R.id.spinner2);
+
         String[] modes = {"None", "Daily", "Weekly", "Monthly"};
         repeatMode.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, modes));
+        List<EventCategory> categories = EventCache.getInstance().getCategories();
+        String[] categoriesStr = new String[categories.size()];
+        categoriesStr = categories.toArray(categoriesStr);
 
         startingTimeViewButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
