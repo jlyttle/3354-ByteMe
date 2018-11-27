@@ -47,6 +47,11 @@ public class EventCache {
         int dayOfWeek = day.getDayOfWeek();
         List<Event> repeatingEvents = m_repeatingEvents.get(dayOfWeek);
 
+        if (repeatingEvents == null) {
+            m_repeatingEvents.put(dayOfWeek, new ArrayList<Event>());
+            repeatingEvents = m_repeatingEvents.get(dayOfWeek);
+        }
+
         for (int i = 0; i < repeatingEvents.size(); ++i) {
             Event curEvent = repeatingEvents.get(i);
             Day startDay = curEvent.getStartDay();
