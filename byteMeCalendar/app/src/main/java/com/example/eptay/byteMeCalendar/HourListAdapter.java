@@ -35,10 +35,10 @@ public class HourListAdapter extends ArrayAdapter<Day>{
        String title = getItem(position).getTitle();
        String desc = getItem(position).getDesc();
 
-       Day day = new Day(hour,title, desc);
+       Day day = new Day(hour, title, desc);
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResourse, parent, false);
-        setContentView(R.layout.activity_dayviewactivity)
+
         TextView tvHour = (TextView) convertView.findViewById(R.id.textView1);
         TextView tvTitle = (TextView) convertView.findViewById(R.id.textView2);
         TextView tvDesc = (TextView) convertView.findViewById(R.id.textView3);
