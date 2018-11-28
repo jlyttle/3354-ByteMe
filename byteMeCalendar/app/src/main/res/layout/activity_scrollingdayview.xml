@@ -82,7 +82,7 @@
                     android:id="@+id/textView16"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="3pm" />
+                    android:text="5am" />
 
                 <View
                     android:layout_width="match_parent"
@@ -93,7 +93,7 @@
                     android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="8am" />
+                    android:text="6am" />
 
                 <View
                     android:layout_width="match_parent"
@@ -104,7 +104,7 @@
                     android:id="@+id/textView14"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="1pm" />
+                    android:text="7am" />
 
                 <View
                     android:layout_width="match_parent"
@@ -115,7 +115,7 @@
                     android:id="@+id/textView6"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="5am" />
+                    android:text="8am" />
 
                 <View
                     android:layout_width="match_parent"
@@ -126,7 +126,7 @@
                     android:id="@+id/textView8"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="7am" />
+                    android:text="9am" />
 
                 <View
                     android:layout_width="match_parent"
@@ -137,7 +137,7 @@
                     android:id="@+id/textView19"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="6pm" />
+                    android:text="10am" />
 
                 <View
                     android:layout_width="match_parent"
@@ -148,7 +148,7 @@
                     android:id="@+id/textView15"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="2pm" />
+                    android:text="11am" />
 
                 <View
                     android:layout_width="match_parent"
@@ -159,7 +159,7 @@
                     android:id="@+id/textView21"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="8pm" />
+                    android:text="12pm" />
 
                 <View
                     android:layout_width="match_parent"
@@ -170,7 +170,7 @@
                     android:id="@+id/textView11"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="10am" />
+                    android:text="1pm" />
 
                 <View
                     android:layout_width="match_parent"
@@ -181,7 +181,7 @@
                     android:id="@+id/textView10"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="9am" />
+                    android:text="2pm" />
 
                 <View
                     android:layout_width="match_parent"
@@ -192,7 +192,7 @@
                     android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="6am" />
+                    android:text="3pm" />
 
                 <View
                     android:layout_width="match_parent"
@@ -203,7 +203,7 @@
                     android:id="@+id/textView13"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="12pm" />
+                    android:text="4pm" />
 
                 <View
                     android:layout_width="match_parent"
@@ -214,7 +214,7 @@
                     android:id="@+id/textView17"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="4pm" />
+                    android:text="5pm" />
 
                 <View
                     android:layout_width="match_parent"
@@ -225,7 +225,7 @@
                     android:id="@+id/textView18"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="5pm" />
+                    android:text="6pm" />
 
                 <View
                     android:layout_width="match_parent"
@@ -236,7 +236,7 @@
                     android:id="@+id/textView23"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="10pm" />
+                    android:text="7pm" />
 
                 <View
                     android:layout_width="match_parent"
@@ -247,7 +247,7 @@
                     android:id="@+id/textView22"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="9pm" />
+                    android:text="8pm" />
 
                 <View
                     android:layout_width="match_parent"
@@ -258,7 +258,7 @@
                     android:id="@+id/textView12"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="11am" />
+                    android:text="9pm" />
 
                 <View
                     android:layout_width="match_parent"
@@ -269,7 +269,7 @@
                     android:id="@+id/textView24"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="11pm" />
+                    android:text="10pm" />
 
                 <View
                     android:layout_width="match_parent"
@@ -280,7 +280,7 @@
                     android:id="@+id/textView20"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="7pm" />
+                    android:text="11pm" />
             </LinearLayout>
 
             <LinearLayout
