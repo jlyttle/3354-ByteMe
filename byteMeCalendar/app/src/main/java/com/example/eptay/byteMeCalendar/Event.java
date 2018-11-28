@@ -17,7 +17,7 @@ public class Event {
     private Day m_endingDay;
     private RepeatingType m_repeatingType;
 
-    private Event(String name, String description, int startHour, int startMin, int endHour, int endMin, RepeatingType repeatingType, Day startDay, Day endDay, EventCategory category) {
+    public Event(String name, String description, int startHour, int startMin, int endHour, int endMin, RepeatingType repeatingType, Day startDay, Day endDay, EventCategory category) {
         m_name = name;
         m_description = description;
         m_startHour = startHour;

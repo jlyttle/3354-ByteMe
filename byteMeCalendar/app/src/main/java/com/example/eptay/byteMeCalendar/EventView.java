@@ -5,19 +5,18 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EventView extends AppCompatActivity {
     private TextView title;
     private TextView description;
+    private EventCategory category;
     private Spinner repeatMode;
     private Spinner selectCategory;
     private Button startingTimeViewButton;
@@ -30,10 +29,12 @@ public class EventView extends AppCompatActivity {
 
     private int startYear = GlobalCalendar.getYear();
     private int startMonth = GlobalCalendar.getMonth();
-    private int startDay = GlobalCalendar.getDayNum();
+    private int startDayNum = GlobalCalendar.getDayNum();
     private int endYear = GlobalCalendar.getYear();
     private int endMonth = GlobalCalendar.getMonth();
-    private int endDay = GlobalCalendar.getDayNum();
+    private int endDayNum = GlobalCalendar.getDayNum();
+    private Day startDay = new Day(startYear, startMonth, startDayNum);
+    private Day endDay = new Day(endYear, endMonth, endDayNum);
 
     private int startHour;
     private int startMinute;
@@ -54,7 +55,7 @@ public class EventView extends AppCompatActivity {
 
         String[] modes = {"None", "Daily", "Weekly", "Monthly"};
         repeatMode.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, modes));
-        List<EventCategory> categories = EventCache.getInstance().getCategories();
+        final List<EventCategory> categories = EventCache.getInstance().getCategories();
         String[] categoriesStr = new String[categories.size()];
         categoriesStr = categories.toArray(categoriesStr);
         selectCategory.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categoriesStr));
@@ -70,6 +71,7 @@ public class EventView extends AppCompatActivity {
             }
         });
         repeatMode.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
                 switch (position) {
                     case 0:
@@ -87,10 +89,18 @@ public class EventView extends AppCompatActivity {
                 }
             }
         });
+        selectCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                category = categories.get(position);
+            }
+        });
         addEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Event event = new Event(title, description, )
-                EventCache.getInstance().add();
+                String titleText = title.getText().toString();
+                String descriptionText = description.getText().toString();
+                Event event = new Event(titleText, descriptionText, startHour, startMinute, endHour, endMinute, repeatType, startDay, endDay, );
+                EventCache.getInstance().add(event);
                 setResult(Activity.RESULT_OK, new Intent());
                 finish();
             }
@@ -106,7 +116,7 @@ public class EventView extends AppCompatActivity {
                     //Extract the data returned from the child Activity.
                     startYear = data.getIntExtra("year", GlobalCalendar.getYear());
                     startMonth = data.getIntExtra("month", GlobalCalendar.getMonth());
-                    startDay = data.getIntExtra("day", GlobalCalendar.getDayNum());
+                    startDayNum = data.getIntExtra("day", GlobalCalendar.getDayNum());
                 }
                 break;
             case (TIME_START_SELECTOR):
@@ -120,7 +130,7 @@ public class EventView extends AppCompatActivity {
                     //TODO Make the default end date an hour after the start date
                     endYear = data.getIntExtra("year", GlobalCalendar.getYear());
                     endMonth = data.getIntExtra("month", GlobalCalendar.getMonth());
-                    endDay = data.getIntExtra("day", GlobalCalendar.getDayNum());
+                    endDayNum = data.getIntExtra("day", GlobalCalendar.getDayNum());
                 }
                 break;
             case (TIME_END_SELECTOR):
