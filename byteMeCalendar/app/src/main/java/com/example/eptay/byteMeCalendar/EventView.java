@@ -70,10 +70,10 @@ public class EventView extends AppCompatActivity {
                 startActivityForResult(new Intent(EventView.this, TimeSelector.class), TIME_END_SELECTOR);
             }
         });
-        repeatMode.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        repeatMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
-                switch (position) {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                switch (pos) {
                     case 0:
                         repeatType = Event.RepeatingType.NONE;
                         break;
@@ -88,18 +88,24 @@ public class EventView extends AppCompatActivity {
                         break;
                 }
             }
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
         });
-        selectCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        selectCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                category = categories.get(position);
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                category = categories.get(pos);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
         addEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String titleText = title.getText().toString();
                 String descriptionText = description.getText().toString();
-                Event event = new Event(titleText, descriptionText, startHour, startMinute, endHour, endMinute, repeatType, startDay, endDay, );
+                Event event = new Event(titleText, descriptionText, startHour, startMinute, endHour, endMinute, repeatType, startDay, endDay, category);
                 EventCache.getInstance().add(event);
                 setResult(Activity.RESULT_OK, new Intent());
                 finish();
