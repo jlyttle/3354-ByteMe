@@ -20,7 +20,6 @@
             android:name=".NavDrawer"
             android:label="@string/title_activity_nav_drawer"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Dayviewactivity" />
         <activity android:name=".EventView" />
         <activity android:name=".TimeSelector" />
         <activity android:name=".DateSelector" />
