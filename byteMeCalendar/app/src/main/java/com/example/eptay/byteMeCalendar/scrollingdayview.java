@@ -14,7 +14,7 @@ import java.util.List;
 public class scrollingdayview extends AppCompatActivity {
 
     private static final String TAG = "scrollingdayview";
-    private static final int HOUR_HEIGHT = 61; //Each hour in the scroll view is 60dp
+    private static final int HOUR_HEIGHT = 61; //Each hour in the scroll view is 61dp
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,4 +42,14 @@ public class scrollingdayview extends AppCompatActivity {
 
         return (factor * HOUR_HEIGHT);
     }
+
+    //method to determine difference from 12am to event start time
+    public double calculateTimeDifference(Event event){
+        int startHour = event.getStartingHour();
+        int startMinute = event.getStartingMinute();
+        int endHour = event.getEndingHour();
+        int endMinute = event.getEndingMinute();
+
+    }
+
 }
