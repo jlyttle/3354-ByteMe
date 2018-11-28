@@ -20,9 +20,11 @@
             android:name=".NavDrawer"
             android:label="@string/title_activity_nav_drawer"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".WeeklyView" />
+        <activity android:name=".AddEvent" />
         <activity android:name=".EventView" />
         <activity android:name=".TimeSelector" />
-        <activity android:name=".DateSelector"></activity>
+        <activity android:name=".EditDeleteEvent"></activity>
     </application>
 
 </manifest>
