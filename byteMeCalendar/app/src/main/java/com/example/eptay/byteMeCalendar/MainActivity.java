@@ -102,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+       shareEvent se = new shareEvent();
+       se.execute();
     }
 
     @Override
