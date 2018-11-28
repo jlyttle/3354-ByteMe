@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 public class EventView extends AppCompatActivity {
+    private TextView startTimeText;
     private TextView title;
     private TextView description;
     private EventCategory category;
@@ -70,6 +71,8 @@ public class EventView extends AppCompatActivity {
                 startActivityForResult(new Intent(EventView.this, TimeSelector.class), TIME_END_SELECTOR);
             }
         });
+
+
         repeatMode.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
@@ -89,17 +92,19 @@ public class EventView extends AppCompatActivity {
                 }
             }
         });
+
         selectCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 category = categories.get(position);
             }
         });
+
         addEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String titleText = title.getText().toString();
                 String descriptionText = description.getText().toString();
-                Event event = new Event(titleText, descriptionText, startHour, startMinute, endHour, endMinute, repeatType, startDay, endDay, );
+                Event event = new Event(titleText, descriptionText, startHour, startMinute, endHour, endMinute, repeatType, startDay, endDay,category );
                 EventCache.getInstance().add(event);
                 setResult(Activity.RESULT_OK, new Intent());
                 finish();
@@ -123,6 +128,10 @@ public class EventView extends AppCompatActivity {
                 if (resultCode == Activity.RESULT_OK) {
                     startHour = data.getIntExtra("hour", GlobalCalendar.getHour());
                     startMinute = data.getIntExtra("minute", GlobalCalendar.getMinute());
+                    String startTime = startHour+":"+startMinute;
+                    startTimeText.findViewById(R.id.startingTimeID);
+                    startTimeText.setText(startTime);
+
                 }
                 break;
             case (DATE_END_SELECTOR):
