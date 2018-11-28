@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class EventView extends AppCompatActivity {
@@ -131,10 +133,9 @@ public class EventView extends AppCompatActivity {
                 if (resultCode == Activity.RESULT_OK) {
                     startHour = data.getIntExtra("hour", GlobalCalendar.getHour());
                     startMinute = data.getIntExtra("minute", GlobalCalendar.getMinute());
-                    //String startTime = startHour+":"+startMinute;
-                    //startTimeText.findViewById(R.id.startingTimeID);
-                    //startTimeText.setText(startTime);
-
+                    String startTime = startHour+":"+startMinute;
+                    TextView startTimeText = (TextView) findViewById(R.id.startingTimeID);
+                    startTimeText.setText(startTime);
                 }
                 break;
             case (DATE_END_SELECTOR):
