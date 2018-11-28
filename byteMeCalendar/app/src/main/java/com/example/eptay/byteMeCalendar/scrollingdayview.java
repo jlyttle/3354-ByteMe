@@ -49,7 +49,8 @@ public class scrollingdayview extends AppCompatActivity {
         int startMinute = event.getStartingMinute();
         int endHour = event.getEndingHour();
         int endMinute = event.getEndingMinute();
-
+        double factor = (startMinute/60) + startHour;
+                return (factor * HOUR_HEIGHT);
     }
 
 }
