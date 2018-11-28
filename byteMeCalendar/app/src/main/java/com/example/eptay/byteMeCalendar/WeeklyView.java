@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
+import android.view.GestureDetector.OnGestureListener;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,7 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class WeeklyView extends AppCompatActivity {
+public class WeeklyView extends AppCompatActivity implements OnGestureListener {
     FloatingActionButton swipeRight;
     Button swipeLeft;
     int swipeCount = 0;
@@ -28,6 +31,7 @@ public class WeeklyView extends AppCompatActivity {
     public static String fridayString ;
     public static String saturdayString ;
     public static String sundayString ;
+    GestureDetector detector;
 
 
     @Override
@@ -94,13 +98,15 @@ public class WeeklyView extends AppCompatActivity {
 
 
 
+
+
         TableLayout table = (TableLayout)findViewById(R.id.NextWeek );
         ListView list = (ListView)findViewById(R.id.WeekList);
 
 
         final WeekListAdapter adapter = new WeekListAdapter(this, R.layout.weekly_view_layout,weekList);
         list.setAdapter(adapter);
-
+        
         swipeLeft = findViewById(R.id.SwipeBack);
 
         swipeRight = findViewById(R.id.NextWeek);
@@ -138,6 +144,8 @@ public class WeeklyView extends AppCompatActivity {
 
             }
         });
+
+
 
         swipeRight.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -207,6 +215,36 @@ public class WeeklyView extends AppCompatActivity {
          fridayString = dateFormat.format(dateFriday);
          saturdayString = dateFormat.format(dateSaturday);
          sundayString = dateFormat.format(dateSunday);
+    }
+
+    @Override
+    public boolean onDown(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float Y, float X) {
+        return false;
     }
 
 }
