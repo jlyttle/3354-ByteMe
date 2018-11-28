@@ -15,10 +15,19 @@ public class Event {
     private boolean m_repeating = false;
     private Day m_startingDay;
     private Day m_endingDay;
-    private RepeatingType m_repeatingType = RepeatingType.NONE;
+    private RepeatingType m_repeatingType;
 
     private Event(String name, String description, int startHour, int startMin, int endHour, int endMin, RepeatingType repeatingType, Day startDay, Day endDay, EventCategory category) {
-
+        m_name = name;
+        m_description = description;
+        m_startHour = startHour;
+        m_startMin = startMin;
+        m_endHour = endHour;
+        m_endMin = endMin;
+        m_repeatingType = repeatingType;
+        m_startingDay = startDay;
+        m_endingDay = endDay;
+        m_category = category;
     }
     public RepeatingType getRepeatingType() { return m_repeatingType; }
     public String getName() { return m_name; }
