@@ -7,19 +7,24 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+
 
 import java.util.List;
 
-public class scrollingdayview extends AppCompatActivity {
+public class scrollingdayview extends AppCompatActivity{
 
     private static final String TAG = "scrollingdayview";
     private static final int HOUR_HEIGHT = 61; //Each hour in the scroll view is 61dp
+    private ScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrollingdayview);
+        scrollView = findViewById(R.id.scrollView);
         Log.d(TAG, "onCreate: Started.");
 
 
@@ -52,5 +57,13 @@ public class scrollingdayview extends AppCompatActivity {
         double factor = (startMinute/60) + startHour;
                 return (factor * HOUR_HEIGHT);
     }
+
+
+scrollView.setOnTouchListener(new OnSwipeTouchListener(context) {
+        @Override
+        public void onSwipeLeft() {
+
+        }
+    });
 
 }

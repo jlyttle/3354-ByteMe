@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class addevent extends AppCompatActivity {
+public class Editdeleteevent extends AppCompatActivity {
 
     private Button select;
     private int m_name;
@@ -16,7 +16,7 @@ public class addevent extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addevent);
+        setContentView(R.layout.activity_editdeleteevent);
 
         select.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

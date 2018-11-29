@@ -24,7 +24,7 @@
         <activity android:name=".TimeSelector" />
         <activity android:name=".DateSelector" />
         <activity android:name=".scrollingdayview" />
-        <activity android:name=".addevent"></activity>
+        <activity android:name=".Editdeleteevent"></activity>
     </application>
 
 </manifest>
