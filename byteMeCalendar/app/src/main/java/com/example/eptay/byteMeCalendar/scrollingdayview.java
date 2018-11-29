@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 
 import java.util.List;
@@ -25,9 +25,15 @@ public class scrollingdayview extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrollingdayview);
         scrollView = findViewById(R.id.scrollView);
+        scrollView.setOnTouchListener(new OnSwipeTouchListener(scrollingdayview.this) {
+            public void onSwipeRight() {
+                Toast.makeText(scrollingdayview.this, "left", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeLeft() {
+                Toast.makeText(scrollingdayview.this, "right", Toast.LENGTH_SHORT).show();
+            }
+        });
         Log.d(TAG, "onCreate: Started.");
-
-
 
         Day day = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
         EventCache eventCache = EventCache.getInstance();
@@ -57,13 +63,4 @@ public class scrollingdayview extends AppCompatActivity{
         double factor = (startMinute/60) + startHour;
                 return (factor * HOUR_HEIGHT);
     }
-
-
-scrollView.setOnTouchListener(new OnSwipeTouchListener(context) {
-        @Override
-        public void onSwipeLeft() {
-
-        }
-    });
-
 }
