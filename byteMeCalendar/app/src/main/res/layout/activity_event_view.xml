@@ -173,7 +173,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="34dp"
         android:layout_marginLeft="34dp"
-        android:text="TextView"
+        android:text="--:--"
         app:layout_constraintBaseline_toBaselineOf="@+id/startingTime"
         app:layout_constraintStart_toEndOf="@+id/startingTime" />
+
+    <TextView
+        android:id="@+id/endingTimeID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:text="--:--"
+        app:layout_constraintBaseline_toBaselineOf="@+id/endingTime"
+        app:layout_constraintStart_toEndOf="@+id/endingTime" />
 </android.support.constraint.ConstraintLayout>

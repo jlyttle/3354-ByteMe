@@ -17,6 +17,7 @@ import java.util.List;
 
 public class EventView extends AppCompatActivity {
     private TextView startTimeText;
+    private TextView endTimeText;
     private TextView title;
     private TextView description;
     private EventCategory category;
@@ -133,7 +134,7 @@ public class EventView extends AppCompatActivity {
                 if (resultCode == Activity.RESULT_OK) {
                     startHour = data.getIntExtra("hour", GlobalCalendar.getHour());
                     startMinute = data.getIntExtra("minute", GlobalCalendar.getMinute());
-                    String startTime = startHour+":"+startMinute;
+                    String startTime = convertTime(startHour,startMinute);
                     TextView startTimeText = (TextView) findViewById(R.id.startingTimeID);
                     startTimeText.setText(startTime);
                 }
@@ -144,6 +145,7 @@ public class EventView extends AppCompatActivity {
                     endYear = data.getIntExtra("year", GlobalCalendar.getYear());
                     endMonth = data.getIntExtra("month", GlobalCalendar.getMonth());
                     endDayNum = data.getIntExtra("day", GlobalCalendar.getDayNum());
+
                 }
                 break;
             case (TIME_END_SELECTOR):
@@ -151,8 +153,22 @@ public class EventView extends AppCompatActivity {
                     //TODO Make the default end time an hour after the start time
                     endHour = data.getIntExtra("hour", GlobalCalendar.getHour());
                     endMinute = data.getIntExtra("minute", GlobalCalendar.getMinute());
+                    String endTime = convertTime(endHour,endMinute);
+                    endTimeText = findViewById(R.id.endingTimeID);
+                    endTimeText.setText(endTime);
                 }
                 break;
         }
     }
+
+    public String convertTime(int hour , int minute){
+
+        if(hour > 12 ){
+            hour = hour - 12;
+        }
+
+        return hour+":"+minute;
+
+    }
+
 }
