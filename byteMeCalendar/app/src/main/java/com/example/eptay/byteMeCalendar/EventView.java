@@ -137,6 +137,7 @@ public class EventView extends AppCompatActivity {
                     String startTime = convertTime(startHour,startMinute);
                     TextView startTimeText = (TextView) findViewById(R.id.startingTimeID);
                     startTimeText.setText(startTime);
+                    System.out.println(startMinute);
                 }
                 break;
             case (DATE_END_SELECTOR):
@@ -163,11 +164,23 @@ public class EventView extends AppCompatActivity {
 
     public String convertTime(int hour , int minute){
 
+        String amPm;
         if(hour > 12 ){
             hour = hour - 12;
+            amPm = " PM";
+        }else{
+            amPm = " AM";
+        }
+        String min = Integer.toString(minute);
+        if(min.length()==1){
+
+            min = "0"+min;
+
         }
 
-        return hour+":"+minute;
+
+
+        return hour+":"+min+amPm;
 
     }
 
