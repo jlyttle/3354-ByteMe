@@ -163,7 +163,7 @@ public class EventView extends AppCompatActivity {
     }
 
     public String convertTime(int hour , int minute){
-
+        String min = Integer.toString(minute);
         String amPm;
         if(hour > 12 ){
             hour = hour - 12;
@@ -171,15 +171,9 @@ public class EventView extends AppCompatActivity {
         }else{
             amPm = " AM";
         }
-        String min = Integer.toString(minute);
         if(min.length()==1){
-
             min = "0"+min;
-
         }
-
-
-
         return hour+":"+min+amPm;
 
     }
