@@ -20,13 +20,16 @@ import java.util.Date;
 
 
 public class WeeklyView extends AppCompatActivity implements OnGestureListener {
+    public static final int SWIPE_THRESHOLD = 100;
+    public static final int VEOLOCITY_THRESHOLD = 100;
     FloatingActionButton swipeRight;
-    Button swipeLeft;
     int swipeCount = 0;
+    //SwipeDetector swipeDetector = new SwipeDetector(swipeCount);
+    Button swipeLeft;
     public  static ArrayList<Day> weekList = new ArrayList<>();
     public static String mondayString ;
     public static String tuesdayString;
-    public static  String wedensdayString ;
+    public static String wedensdayString ;
     public static String thursdayString ;
     public static String fridayString ;
     public static String saturdayString ;
@@ -42,8 +45,6 @@ public class WeeklyView extends AppCompatActivity implements OnGestureListener {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         final DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-
-
         final Calendar calendar = Calendar.getInstance();
         Date now = new Date();
         calendar.setTime(now);
@@ -75,8 +76,6 @@ public class WeeklyView extends AppCompatActivity implements OnGestureListener {
         saturdayString = dateFormat.format(dateSaturday);
         sundayString = dateFormat.format(dateSunday);
 
-
-
         Day Sunday = new Day("Sunday" ,sundayString , 2);
         Day Monday = new Day("Monday" ,mondayString ,3);
         Day Tuesday = new Day("Tuesday" ,tuesdayString , 8);
@@ -93,40 +92,27 @@ public class WeeklyView extends AppCompatActivity implements OnGestureListener {
         weekList.add(Friday);
         weekList.add(Saturday);
 
-
-
-
-
-
-
-
         TableLayout table = (TableLayout)findViewById(R.id.NextWeek );
         ListView list = (ListView)findViewById(R.id.WeekList);
-
-
+        list.setOnTouchListener(swipeDetector);
         final WeekListAdapter adapter = new WeekListAdapter(this, R.layout.weekly_view_layout,weekList);
         list.setAdapter(adapter);
         
         swipeLeft = findViewById(R.id.SwipeBack);
-
         swipeRight = findViewById(R.id.NextWeek);
-
         swipeLeft.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 swipeCount--;
-                System.out.println(swipeCount);
                 generateDates(calendar,swipeCount,dateFormat);
-
                 weekList.clear();
-
-                Day Sunday = new Day("Sunday" ,sundayString , 2);
-                Day Monday = new Day("Monday" ,mondayString ,3);
-                Day Tuesday = new Day("Tuesday" ,tuesdayString , 8);
-                Day Wedensday = new Day("Wedensday" ,wedensdayString , 1);
-                Day Thursday = new Day("Thursday" ,thursdayString , 5);
-                Day Friday = new Day("Friday" ,fridayString , 9);
-                Day Saturday = new Day("Saturday" ,saturdayString , 4);
+                Day Sunday    =  new Day("Sunday" ,sundayString , 2);
+                Day Monday    =  new Day("Monday" ,mondayString ,3);
+                Day Tuesday   =  new Day("Tuesday" ,tuesdayString , 8);
+                Day Wedensday =  new Day("Wedensday" ,wedensdayString , 1);
+                Day Thursday  =  new Day("Thursday" ,thursdayString , 5);
+                Day Friday    =  new Day("Friday" ,fridayString , 9);
+                Day Saturday  =  new Day("Saturday" ,saturdayString , 4);
 
                 weekList.add(Sunday);
                 weekList.add(Monday);
@@ -136,10 +122,8 @@ public class WeeklyView extends AppCompatActivity implements OnGestureListener {
                 weekList.add(Friday);
                 weekList.add(Saturday);
 
-
                 TableLayout table = (TableLayout)findViewById(R.id.NextWeek );
                 ListView list = (ListView)findViewById(R.id.WeekList);
-
                 adapter.notifyDataSetChanged();
 
             }
@@ -150,19 +134,16 @@ public class WeeklyView extends AppCompatActivity implements OnGestureListener {
         swipeRight.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-              swipeCount++;
-              System.out.println(swipeCount);
-              generateDates(calendar,swipeCount,dateFormat);
-
-              weekList.clear();
-
-                Day Sunday = new Day("Sunday" ,sundayString , 2);
-                Day Monday = new Day("Monday" ,mondayString ,3);
-                Day Tuesday = new Day("Tuesday" ,tuesdayString , 8);
-                Day Wedensday = new Day("Wedensday" ,wedensdayString , 1);
-                Day Thursday = new Day("Thursday" ,thursdayString , 5);
-                Day Friday = new Day("Friday" ,fridayString , 9);
-                Day Saturday = new Day("Saturday" ,saturdayString , 4);
+                swipeCount++;
+                generateDates(calendar,swipeCount,dateFormat);
+                weekList.clear();
+                Day Sunday    =  new Day("Sunday" ,sundayString , 2);
+                Day Monday    =  new Day("Monday" ,mondayString ,3);
+                Day Tuesday   =  new Day("Tuesday" ,tuesdayString , 8);
+                Day Wedensday =  new Day("Wedensday" ,wedensdayString , 1);
+                Day Thursday  =  new Day("Thursday" ,thursdayString , 5);
+                Day Friday    =  new Day("Friday" ,fridayString , 9);
+                Day Saturday  =  new Day("Saturday" ,saturdayString , 4);
 
                 weekList.add(Sunday);
                 weekList.add(Monday);
@@ -172,10 +153,8 @@ public class WeeklyView extends AppCompatActivity implements OnGestureListener {
                 weekList.add(Friday);
                 weekList.add(Saturday);
 
-
                 TableLayout table = (TableLayout)findViewById(R.id.NextWeek );
                 ListView list = (ListView)findViewById(R.id.WeekList);
-
                 adapter.notifyDataSetChanged();
 
             }
@@ -243,8 +222,49 @@ public class WeeklyView extends AppCompatActivity implements OnGestureListener {
     }
 
     @Override
-    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float Y, float X) {
-        return false;
+    public boolean onFling(MotionEvent downEvent, MotionEvent motionEvent, float Y, float X) {
+        boolean result = false;
+
+        float diffY = motionEvent.getY() - downEvent.getY();
+        float diffX = motionEvent.getX() - downEvent.getX();
+
+        if(Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(diffY) > VEOLOCITY_THRESHOLD) {
+            if (diffX > 0) {
+                onSwipeRight();
+            } else {
+                onSwipeLeft();
+            }
+        }
+        return result;
+    }
+
+    private void onSwipeLeft() {
+    }
+
+    private void onSwipeRight() {
+
+        swipeCount++;
+        generateDates(calendar,swipeCount,dateFormat);
+        weekList.clear();
+        Day Sunday    =  new Day("Sunday" ,sundayString , 2);
+        Day Monday    =  new Day("Monday" ,mondayString ,3);
+        Day Tuesday   =  new Day("Tuesday" ,tuesdayString , 8);
+        Day Wedensday =  new Day("Wedensday" ,wedensdayString , 1);
+        Day Thursday  =  new Day("Thursday" ,thursdayString , 5);
+        Day Friday    =  new Day("Friday" ,fridayString , 9);
+        Day Saturday  =  new Day("Saturday" ,saturdayString , 4);
+
+        weekList.add(Sunday);
+        weekList.add(Monday);
+        weekList.add(Tuesday);
+        weekList.add(Wedensday);
+        weekList.add(Thursday);
+        weekList.add(Friday);
+        weekList.add(Saturday);
+
+        TableLayout table = (TableLayout)findViewById(R.id.NextWeek );
+        ListView list = (ListView)findViewById(R.id.WeekList);
+        adapter.notifyDataSetChanged();
     }
 
 }
