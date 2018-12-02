@@ -26,6 +26,8 @@ public class scrollingdayview extends AppCompatActivity{
     private static final int HOUR_HEIGHT = 61; //Each hour
     // in the scroll view is 61dp
     private ScrollView scrollView;
+    private final int LEFT = 100;
+    private final int RIGHT = 300;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +42,19 @@ public class scrollingdayview extends AppCompatActivity{
 
         scrollView.setOnTouchListener(new OnSwipeTouchListener(scrollingdayview.this) {
             public void onSwipeRight() {
-
                 GlobalCalendar.setPrevDay();
                 Day prevDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
-                List<Event> nextEvents = EventCache.getInstance().get(prevDay);
+                List<Event> prevEvents = EventCache.getInstance().get(prevDay);
+                for (Event event: prevEvents) {
+                    double height = calculateHeightOfEvent(event);
+                    double topMargin = calculateTimeDifference(event);
+
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    TextView textView = new TextView(scrollingdayview.this);
+                    params.setMargins(LEFT, (int) topMargin, RIGHT, 50);
+                    textView.setText(event.getName());
+                }
+
                 String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(GlobalCalendar.getInstance().getTime());
                 TextView textViewDate = findViewById(R.id.textViewDate);
                 textViewDate.setText(currentDate);
@@ -52,7 +63,17 @@ public class scrollingdayview extends AppCompatActivity{
             public void onSwipeLeft() {
                 GlobalCalendar.setNextDay();
                 Day nextDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
-                List <Event> prevEvents = EventCache.getInstance().get(nextDay);
+                List <Event> nextEvents = EventCache.getInstance().get(nextDay);
+                for (Event event: nextEvents) {
+                    double height = calculateHeightOfEvent(event);
+                    double topMargin = calculateTimeDifference(event);
+
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    TextView textView = new TextView(scrollingdayview.this);
+                    params.setMargins(LEFT, (int) topMargin, RIGHT, 50);
+                    textView.setText(event.getName());
+                }
+
                 String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(GlobalCalendar.getInstance().getTime());
                 TextView textViewDate = findViewById(R.id.textViewDate);
                 textViewDate.setText(currentDate);
@@ -71,6 +92,7 @@ public class scrollingdayview extends AppCompatActivity{
 
     }
 
+    //Method to calculate the height of the event object in dp
     public double calculateHeightOfEvent(Event event) {
         int startHour = event.getStartingHour();
         int startMinute = event.getStartingMinute();
@@ -85,9 +107,7 @@ public class scrollingdayview extends AppCompatActivity{
     public double calculateTimeDifference(Event event){
         int startHour = event.getStartingHour();
         int startMinute = event.getStartingMinute();
-        int endHour = event.getEndingHour();
-        int endMinute = event.getEndingMinute();
-        double factor = (startMinute/60) + startHour;
-                return (factor * HOUR_HEIGHT);
+        double factor = (startMinute / 60) + startHour;
+        return (factor * HOUR_HEIGHT);
     }
 }
