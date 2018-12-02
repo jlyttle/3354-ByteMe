@@ -19,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:title="byteMeCalendar" />
 
     </FrameLayout>
 
@@ -84,57 +85,8 @@
             app:layout_constraintTop_toTopOf="@+id/calendarView"
             app:layout_constraintVertical_bias="0.72">
 
-            <TableRow>
 
-                <TextView
-                    android:layout_column="1"
-                    android:padding="3dip"
-                    android:text="Open..." />
 
-                <TextView
-                    android:gravity="right"
-                    android:padding="3dip"
-                    android:text="Ctrl-O" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_column="1"
-                    android:padding="3dip"
-                    android:text="Open..." />
-
-                <TextView
-                    android:gravity="right"
-                    android:padding="3dip"
-                    android:text="Ctrl-O" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_column="1"
-                    android:padding="3dip"
-                    android:text="Open..." />
-
-                <TextView
-                    android:gravity="right"
-                    android:padding="3dip"
-                    android:text="Ctrl-O" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_column="1"
-                    android:padding="3dip"
-                    android:text="Open..." />
-
-                <TextView
-                    android:gravity="right"
-                    android:padding="3dip"
-                    android:text="Ctrl-O" />
-            </TableRow>
         </TableLayout>
     </android.support.constraint.ConstraintLayout>
 

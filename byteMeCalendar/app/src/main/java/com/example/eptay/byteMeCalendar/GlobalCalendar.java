@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class GlobalCalendar {
-    private static GregorianCalendar instance = null;
+    private static GregorianCalendar instance = new GregorianCalendar();
 
     private GlobalCalendar() {
         getInstance();
@@ -28,6 +28,14 @@ public class GlobalCalendar {
 
     public static int getDayNum() {
         return instance.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public static void setNextDay() {
+        getInstance().add(Calendar.DATE, 1);
+    }
+
+    public static void setPrevDay() {
+        getInstance().add(Calendar.DATE, -1);
     }
 
     public static int getHour() {

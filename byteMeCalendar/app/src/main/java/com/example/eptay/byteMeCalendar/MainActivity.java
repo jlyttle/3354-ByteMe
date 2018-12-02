@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         m_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, TimeSelector.class));
+                startActivity(new Intent(MainActivity.this, EventView.class));
             }
         });
 
@@ -89,12 +89,17 @@ public class MainActivity extends AppCompatActivity {
                         m_drawerLayout.closeDrawers();
 
                         switch (menuItem.getItemId()) {
+
                             case R.id.day_view:
+                                //TODO: Fill out switch case for every activity in the drawer
+                                //setContentView(R.layout.activity_dayviewactivity);
+                                startActivity(new Intent(MainActivity.this, scrollingdayview.class));
                                 break;
                             case R.id.week_view:
                                 //TODO: Fill out switch case for every activity in the drawer
                                 //startActivity(new Intent(MainActivity.this, ActivityName.class));
                                 break;
+
                             default:
                                 break;
                         }

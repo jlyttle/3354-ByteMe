@@ -22,7 +22,9 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".EventView" />
         <activity android:name=".TimeSelector" />
-        <activity android:name=".DateSelector"></activity>
+        <activity android:name=".DateSelector" />
+        <activity android:name=".scrollingdayview" />
+        <activity android:name=".Editdeleteevent"></activity>
     </application>
 
 </manifest>
