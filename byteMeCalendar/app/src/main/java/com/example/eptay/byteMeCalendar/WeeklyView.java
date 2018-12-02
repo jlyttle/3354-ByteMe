@@ -8,6 +8,8 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TableLayout;
@@ -35,17 +37,19 @@ public class WeeklyView extends AppCompatActivity implements OnGestureListener {
     public static String saturdayString ;
     public static String sundayString ;
     GestureDetector detector;
+    final DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+    final Calendar calendar = Calendar.getInstance();
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final WeekListAdapter adapter = new WeekListAdapter(this, R.layout.weekly_view_layout,weekList);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        final DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-        final Calendar calendar = Calendar.getInstance();
         Date now = new Date();
         calendar.setTime(now);
 
@@ -94,12 +98,13 @@ public class WeeklyView extends AppCompatActivity implements OnGestureListener {
 
         TableLayout table = (TableLayout)findViewById(R.id.NextWeek );
         ListView list = (ListView)findViewById(R.id.WeekList);
-        list.setOnTouchListener(swipeDetector);
-        final WeekListAdapter adapter = new WeekListAdapter(this, R.layout.weekly_view_layout,weekList);
+        //list.setOnTouchListener(swipeDetector);
         list.setAdapter(adapter);
         
         swipeLeft = findViewById(R.id.SwipeBack);
         swipeRight = findViewById(R.id.NextWeek);
+
+
         swipeLeft.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -230,7 +235,7 @@ public class WeeklyView extends AppCompatActivity implements OnGestureListener {
 
         if(Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(diffY) > VEOLOCITY_THRESHOLD) {
             if (diffX > 0) {
-                onSwipeRight();
+                onSwipeRight( );
             } else {
                 onSwipeLeft();
             }
@@ -241,9 +246,10 @@ public class WeeklyView extends AppCompatActivity implements OnGestureListener {
     private void onSwipeLeft() {
     }
 
-    private void onSwipeRight() {
+    private void onSwipeRight( ) {
 
         swipeCount++;
+        System.out.println("SwipeRight");
         generateDates(calendar,swipeCount,dateFormat);
         weekList.clear();
         Day Sunday    =  new Day("Sunday" ,sundayString , 2);
@@ -264,7 +270,9 @@ public class WeeklyView extends AppCompatActivity implements OnGestureListener {
 
         TableLayout table = (TableLayout)findViewById(R.id.NextWeek );
         ListView list = (ListView)findViewById(R.id.WeekList);
-        adapter.notifyDataSetChanged();
+        final WeekListAdapter adapter = new WeekListAdapter(this, R.layout.weekly_view_layout,weekList);
+
+        ((BaseAdapter)adapter).notifyDataSetChanged();
     }
 
 }
