@@ -33,6 +33,7 @@ public class scrollingdayview extends AppCompatActivity{
         setContentView(R.layout.activity_scrollingdayview);
         scrollView = findViewById(R.id.scrollView);
 
+        //TODO refactor
         Calendar calendar = Calendar.getInstance();
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
         TextView textViewDate = findViewById(R.id.textViewDate);
