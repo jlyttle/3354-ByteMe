@@ -17,6 +17,7 @@ import android.widget.CalendarView;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -73,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, EventView.class));
+                //Check to see if there are any new events in the cache, and add them to the screen
+                ArrayList<Event> events = getOrderedEventList();
+                drawEvents();
             }
         });
 
@@ -123,5 +127,9 @@ public class MainActivity extends AppCompatActivity {
         String json = gson.toJson(m_eventCache);
         prefsEditor.putString("EventCache", json);
         prefsEditor.commit();
+    }
+
+    private void drawEvents() {
+        //Sets the listview layout to be
     }
 }
