@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 
     @Override
@@ -129,4 +130,10 @@ public class MainActivity extends AppCompatActivity {
         prefsEditor.putString("EventCache", json);
         prefsEditor.commit();
     }
+    public void onResume() {
+        super.onResume();
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.getMenu().getItem(0).setChecked(true);
+    }
+
 }
