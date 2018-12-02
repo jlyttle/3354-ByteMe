@@ -45,6 +45,7 @@ public class Event {
     public void setName(String name) { m_name = name; }
     public void setDescription(String description) { m_description = description; }
     public void setCategory(EventCategory category) { m_category = category; }
+
     public void setStartingTime(int startingHour, int startingMin) {
         m_startHour = startingHour;
         m_startMin = startingMin;

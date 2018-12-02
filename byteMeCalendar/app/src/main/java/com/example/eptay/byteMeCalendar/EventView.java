@@ -143,6 +143,7 @@ public class EventView extends AppCompatActivity {
             case (DATE_END_SELECTOR):
                 if (resultCode == Activity.RESULT_OK) {
                     //TODO Make the default end date an hour after the start date
+                    //TODO Check that the user entered a date after or on the start date
                     endYear = data.getIntExtra("year", GlobalCalendar.getYear());
                     endMonth = data.getIntExtra("month", GlobalCalendar.getMonth());
                     endDayNum = data.getIntExtra("day", GlobalCalendar.getDayNum());
@@ -152,6 +153,7 @@ public class EventView extends AppCompatActivity {
             case (TIME_END_SELECTOR):
                 if (resultCode == Activity.RESULT_OK) {
                     //TODO Make the default end time an hour after the start time
+                    //TODO Check that the user entered a time after or on the start time
                     endHour = data.getIntExtra("hour", GlobalCalendar.getHour());
                     endMinute = data.getIntExtra("minute", GlobalCalendar.getMinute());
                     String endTime = convertTime(endHour,endMinute);

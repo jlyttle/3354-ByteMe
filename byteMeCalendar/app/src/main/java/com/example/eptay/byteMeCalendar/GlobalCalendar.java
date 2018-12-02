@@ -30,6 +30,14 @@ public class GlobalCalendar {
         return instance.get(Calendar.DAY_OF_MONTH);
     }
 
+    public static void setNextDay() {
+        getInstance().add(Calendar.DATE, 1);
+    }
+
+    public static void setPrevDay() {
+        getInstance().add(Calendar.DATE, -1);
+    }
+
     public static int getHour() {
         return instance.get(Calendar.HOUR);
     }
