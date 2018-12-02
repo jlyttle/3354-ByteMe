@@ -1,5 +1,6 @@
 package com.example.eptay.byteMeCalendar;
 
+import android.provider.Settings;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class scrollingdayview extends AppCompatActivity{
@@ -35,12 +37,27 @@ public class scrollingdayview extends AppCompatActivity{
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
         TextView textViewDate = findViewById(R.id.textViewDate);
         textViewDate.setText(currentDate);
+
         scrollView.setOnTouchListener(new OnSwipeTouchListener(scrollingdayview.this) {
             public void onSwipeRight() {
+
+                GlobalCalendar.setPrevDay();
+                Day prevDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
+                List<Event> nextEvents = EventCache.getInstance().get(prevDay);
+                String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(GlobalCalendar.getInstance().getTime());
+                TextView textViewDate = findViewById(R.id.textViewDate);
+                textViewDate.setText(currentDate);
                 Toast.makeText(scrollingdayview.this, "left", Toast.LENGTH_SHORT).show();
             }
             public void onSwipeLeft() {
+                GlobalCalendar.setNextDay();
+                Day nextDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
+                List <Event> prevEvents = EventCache.getInstance().get(nextDay);
+                String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(GlobalCalendar.getInstance().getTime());
+                TextView textViewDate = findViewById(R.id.textViewDate);
+                textViewDate.setText(currentDate);
                 Toast.makeText(scrollingdayview.this, "right", Toast.LENGTH_SHORT).show();
+
             }
         });
         Log.d(TAG, "onCreate: Started.");
