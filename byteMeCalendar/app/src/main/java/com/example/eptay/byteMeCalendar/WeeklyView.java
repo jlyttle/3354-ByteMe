@@ -29,6 +29,7 @@ public class WeeklyView extends AppCompatActivity implements OnGestureListener {
     //SwipeDetector swipeDetector = new SwipeDetector(swipeCount);
     Button swipeLeft;
     public  static ArrayList<Day> weekList = new ArrayList<>();
+
     public static String mondayString ;
     public static String tuesdayString;
     public static String wedensdayString ;
@@ -44,8 +45,8 @@ public class WeeklyView extends AppCompatActivity implements OnGestureListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        weekList.clear();
         final WeekListAdapter adapter = new WeekListAdapter(this, R.layout.weekly_view_layout,weekList);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -235,7 +236,7 @@ public class WeeklyView extends AppCompatActivity implements OnGestureListener {
 
         if(Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(diffY) > VEOLOCITY_THRESHOLD) {
             if (diffX > 0) {
-                onSwipeRight( );
+               // onSwipeRight( );
             } else {
                 onSwipeLeft();
             }

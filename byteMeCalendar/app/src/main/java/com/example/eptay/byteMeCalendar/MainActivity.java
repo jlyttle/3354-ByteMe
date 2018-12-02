@@ -78,14 +78,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ChangeScreen.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(MainActivity.this , WeeklyView.class);
-                startActivity(intent);
-
-             }
-        });
 
 
 
@@ -110,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(new Intent(MainActivity.this, scrollingdayview.class));
                                 break;
                             case R.id.week_view:
+                                startActivity(new Intent(MainActivity.this, WeeklyView.class));
+
                                 //TODO: Fill out switch case for every activity in the drawer
                                 //startActivity(new Intent(MainActivity.this, ActivityName.class));
                                 break;
