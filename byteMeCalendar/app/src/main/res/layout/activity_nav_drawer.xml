@@ -66,8 +66,8 @@
             android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="51dp"
-            android:layout_marginRight="51dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
             android:clickable="true"
             app:layout_constraintBottom_toBottomOf="@+id/calendarView"
             app:layout_constraintEnd_toEndOf="@+id/calendarView"
@@ -75,67 +75,103 @@
 
         <TableLayout
             android:id="@+id/tableLayout"
-            android:layout_width="340dp"
-            android:layout_height="330dp"
-            app:layout_constraintBottom_toBottomOf="@+id/calendarView"
+            android:layout_width="0dp"
+            android:layout_height="222dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/calendarView"
-            app:layout_constraintVertical_bias="0.72">
+            app:layout_constraintStart_toStartOf="parent">
 
-            <TableRow>
-
-                <TextView
-                    android:layout_column="1"
-                    android:padding="3dip"
-                    android:text="Open..." />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="67dp" >
 
                 <TextView
-                    android:gravity="right"
-                    android:padding="3dip"
-                    android:text="Ctrl-O" />
+                    android:id="@+id/monthEvent1Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4:15 PM" />
+
+                <TextView
+                    android:id="@+id/monthEvent1Title"
+                    android:layout_width="272dp"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
             </TableRow>
 
-            <TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
                 <TextView
-                    android:layout_column="1"
-                    android:padding="3dip"
-                    android:text="Open..." />
+                    android:id="@+id/monthEvent2Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
 
                 <TextView
-                    android:gravity="right"
-                    android:padding="3dip"
-                    android:text="Ctrl-O" />
+                    android:id="@+id/monthEvent2Title"
+                    android:layout_width="272dp"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
             </TableRow>
 
-            <TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
                 <TextView
-                    android:layout_column="1"
-                    android:padding="3dip"
-                    android:text="Open..." />
+                    android:id="@+id/monthEvent3Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
 
                 <TextView
-                    android:gravity="right"
-                    android:padding="3dip"
-                    android:text="Ctrl-O" />
+                    android:id="@+id/monthEvent3Title"
+                    android:layout_width="272dp"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
             </TableRow>
 
-            <TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
                 <TextView
-                    android:layout_column="1"
-                    android:padding="3dip"
-                    android:text="Open..." />
+                    android:id="@+id/monthEvent4Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
 
                 <TextView
-                    android:gravity="right"
-                    android:padding="3dip"
-                    android:text="Ctrl-O" />
+                    android:id="@+id/monthEvent4Title"
+                    android:layout_width="272dp"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/monthEvent5Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/monthEvent5Title"
+                    android:layout_width="272dp"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
             </TableRow>
         </TableLayout>
+
     </android.support.constraint.ConstraintLayout>
 
 
