@@ -12,12 +12,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import org.w3c.dom.Text;
+
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class scrollingdayview extends AppCompatActivity{
 
     private static final String TAG = "scrollingdayview";
-    private static final int HOUR_HEIGHT = 61; //Each hour in the scroll view is 61dp
+    private static final int HOUR_HEIGHT = 61; //Each hour
+    // in the scroll view is 61dp
     private ScrollView scrollView;
 
     @Override
@@ -25,6 +30,11 @@ public class scrollingdayview extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrollingdayview);
         scrollView = findViewById(R.id.scrollView);
+
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        TextView textViewDate = findViewById(R.id.textViewDate);
+        textViewDate.setText(currentDate);
         scrollView.setOnTouchListener(new OnSwipeTouchListener(scrollingdayview.this) {
             public void onSwipeRight() {
                 Toast.makeText(scrollingdayview.this, "left", Toast.LENGTH_SHORT).show();
