@@ -21,7 +21,12 @@
             android:label="@string/title_activity_nav_drawer"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".WeeklyView" />
-        <activity android:name=".AddEvent"></activity>
+        <activity android:name=".AddEvent"/>
+        <activity android:name=".EventView" />
+        <activity android:name=".TimeSelector" />
+        <activity android:name=".DateSelector" />
+        <activity android:name=".scrollingdayview" />
+        <activity android:name=".Editdeleteevent"></activity>
     </application>
 
 </manifest>
