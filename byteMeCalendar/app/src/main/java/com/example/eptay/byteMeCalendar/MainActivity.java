@@ -84,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
                 m_year = year;
                 m_month = month;
                 m_day = day;
-                setTitle("Date: " + (month + 1) + " / " + day + " / " + year);
+                //setTitle("Date: " + (month + 1) + " / " + day + " / " + year);
+                GlobalCalendar.setDay(m_year, m_month, m_day);
                 m_currentDay = new Day(m_year, m_month, m_day);
                 drawEvents(getOrderedEventList());
             }
@@ -111,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
                         m_drawerLayout.closeDrawers();
 
                         switch (menuItem.getItemId()) {
-
                             case R.id.day_view:
                                 //TODO: Fill out switch case for every activity in the drawer
                                 //setContentView(R.layout.activity_dayviewactivity);
@@ -121,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
                                 //TODO: Fill out switch case for every activity in the drawer
                                 //startActivity(new Intent(MainActivity.this, ActivityName.class));
                                 break;
-
                             default:
                                 break;
                         }
@@ -132,13 +131,13 @@ public class MainActivity extends AppCompatActivity {
 
         navigationView.getMenu().getItem(0).setChecked(true);
 
-        m_tableLayout.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+        /*m_tableLayout.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.event_context_menu, menu);
             }
-        });
+        });*/
     }
 
     @Override
@@ -200,8 +199,8 @@ public class MainActivity extends AppCompatActivity {
             row.addView(time, TIME_WIDTH, HEIGHT);
             row.addView(title, TITLE_WIDTH, HEIGHT);
             row.addView(eventID);
-            registerForContextMenu(row);
             m_tableLayout.addView(row, index);
+            registerForContextMenu(row);
             ++index;
         }
     }
@@ -210,10 +209,19 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.getMenu().getItem(0).setChecked(true);
+        m_calendarView.setDate(GlobalCalendar.getInstance().getTimeInMillis());
 
         //Check to see if any events were added to current day and draw again
-        List<Event> events = getOrderedEventList();
-        drawEvents(events);
+        //List<Event> events = getOrderedEventList();
+        //drawEvents(events);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.event_context_menu, menu);
+
+        //TODO Check to see if view clicked is a row. If it is, get the row and set it as the current context
     }
 
     @Override

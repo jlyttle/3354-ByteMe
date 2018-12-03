@@ -7,9 +7,9 @@ import java.util.List;
 
 public class EventCache {
     private static EventCache instance;
-    List<Event> m_nonRepeatingEvents = new ArrayList<>();
-    HashMap<Integer, List<Event>> m_repeatingEvents = new HashMap();
-    List<EventCategory> m_eventCategories = new ArrayList<>();
+    private List<Event> m_nonRepeatingEvents = new ArrayList<>();
+    private HashMap<Integer, List<Event>> m_repeatingEvents = new HashMap();
+    private List<EventCategory> m_eventCategories = new ArrayList<>();
 
     static {
         instance = new EventCache();
