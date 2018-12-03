@@ -51,6 +51,8 @@ public class EventView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_view);
+        title = findViewById(R.id.addTitleField);
+        description = findViewById(R.id.addDescriptionField);
         startingTimeViewButton = findViewById(R.id.startingTimeViewButton);
         endingTimeViewButton = findViewById(R.id.endingTimeViewButton);
         repeatMode = findViewById(R.id.spinner);

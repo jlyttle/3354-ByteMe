@@ -2,6 +2,7 @@ package com.example.eptay.byteMeCalendar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class EventCache {
@@ -120,6 +121,36 @@ public class EventCache {
         }
 
         return events;
+    }
+
+    public Event find(String id) {
+        for (Event event: m_nonRepeatingEvents) {
+            if (event.getID() == id) {
+                return event;
+            }
+        }
+
+        Iterator it = m_repeatingEvents.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry)it.next();
+            List<Event> repeatingEvents = (List)pair.getValue();
+
+            for (Event event: repeatingEvents) {
+                if (event.getID() == id) {
+                    return event;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public void remove(Event event) {
+        m_nonRepeatingEvents.remove(event);
+        int key = event.getStartDay().getDayNum();
+        List<Event> events = m_repeatingEvents.get(key);
+        events.remove(event);
+        m_repeatingEvents.put(key, events);
     }
 
     public List<EventCategory> getCategories() {

@@ -1,8 +1,9 @@
 package com.example.eptay.byteMeCalendar;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
-public class Event {
+public class Event implements Comparable {
     public enum RepeatingType { NONE, DAILY, WEEKLY, MONTHLY, YEARLY }
 
     private String m_name;
@@ -16,6 +17,7 @@ public class Event {
     private Day m_startingDay;
     private Day m_endingDay;
     private RepeatingType m_repeatingType;
+    private String m_eventID = UUID.randomUUID().toString();
 
     public Event(String name, String description, int startHour, int startMin, int endHour, int endMin, RepeatingType repeatingType, Day startDay, Day endDay, EventCategory category) {
         m_name = name;
@@ -40,6 +42,7 @@ public class Event {
     public boolean isRepeating() { return m_repeating; }
     public Day getStartDay() { return m_startingDay; }
     public Day getEndDay() { return m_endingDay; }
+    public String getID() { return m_eventID; }
 
     public void setRepeatingType(RepeatingType repeatingType) { m_repeatingType = repeatingType; }
     public void setName(String name) { m_name = name; }
@@ -64,5 +67,34 @@ public class Event {
     @Override
     public String toString() {
         return m_name + ": \"" + m_description + "\" " + m_startHour + ":" + m_startMin + "-" + m_endHour + ":" + m_endMin;
+    }
+
+    //TODO compareTo should also compare title, description, and days
+    @Override
+    public int compareTo(Object o) {
+        if (o instanceof Event) {
+            if (((Event) o).m_startHour == this.m_startHour) {
+                if (((Event) o).m_startMin > this.m_startMin) {
+                    return 1;
+                }
+                else if (((Event) o).m_startMin < this.m_startMin) {
+                    return -1;
+                }
+                return 0;
+            }
+            else if (((Event) o).m_startHour > this.m_startHour) {
+                return 1;
+            }
+        }
+        return -1;
+    }
+
+    public boolean equals(Object o) {
+        if (o instanceof Event) {
+            if (((Event) o).m_eventID == this.m_eventID) {
+                return true;
+            }
+        }
+        return false;
     }
 }
