@@ -33,7 +33,7 @@ public class scrollingdayview extends AppCompatActivity{
     private ScrollView scrollView;
     private final int LEFT = 100;
     private final int RIGHT = 300;
-    private DrawerLayout m_drawerLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +51,7 @@ public class scrollingdayview extends AppCompatActivity{
                 GlobalCalendar.setPrevDay();
                 Day prevDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
                 List<Event> prevEvents = EventCache.getInstance().get(prevDay);
-                for (Event event: prevEvents) {
+                for (Event event : prevEvents) {
                     double height = calculateHeightOfEvent(event);
                     double topMargin = calculateTimeDifference(event);
 
@@ -66,11 +66,12 @@ public class scrollingdayview extends AppCompatActivity{
                 textViewDate.setText(currentDate);
                 Toast.makeText(scrollingdayview.this, "left", Toast.LENGTH_SHORT).show();
             }
+
             public void onSwipeLeft() {
                 GlobalCalendar.setNextDay();
                 Day nextDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
-                List <Event> nextEvents = EventCache.getInstance().get(nextDay);
-                for (Event event: nextEvents) {
+                List<Event> nextEvents = EventCache.getInstance().get(nextDay);
+                for (Event event : nextEvents) {
                     double height = calculateHeightOfEvent(event);
                     double topMargin = calculateTimeDifference(event);
 
@@ -96,42 +97,6 @@ public class scrollingdayview extends AppCompatActivity{
 
         }
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.bringToFront();
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        menuItem.setChecked(true);
-
-                        // close drawer when item is tapped
-                        m_drawerLayout.closeDrawers();
-
-                        switch (menuItem.getItemId()) {
-
-                            case R.id.month_view:
-                                startActivity(new Intent(scrollingdayview.this, MainActivity.class));
-                                break;
-                            case R.id.day_view:
-                                //TODO: Fill out switch case for every activity in the drawer
-                                //setContentView(R.layout.activity_dayviewactivity);
-                                //startActivity(new Intent(scrollingdayview.this, scrollingdayview.class));
-                                //break;
-                            case R.id.week_view:
-                                //TODO: Fill out switch case for every activity in the drawer
-                                //startActivity(new Intent(MainActivity.this, ActivityName.class));
-                                break;
-
-                            default:
-                                break;
-                        }
-
-                        return true;
-                    }
-                });
-
-        navigationView.getMenu().getItem(0).setChecked(true);
     }
 
 
@@ -155,19 +120,5 @@ public class scrollingdayview extends AppCompatActivity{
         return (factor * HOUR_HEIGHT);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                m_drawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
-    public void onResume() {
-        super.onResume();
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.getMenu().getItem(0).setChecked(true);
-    }
 }
