@@ -187,7 +187,13 @@ public class MainActivity extends AppCompatActivity {
             else if (startHour == 0) {
                 startHour = 12;
             }
-            String timeStr = PM ? startHour + ":" + startMin + " PM" : startHour + ":" + startMin + " AM";
+            String timeStr;
+            if (startMin < 10) {
+                timeStr = PM ? startHour + ":0" + startMin + " PM" : startHour + ":0" + startMin + " AM";
+            }
+            else {
+                timeStr = PM ? startHour + ":" + startMin + " PM" : startHour + ":" + startMin + " AM";
+            }
             TextView time = new TextView(this);
             time.setText(timeStr);
             TextView title = new TextView(this);
@@ -212,8 +218,8 @@ public class MainActivity extends AppCompatActivity {
         m_calendarView.setDate(GlobalCalendar.getInstance().getTimeInMillis());
 
         //Check to see if any events were added to current day and draw again
-        //List<Event> events = getOrderedEventList();
-        //drawEvents(events);
+        List<Event> events = getOrderedEventList();
+        drawEvents(events);
     }
 
     @Override
@@ -227,7 +233,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        //int index = info.position;
         TableRow row = (TableRow) info.targetView;
         TextView eventIDView = (TextView) row.getChildAt(2);
         String eventID = eventIDView.getText().toString();
