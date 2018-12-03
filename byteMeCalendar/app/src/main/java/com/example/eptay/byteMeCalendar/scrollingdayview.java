@@ -1,10 +1,15 @@
 package com.example.eptay.byteMeCalendar;
 
+import android.content.Intent;
 import android.provider.Settings;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,7 +33,7 @@ public class scrollingdayview extends AppCompatActivity{
     private ScrollView scrollView;
     private final int LEFT = 100;
     private final int RIGHT = 300;
-
+    private DrawerLayout m_drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +96,45 @@ public class scrollingdayview extends AppCompatActivity{
 
         }
 
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.bringToFront();
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // set item as selected to persist highlight
+                        menuItem.setChecked(true);
+
+                        // close drawer when item is tapped
+                        m_drawerLayout.closeDrawers();
+
+                        switch (menuItem.getItemId()) {
+
+                            case R.id.month_view:
+                                startActivity(new Intent(scrollingdayview.this, MainActivity.class));
+                                break;
+                            case R.id.day_view:
+                                //TODO: Fill out switch case for every activity in the drawer
+                                //setContentView(R.layout.activity_dayviewactivity);
+                                //startActivity(new Intent(scrollingdayview.this, scrollingdayview.class));
+                                //break;
+                            case R.id.week_view:
+                                //TODO: Fill out switch case for every activity in the drawer
+                                //startActivity(new Intent(MainActivity.this, ActivityName.class));
+                                break;
+
+                            default:
+                                break;
+                        }
+
+                        return true;
+                    }
+                });
+
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
+
+
 
     //Method to calculate the height of the event object in dp
     public double calculateHeightOfEvent(Event event) {
@@ -110,5 +153,21 @@ public class scrollingdayview extends AppCompatActivity{
         int startMinute = event.getStartingMinute();
         double factor = (startMinute / 60) + startHour;
         return (factor * HOUR_HEIGHT);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                m_drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void onResume() {
+        super.onResume();
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 }

@@ -46,9 +46,20 @@
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.v7.widget.Toolbar>
 
+
     </android.support.constraint.ConstraintLayout>
 
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        android:focusable="auto"
+        app:headerLayout="@layout/nav_header_nav_drawer"
+        app:menu="@menu/activity_nav_drawer_drawer">
 
+    </android.support.design.widget.NavigationView>
 
 
     <ScrollView
