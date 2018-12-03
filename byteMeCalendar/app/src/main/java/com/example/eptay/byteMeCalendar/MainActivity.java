@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 
     @Override
@@ -136,5 +137,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void drawEvents() {
         //Sets the listview layout to be
+    }
+
+    public void onResume() {
+        super.onResume();
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 }
