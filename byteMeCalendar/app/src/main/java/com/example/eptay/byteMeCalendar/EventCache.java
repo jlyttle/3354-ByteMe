@@ -24,6 +24,21 @@ public class EventCache {
             throw new IllegalArgumentException("Cannot add a null event object.");
         }
 
+        boolean nameIsNull = event.getName() == null;
+        boolean descriptionIsNull = event.getDescription() == null;
+        boolean startDayIsNull = event.getStartDay() == null;
+        boolean endDayIsNull = event.getEndDay() == null;
+
+        if (nameIsNull || descriptionIsNull || startDayIsNull || endDayIsNull) {
+            throw new IllegalArgumentException("Cannot add a null event object.");
+        }
+        else if (event.getStartingHour() > 23 || event.getEndingHour() > 23) {
+            throw new IllegalArgumentException("Cannot have an hour greater than 23.");
+        }
+        else if (event.getStartingHour() > event.getEndingHour() || (event.getStartingHour() == event.getEndingHour() && event.getStartingMin() > event.getEndingMin())) {
+            throw new IllegalArgumentException("Cannot have a starting time after an ending time.");
+        }
+
         if (event.isRepeating()) {
             Integer dayOfWeek = event.getStartDay().getDayOfWeek();
             List<Event> eventsForDay = m_repeatingEvents.get(dayOfWeek);

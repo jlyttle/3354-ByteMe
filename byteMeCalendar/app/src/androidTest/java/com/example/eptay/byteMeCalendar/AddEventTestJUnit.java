@@ -33,7 +33,7 @@ public class AddEventTestJUnit {
 
     @Test (expected = IllegalArgumentException.class) //Test with an ending time that's before the starting time
     public void testAddEvent4() {
-        Event event = new Event("Name", "Description", 25, 0, 26, 0, Event.RepeatingType.NONE, today, today, null);
+        Event event = new Event("Name", "Description", 12, 31, 12, 30, Event.RepeatingType.NONE, today, today, null);
         eventCache.add(event);
     }
 }
