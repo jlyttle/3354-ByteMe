@@ -331,14 +331,13 @@
                     android:text="11pm" />
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/eventLayout"
                 android:layout_width="match_parent"
-                android:layout_height="1464dp"
-                android:orientation="vertical">
+                android:layout_height="1464dp">
 
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </RelativeLayout>
 
