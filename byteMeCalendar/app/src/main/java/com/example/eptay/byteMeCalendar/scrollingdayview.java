@@ -116,6 +116,13 @@ public class scrollingdayview extends AppCompatActivity {
     }
 
     //Method to calculate the height of the event object in dp
+
+    /**
+     * This method takes in an event and calculates the height of the event object in dp
+     *
+     * @param event
+     * @return factor * HOUR_HEIGHT
+     */
     public double calculateHeightOfEvent(Event event) {
         int startHour = event.getStartingHour();
         int startMinute = event.getStartingMin();
