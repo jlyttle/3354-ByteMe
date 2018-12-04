@@ -19,7 +19,11 @@ public class EventCache {
         return instance;
     }
 
-    public void add(Event event) {
+    public void add(Event event) throws IllegalArgumentException {
+        if (event == null) {
+            throw new IllegalArgumentException("Cannot add a null event object.");
+        }
+
         if (event.isRepeating()) {
             Integer dayOfWeek = event.getStartDay().getDayOfWeek();
             List<Event> eventsForDay = m_repeatingEvents.get(dayOfWeek);
