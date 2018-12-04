@@ -1,5 +1,6 @@
 package com.example.eptay.byteMeCalendar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -30,6 +32,7 @@ public class WeeklyView extends AppCompatActivity {
     Button swipeLeft;
     public static ArrayList<Day> weekList = new ArrayList<>();
     private ConstraintLayout m_constraintLayout;
+    private Day[] m_week;
 
     public static String mondayString ;
     public static String tuesdayString;
@@ -50,7 +53,13 @@ public class WeeklyView extends AppCompatActivity {
         setContentView(R.layout.activity_weekly_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Date now = new Date();
+
+        m_week = GlobalCalendar.getWeek();
+
+        for (int i = 0; i < m_week.length; ++i) {
+            weekList.add(m_week[i]);
+        }
+        /*Date now = new Date();
         calendar.setTime(now);
 
         int dayOfWeek = (calendar.get(Calendar.DAY_OF_WEEK))-1;
@@ -80,7 +89,7 @@ public class WeeklyView extends AppCompatActivity {
         saturdayString = dateFormat.format(dateSaturday);
         sundayString = dateFormat.format(dateSunday);
 
-        Day Sunday = new Day("Sunday" ,sundayString , 2);
+        m_week[0] = new Day("Sunday" ,sundayString , 2);
         Day Monday = new Day("Monday" ,mondayString ,3);
         Day Tuesday = new Day("Tuesday" ,tuesdayString , 8);
         Day Wedensday = new Day("Wednesday" , wednesdayString, 1);
@@ -94,7 +103,7 @@ public class WeeklyView extends AppCompatActivity {
         weekList.add(Wedensday);
         weekList.add(Thursday);
         weekList.add(Friday);
-        weekList.add(Saturday);
+        weekList.add(Saturday);*/
 
         //TableLayout table = (TableLayout)findViewById(R.id.NextWeek );
         ListView list = (ListView)findViewById(R.id.WeekList);
@@ -110,10 +119,10 @@ public class WeeklyView extends AppCompatActivity {
                 //Go to previous week
                 GlobalCalendar.setPrevWeek();
                 weekList.clear();
-                Day[] week = GlobalCalendar.getWeek();
+                m_week = GlobalCalendar.getWeek();
 
-                for (int i = 0; i < week.length; ++i) {
-                    weekList.add(week[i]);
+                for (int i = 0; i < m_week.length; ++i) {
+                    weekList.add(m_week[i]);
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -121,12 +130,21 @@ public class WeeklyView extends AppCompatActivity {
                 //Go to next week
                 GlobalCalendar.setNextWeek();
                 weekList.clear();
-                Day[] week = GlobalCalendar.getWeek();
+                m_week = GlobalCalendar.getWeek();
 
-                for (int i = 0; i < week.length; ++i) {
-                    weekList.add(week[i]);
+                for (int i = 0; i < m_week.length; ++i) {
+                    weekList.add(m_week[i]);
                 }
                 adapter.notifyDataSetChanged();
+            }
+        });
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Day currentDay = m_week[position];
+                GlobalCalendar.setDay(currentDay.getYear(), currentDay.getMonth(), currentDay.getDayNum());
+                startActivity(new Intent(WeeklyView.this, scrollingdayview.class));
             }
         });
 
