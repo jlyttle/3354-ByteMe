@@ -21,7 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class WeeklyView extends AppCompatActivity implements OnGestureListener {
+public class WeeklyView extends AppCompatActivity {
     public static final int SWIPE_THRESHOLD = 100;
     public static final int VEOLOCITY_THRESHOLD = 100;
     FloatingActionButton swipeRight;
