@@ -77,7 +77,8 @@ public class scrollingdayview extends AppCompatActivity {
                     textView.setHeight((int) convertDpToPixel((float)height, getApplicationContext()));
                     textView.setBackgroundColor(Color.parseColor("#3F51B5"));
                     textView.setPadding(24, 0, 24, 0);
-                    textView.setWidth((int) convertDpToPixel(100, getApplicationContext()));
+                    textView.setWidth((int) convertDpToPixel(20, getApplicationContext()));
+                    textView.setGravity(0x11);
                     m_linearLayout.addView(textView);
                 }
 
@@ -103,6 +104,7 @@ public class scrollingdayview extends AppCompatActivity {
                     textView.setHeight((int) convertDpToPixel((float)height, getApplicationContext()));
                     textView.setBackgroundColor(Color.parseColor("#000000"));
                     textView.setPadding(24, 0, 24, 0);
+                    textView.setWidth((int) convertDpToPixel(20, getApplicationContext()));
                     m_linearLayout.addView(textView);
                 }
 
