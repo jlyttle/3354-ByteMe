@@ -35,15 +35,14 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout m_drawerLayout;
     private CalendarView m_calendarView;
     private FloatingActionButton m_fab;
-    private Calendar m_calendar = new GregorianCalendar();
     private SharedPreferences m_preferences;
     private TableLayout m_tableLayout;
     private EventCache m_eventCache;
     private View m_currentContextView = null;
 
-    private int m_month = m_calendar.get(Calendar.MONTH);
-    private int m_day = m_calendar.get(Calendar.DAY_OF_MONTH);
-    private int m_year = m_calendar.get(Calendar.YEAR);
+    private int m_day = GlobalCalendar.getDayNum();
+    private int m_month = GlobalCalendar.getMonth();
+    private int m_year = GlobalCalendar.getYear();
     private Day m_currentDay = new Day(m_year, m_month, m_day);
 
     /* METHODS */

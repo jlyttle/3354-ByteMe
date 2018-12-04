@@ -13,7 +13,7 @@ public class AddEventTestJUnit {
         today = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
     }
 
-    @Test (expected = IllegalArgumentException.class) //Test with valid values
+    @Test //Test with valid values
     public void testAddEvent1() {
         Event event = new Event("Name", "Description", 12, 0, 13, 0, Event.RepeatingType.NONE, today, today, null);
         eventCache.add(event);
