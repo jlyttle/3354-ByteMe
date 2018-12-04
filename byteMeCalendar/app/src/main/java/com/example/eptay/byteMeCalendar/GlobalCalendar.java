@@ -34,6 +34,10 @@ public class GlobalCalendar {
         getInstance().add(Calendar.DATE, 1);
     }
 
+    public static void setDay(int year, int month, int day) {
+        getInstance().set(year, month, day);
+    }
+
     public static void setPrevDay() {
         getInstance().add(Calendar.DATE, -1);
     }

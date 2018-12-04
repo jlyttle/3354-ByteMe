@@ -59,6 +59,15 @@ public class EventView extends AppCompatActivity {
         selectCategory = findViewById(R.id.spinner2);
         addEvent = findViewById(R.id.accept);
 
+        if (savedInstanceState != null) {
+            title.setText(savedInstanceState.getString("title"));
+            description.setText(savedInstanceState.getString("description"));
+            startHour = savedInstanceState.getInt("startHour");
+            startMinute = savedInstanceState.getInt("startMin");
+            endHour = savedInstanceState.getInt("endHour");
+            endMinute = savedInstanceState.getInt("endMin");
+        }
+
         String[] modes = {"None", "Daily", "Weekly", "Monthly"};
         repeatMode.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, modes));
         final List<EventCategory> categories = EventCache.getInstance().getCategories();

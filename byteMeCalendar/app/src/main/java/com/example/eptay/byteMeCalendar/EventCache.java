@@ -7,9 +7,9 @@ import java.util.List;
 
 public class EventCache {
     private static EventCache instance;
-    List<Event> m_nonRepeatingEvents = new ArrayList<>();
-    HashMap<Integer, List<Event>> m_repeatingEvents = new HashMap();
-    List<EventCategory> m_eventCategories = new ArrayList<>();
+    private List<Event> m_nonRepeatingEvents = new ArrayList<>();
+    private HashMap<Integer, List<Event>> m_repeatingEvents = new HashMap();
+    private List<EventCategory> m_eventCategories = new ArrayList<>();
 
     static {
         instance = new EventCache();
@@ -19,12 +19,38 @@ public class EventCache {
         return instance;
     }
 
-    public void add(Event event) {
+    public void add(Event event) throws IllegalArgumentException {
+        if (event == null) {
+            throw new IllegalArgumentException("Cannot add a null event object.");
+        }
+
+        boolean nameIsNull = event.getName() == null;
+        boolean descriptionIsNull = event.getDescription() == null;
+        boolean startDayIsNull = event.getStartDay() == null;
+        boolean endDayIsNull = event.getEndDay() == null;
+
+        if (nameIsNull || descriptionIsNull || startDayIsNull || endDayIsNull) {
+            throw new IllegalArgumentException("Cannot add a null event object.");
+        }
+        else if (event.getStartingHour() > 23 || event.getEndingHour() > 23) {
+            throw new IllegalArgumentException("Cannot have an hour greater than 23.");
+        }
+        else if (event.getStartingHour() > event.getEndingHour() || (event.getStartingHour() == event.getEndingHour() && event.getStartingMin() > event.getEndingMin())) {
+            throw new IllegalArgumentException("Cannot have a starting time after an ending time.");
+        }
+
         if (event.isRepeating()) {
             Integer dayOfWeek = event.getStartDay().getDayOfWeek();
             List<Event> eventsForDay = m_repeatingEvents.get(dayOfWeek);
             eventsForDay.add(event);
-            m_repeatingEvents.put(dayOfWeek, eventsForDay);
+            if (event.getRepeatingType() == Event.RepeatingType.DAILY) {
+                for (int i = 1; i < 8; ++i) {
+                    m_repeatingEvents.put(i, eventsForDay);
+                }
+            }
+            else {
+                m_repeatingEvents.put(dayOfWeek, eventsForDay);
+            }
         }
         else {
             m_nonRepeatingEvents.add(event);
@@ -146,11 +172,15 @@ public class EventCache {
     }
 
     public void remove(Event event) {
-        m_nonRepeatingEvents.remove(event);
-        int key = event.getStartDay().getDayNum();
-        List<Event> events = m_repeatingEvents.get(key);
-        events.remove(event);
-        m_repeatingEvents.put(key, events);
+        if (m_nonRepeatingEvents != null) {
+            m_nonRepeatingEvents.remove(event);
+        }
+        if (m_repeatingEvents != null) {
+            int key = event.getStartDay().getDayOfWeek();
+            List<Event> events = m_repeatingEvents.get(key);
+            events.remove(event);
+            m_repeatingEvents.put(key, events);
+        }
     }
 
     public List<EventCategory> getCategories() {
