@@ -30,10 +30,9 @@ public class Day {
         m_day = day;
         //Calendar calendar = new GregorianCalendar(year, month, day);
         m_dayOfWeek = GlobalCalendar.getDayOfWeek();
-        m_dayName = m_weekdays[m_dayOfWeek -1];
+        m_dayName = m_weekdays[m_dayOfWeek - 1];
+        date = GlobalCalendar.getDate();
     }
-
-
 
     public void setDayName(String dayName) {
         this.dayName = dayName;

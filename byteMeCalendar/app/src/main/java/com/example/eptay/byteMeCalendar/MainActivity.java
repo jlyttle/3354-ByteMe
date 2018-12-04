@@ -9,30 +9,39 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     /* MEMBER VARIABLES */
     private DrawerLayout m_drawerLayout;
     private CalendarView m_calendarView;
     private FloatingActionButton m_fab;
-    private Calendar m_calendar = new GregorianCalendar();
     private SharedPreferences m_preferences;
+    private TableLayout m_tableLayout;
     private EventCache m_eventCache;
+    private View m_currentContextView = null;
 
-    int m_month = m_calendar.get(Calendar.MONTH);
-    int m_day = m_calendar.get(Calendar.DAY_OF_MONTH);
-    int m_year = m_calendar.get(Calendar.YEAR);
+    private int m_day = GlobalCalendar.getDayNum();
+    private int m_month = GlobalCalendar.getMonth();
+    private int m_year = GlobalCalendar.getYear();
+    private Day m_currentDay = new Day(m_year, m_month, m_day);
 
     /* METHODS */
     @Override
@@ -45,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = m_preferences.getString("EventCache", "");
         m_eventCache = gson.fromJson(json, EventCache.class);
+        if (m_eventCache == null) {
+            m_eventCache = EventCache.getInstance();
+        }
 
         //Setup toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -58,6 +70,15 @@ public class MainActivity extends AppCompatActivity {
         m_calendarView = findViewById(R.id.calendarView);
         m_fab = findViewById(R.id.floatingActionButton);
         m_drawerLayout = findViewById(R.id.drawer_layout);
+        m_tableLayout = findViewById(R.id.tableLayout);
+
+        //TODO Remove test events
+        m_eventCache.add(new Event("Test 1", "Description 1", 12, 0, 13, 0, Event.RepeatingType.NONE, m_currentDay, m_currentDay, null));
+        m_eventCache.add(new Event("Test 2", "Description 2", 14, 30, 15, 0, Event.RepeatingType.NONE, m_currentDay, m_currentDay, null));
+
+        //Create any event views that are in the cache
+        List<Event> events = getOrderedEventList();
+        drawEvents(events);
 
         //On changing the date, change the text to be new date
         m_calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -66,7 +87,10 @@ public class MainActivity extends AppCompatActivity {
                 m_year = year;
                 m_month = month;
                 m_day = day;
-                setTitle("Date: " + (month + 1) + " / " + day + " / " + year);
+                //setTitle("Date: " + (month + 1) + " / " + day + " / " + year);
+                GlobalCalendar.setDay(m_year, m_month, m_day);
+                m_currentDay = new Day(m_year, m_month, m_day);
+                drawEvents(getOrderedEventList());
             }
         });
 
@@ -77,10 +101,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, EventView.class));
             }
         });
-
-
-
-
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.bringToFront();
@@ -95,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
                         m_drawerLayout.closeDrawers();
 
                         switch (menuItem.getItemId()) {
-
                             case R.id.day_view:
                                 //TODO: Fill out switch case for every activity in the drawer
                                 //setContentView(R.layout.activity_dayviewactivity);
@@ -103,11 +122,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case R.id.week_view:
                                 startActivity(new Intent(MainActivity.this, WeeklyView.class));
-
-                                //TODO: Fill out switch case for every activity in the drawer
-                                //startActivity(new Intent(MainActivity.this, ActivityName.class));
                                 break;
-
                             default:
                                 break;
                         }
@@ -116,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 
     @Override
@@ -136,5 +152,109 @@ public class MainActivity extends AppCompatActivity {
         String json = gson.toJson(m_eventCache);
         prefsEditor.putString("EventCache", json);
         prefsEditor.commit();
+    }
+
+    private List<Event> getOrderedEventList() {
+        List<Event> events = m_eventCache.get(m_currentDay);
+        Collections.sort(events);
+        return events;
+    }
+
+    private void drawEvents(List<Event> events) {
+        //Draws all events to the tablelayout
+        //TODO Change to percentages
+        final int HEIGHT = 100;
+        final int TIME_WIDTH = 250;
+        final int TITLE_WIDTH = 500;
+
+        m_tableLayout.removeAllViews();
+        for (Event event: events) {
+            int index = 0;
+            int startHour = event.getStartingHour();
+            int startMin = event.getStartingMin();
+            boolean PM = false;
+            if (startHour > 11) {
+                PM = true;
+                if (startHour > 12) {
+                    startHour -= 12;
+                }
+            }
+            else if (startHour == 0) {
+                startHour = 12;
+            }
+            String timeStr;
+            if (startMin < 10) {
+                timeStr = PM ? startHour + ":0" + startMin + " PM" : startHour + ":0" + startMin + " AM";
+            }
+            else {
+                timeStr = PM ? startHour + ":" + startMin + " PM" : startHour + ":" + startMin + " AM";
+            }
+            TextView time = new TextView(this);
+            time.setText(timeStr);
+            TextView title = new TextView(this);
+            title.setText(event.getName());
+            TextView eventID = new TextView(this);
+            eventID.setText(event.getID());
+            eventID.setVisibility(View.INVISIBLE);
+            TableRow row = new TableRow(this);
+            row.addView(time, TIME_WIDTH, HEIGHT);
+            row.addView(title, TITLE_WIDTH, HEIGHT);
+            row.addView(eventID);
+            m_tableLayout.addView(row, index);
+            registerForContextMenu(row);
+            ++index;
+        }
+    }
+
+    public void onResume() {
+        super.onResume();
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.getMenu().getItem(0).setChecked(true);
+        m_calendarView.setDate(GlobalCalendar.getInstance().getTimeInMillis());
+
+        //Check to see if any events were added to current day and draw again
+        List<Event> events = getOrderedEventList();
+        drawEvents(events);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.event_context_menu, menu);
+
+        //TODO Check to see if view clicked is a row. If it is, get the row and set it as the current context
+        m_currentContextView = v;
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if (m_currentContextView != null) {
+            TableRow row = (TableRow) m_currentContextView;
+            TextView eventIDView = (TextView) row.getChildAt(2);
+            String eventID = eventIDView.getText().toString();
+            Event selectedEvent = m_eventCache.find(eventID);
+
+            switch (item.getItemId()) {
+                case R.id.editMenuItem:
+                    return true;
+                case R.id.deleteMenuItem:
+                    m_eventCache.remove(selectedEvent);
+                    drawEvents(getOrderedEventList());
+                    return true;
+                case R.id.shareMenuItem:
+                    share(selectedEvent);
+                    return true;
+                default:
+                    m_currentContextView = null;
+                    return false;
+            }
+
+        }
+        return false;
+    }
+    public void  share(Event e){
+        Event[] events = {e};
+        shareEvent se = new shareEvent();
+        se.execute(e);
     }
 }

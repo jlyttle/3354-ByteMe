@@ -10,8 +10,10 @@
         android:id="@+id/addEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="388dp"
         android:text="Add Event"
+        app:layout_constraintBottom_toTopOf="@+id/spinner2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -71,6 +73,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description" />
 
+    <TextView
+        android:id="@+id/selectCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginRight="75dp"
+        android:text="Category"
+        app:layout_constraintEnd_toStartOf="@+id/spinner2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/repeat" />
+
     <Button
         android:id="@+id/startingTimeViewButton"
         android:layout_width="wrap_content"
@@ -127,4 +143,47 @@
         app:layout_constraintEnd_toEndOf="@+id/addDescriptionField"
         app:layout_constraintStart_toStartOf="@+id/addDescriptionField"
         app:layout_constraintTop_toTopOf="@+id/endingTimeViewButton" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="124dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/selectCategory"
+        app:layout_constraintTop_toBottomOf="@+id/addEvent" />
+
+    <Button
+        android:id="@+id/accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="31dp"
+        android:layout_marginRight="31dp"
+        android:layout_marginBottom="30dp"
+        android:text="Add Event"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/startingTimeID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="34dp"
+        android:layout_marginLeft="34dp"
+        android:text="--:--"
+        app:layout_constraintBaseline_toBaselineOf="@+id/startingTime"
+        app:layout_constraintStart_toEndOf="@+id/startingTime" />
+
+    <TextView
+        android:id="@+id/endingTimeID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:text="--:--"
+        app:layout_constraintBaseline_toBaselineOf="@+id/endingTime"
+        app:layout_constraintStart_toEndOf="@+id/endingTime" />
 </android.support.constraint.ConstraintLayout>
