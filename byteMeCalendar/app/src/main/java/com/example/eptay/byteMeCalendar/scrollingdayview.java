@@ -54,22 +54,34 @@ public class scrollingdayview extends AppCompatActivity {
 
         //TODO refactor
         String currentDate = (nameOfDay + ", " + getMonth(currentMonth + 1) + " " + currentDay + ", " + currentYear);
-        TextView textViewDate = findViewById(R.id.textViewDate);
+        final TextView textViewDate = findViewById(R.id.textViewDate);
         textViewDate.setText(currentDate);
 
         scrollView.setOnTouchListener(new OnSwipeTouchListener(scrollingdayview.this) {
             public void onSwipeRight() {
                 GlobalCalendar.setPrevDay();
-                m_relativeLayout.removeAllViews();
                 Day prevDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
+                nameOfDay = prevDay.getDayName();
+                currentMonth = prevDay.getMonth();
+                currentDay = prevDay.getDayNum();
+                currentYear = prevDay.getYear();
+                String currentDate = (nameOfDay + ", " + getMonth(currentMonth + 1) + " " + currentDay + ", " + currentYear);
+                textViewDate.setText(currentDate);
+                m_relativeLayout.removeAllViews();
                 List<Event> prevEvents = EventCache.getInstance().get(prevDay);
                 drawEvents(prevEvents);
             }
 
             public void onSwipeLeft() {
                 GlobalCalendar.setNextDay();
-                m_relativeLayout.removeAllViews();
                 Day nextDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
+                nameOfDay = nextDay.getDayName();
+                currentMonth = nextDay.getMonth();
+                currentDay = nextDay.getDayNum();
+                currentYear = nextDay.getYear();
+                String currentDate = (nameOfDay + ", " + getMonth(currentMonth + 1) + " " + currentDay + ", " + currentYear);
+                textViewDate.setText(currentDate);
+                m_relativeLayout.removeAllViews();
                 List<Event> nextEvents = EventCache.getInstance().get(nextDay);
                 drawEvents(nextEvents);
             }
@@ -84,6 +96,8 @@ public class scrollingdayview extends AppCompatActivity {
         }
 
     }
+
+
 
     //Method to calculate the height of the event object in dp
 
