@@ -1,10 +1,14 @@
 package com.example.eptay.byteMeCalendar;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.provider.Settings;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -68,11 +72,14 @@ public class scrollingdayview extends AppCompatActivity{
                     double height = calculateHeightOfEvent(event);
                     double topMargin = calculateTimeDifference(event);
 
-                    //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     TextView textView = new TextView(scrollingdayview.this);
-                    //params.setMargins(LEFT, (int) topMargin, RIGHT, 50);
+                    params.setMargins(LEFT, (int) topMargin, RIGHT, 50);
                     textView.setText(event.getName());
-                    textView.setHeight((int) height);
+                    textView.setHeight((int) convertDpToPixel((float)height, getApplicationContext()));
+                    textView.setBackgroundColor(Color.parseColor("#3F51B5"));
+                    textView.setPadding(24, 0, 24, 0);
+                    textView.setWidth((int) convertDpToPixel(100, ));
                     m_linearLayout.addView(textView);
                 }
 
@@ -90,11 +97,13 @@ public class scrollingdayview extends AppCompatActivity{
                     double height = calculateHeightOfEvent(event);
                     double topMargin = calculateTimeDifference(event);
 
-                    //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     TextView textView = new TextView(scrollingdayview.this);
-                    //params.setMargins(LEFT, (int) topMargin, RIGHT, 500);
+                    params.setMargins(LEFT, (int) topMargin, RIGHT, 500);
                     textView.setText(event.getName());
-                    textView.setHeight((int) height);
+                    textView.setHeight((int) convertDpToPixel((float)height, getApplicationContext()));
+                    textView.setBackgroundColor(Color.parseColor("#000000"));
+                    textView.setPadding(24, 0, 24, 0);
                     m_linearLayout.addView(textView);
                 }
 
@@ -133,5 +142,12 @@ public class scrollingdayview extends AppCompatActivity{
         int startMinute = event.getStartingMin();
         double factor = (startMinute / 60) + startHour;
         return (factor * HOUR_HEIGHT);
+    }
+
+    public static float convertDpToPixel(float dp, Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return px;
     }
 }
