@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.eptay.byteMeCalendar">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="byteMeCalendar"
@@ -20,11 +22,16 @@
             android:name=".NavDrawer"
             android:label="@string/title_activity_nav_drawer"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".WeeklyView" />
+        <activity android:name=".AddEvent" />
         <activity android:name=".EventView" />
         <activity android:name=".TimeSelector" />
+        <activity android:name=".EditDeleteEvent"></activity>
         <activity android:name=".DateSelector" />
         <activity android:name=".scrollingdayview" />
+
         <activity android:name=".Editdeleteevent"></activity>
+
     </application>
 
 </manifest>
