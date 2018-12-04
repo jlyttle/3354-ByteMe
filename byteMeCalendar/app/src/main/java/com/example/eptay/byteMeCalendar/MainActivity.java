@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences m_preferences;
     private TableLayout m_tableLayout;
     private EventCache m_eventCache;
+    private View m_currentContextView = null;
 
     private int m_month = m_calendar.get(Calendar.MONTH);
     private int m_day = m_calendar.get(Calendar.DAY_OF_MONTH);
@@ -130,14 +131,6 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         navigationView.getMenu().getItem(0).setChecked(true);
-
-        /*m_tableLayout.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
-            @Override
-            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-                MenuInflater inflater = getMenuInflater();
-                inflater.inflate(R.menu.event_context_menu, menu);
-            }
-        });*/
     }
 
     @Override
@@ -228,24 +221,32 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.event_context_menu, menu);
 
         //TODO Check to see if view clicked is a row. If it is, get the row and set it as the current context
+        m_currentContextView = v;
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        TableRow row = (TableRow) info.targetView;
-        TextView eventIDView = (TextView) row.getChildAt(2);
-        String eventID = eventIDView.getText().toString();
-        Event selectedEvent = m_eventCache.find(eventID);
+        //AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        switch (item.getItemId()) {
-            case R.id.editMenuItem:
-                return true;
-            case R.id.deleteMenuItem:
-                m_eventCache.remove(selectedEvent);
-                return true;
-            case R.id.shareMenuItem:
-                return true;
+        if (m_currentContextView != null) {
+            TableRow row = (TableRow) m_currentContextView;
+            TextView eventIDView = (TextView) row.getChildAt(2);
+            String eventID = eventIDView.getText().toString();
+            Event selectedEvent = m_eventCache.find(eventID);
+
+            switch (item.getItemId()) {
+                case R.id.editMenuItem:
+                    return true;
+                case R.id.deleteMenuItem:
+                    m_eventCache.remove(selectedEvent);
+                    drawEvents(getOrderedEventList());
+                    return true;
+                case R.id.shareMenuItem:
+                    return true;
+                default:
+                    m_currentContextView = null;
+                    return false;
+            }
         }
         return false;
     }

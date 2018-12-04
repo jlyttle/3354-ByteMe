@@ -27,6 +27,9 @@ public class Event implements Comparable {
         m_endHour = endHour;
         m_endMin = endMin;
         m_repeatingType = repeatingType;
+        if (m_repeatingType != RepeatingType.NONE) {
+            m_repeating = true;
+        }
         m_startingDay = startDay;
         m_endingDay = endDay;
         m_category = category;

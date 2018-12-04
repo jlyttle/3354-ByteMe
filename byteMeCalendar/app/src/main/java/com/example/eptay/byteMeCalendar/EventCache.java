@@ -24,7 +24,14 @@ public class EventCache {
             Integer dayOfWeek = event.getStartDay().getDayOfWeek();
             List<Event> eventsForDay = m_repeatingEvents.get(dayOfWeek);
             eventsForDay.add(event);
-            m_repeatingEvents.put(dayOfWeek, eventsForDay);
+            if (event.getRepeatingType() == Event.RepeatingType.DAILY) {
+                for (int i = 1; i < 8; ++i) {
+                    m_repeatingEvents.put(i, eventsForDay);
+                }
+            }
+            else {
+                m_repeatingEvents.put(dayOfWeek, eventsForDay);
+            }
         }
         else {
             m_nonRepeatingEvents.add(event);
@@ -146,11 +153,15 @@ public class EventCache {
     }
 
     public void remove(Event event) {
-        m_nonRepeatingEvents.remove(event);
-        int key = event.getStartDay().getDayNum();
-        List<Event> events = m_repeatingEvents.get(key);
-        events.remove(event);
-        m_repeatingEvents.put(key, events);
+        if (m_nonRepeatingEvents != null) {
+            m_nonRepeatingEvents.remove(event);
+        }
+        if (m_repeatingEvents != null) {
+            int key = event.getStartDay().getDayOfWeek();
+            List<Event> events = m_repeatingEvents.get(key);
+            events.remove(event);
+            m_repeatingEvents.put(key, events);
+        }
     }
 
     public List<EventCategory> getCategories() {
