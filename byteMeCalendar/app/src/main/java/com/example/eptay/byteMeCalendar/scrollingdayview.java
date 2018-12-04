@@ -50,16 +50,12 @@ public class scrollingdayview extends AppCompatActivity {
         scrollView = findViewById(R.id.scrollView);
         m_relativeLayout = findViewById(R.id.eventLayout);
 
-       // View m_calendarView = findViewById(R.id.calendarView);
+        drawEvents(getOrderedEventList());
 
         //TODO refactor
-        //Calendar calendar = Calendar.getInstance();
-        Day selectedDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
         String currentDate = (nameOfDay + ", " + getMonth(currentMonth + 1) + " " + currentDay + ", " + currentYear);
-        //String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
         TextView textViewDate = findViewById(R.id.textViewDate);
         textViewDate.setText(currentDate);
-
 
         scrollView.setOnTouchListener(new OnSwipeTouchListener(scrollingdayview.this) {
             public void onSwipeRight() {
@@ -67,30 +63,7 @@ public class scrollingdayview extends AppCompatActivity {
                 m_relativeLayout.removeAllViews();
                 Day prevDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
                 List<Event> prevEvents = EventCache.getInstance().get(prevDay);
-                for (Event event : prevEvents) {
-                    double height = calculateHeightOfEvent(event);
-                    double topMargin = calculateTimeDifference(event);
-
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-                    params.topMargin = (int)convertDpToPixel((float)topMargin, getApplicationContext());
-                    params.leftMargin = 240;
-                    TextView textView = new TextView(scrollingdayview.this);
-                    //params.setMargins(LEFT, (int) topMargin, RIGHT, 50);
-                    textView.setLayoutParams(params);
-                    textView.setText(event.getName());
-                    textView.setHeight((int)convertDpToPixel((float)height, getApplicationContext()));
-                    textView.setBackgroundColor(Color.parseColor("#3F51B5"));
-                    textView.setPadding(24, 0, 24, 0);
-                    textView.setWidth((int) convertDpToPixel(200, getApplicationContext()));
-                    textView.setGravity(0x11);
-                    m_relativeLayout.addView(textView);
-                }
-
-                String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(GlobalCalendar.getInstance().getTime());
-                TextView textViewDate = findViewById(R.id.textViewDate);
-                textViewDate.setText(currentDate);
-                Toast.makeText(scrollingdayview.this, "left", Toast.LENGTH_SHORT).show();
+                drawEvents(prevEvents);
             }
 
             public void onSwipeLeft() {
@@ -98,30 +71,7 @@ public class scrollingdayview extends AppCompatActivity {
                 m_relativeLayout.removeAllViews();
                 Day nextDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
                 List<Event> nextEvents = EventCache.getInstance().get(nextDay);
-                for (Event event : nextEvents) {
-                    double height = calculateHeightOfEvent(event);
-                    double topMargin = calculateTimeDifference(event);
-
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-                    params.topMargin = (int)convertDpToPixel((float)topMargin, getApplicationContext());
-                    params.leftMargin = 240;
-                    TextView textView = new TextView(scrollingdayview.this);
-                    textView.setLayoutParams(params);
-                    textView.setText(event.getName());
-                    textView.setHeight((int)convertDpToPixel((float)height, getApplicationContext()));
-                    textView.setBackgroundColor(Color.parseColor("#3F51B5"));
-                    textView.setPadding(24, 0, 24, 0);
-                    textView.setWidth((int) convertDpToPixel(200, getApplicationContext()));
-                    textView.setGravity(0x11);
-                    m_relativeLayout.addView(textView);
-                }
-
-                String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(GlobalCalendar.getInstance().getTime());
-                TextView textViewDate = findViewById(R.id.textViewDate);
-                textViewDate.setText(currentDate);
-                Toast.makeText(scrollingdayview.this, "right", Toast.LENGTH_SHORT).show();
-
+                drawEvents(nextEvents);
             }
         });
         Log.d(TAG, "onCreate: Started.");
@@ -176,60 +126,22 @@ public class scrollingdayview extends AppCompatActivity {
 
     private void drawEvents(List<Event> events) {
         for (Event event : events) {
-            int index = 0;
-            int startHour = event.getStartingHour();
-            int startMin = event.getStartingMin();
-            boolean PM = false;
-            if (startHour > 11) {
-                PM = true;
-                if (startHour > 12) {
-                    startHour -= 12;
-                }
-            } else if (startHour == 0) {
-                startHour = 12;
-            }
-        }
-    /*Draws all events to the tablelayout
-    final int HEIGHT = 100;
-    final int TIME_WIDTH = 200;
-    final int TITLE_WIDTH = 500;
+            double height = calculateHeightOfEvent(event);
+            double topMargin = calculateTimeDifference(event);
 
-        m_tableLayout.removeAllViews();
-        for (Event event: events) {
-        int index = 0;
-        int startHour = event.getStartingHour();
-        int startMin = event.getStartingMin();
-        boolean PM = false;
-        if (startHour > 11) {
-            PM = true;
-            if (startHour > 12) {
-                startHour -= 12;
-            }
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            params.topMargin = (int)convertDpToPixel((float)topMargin, getApplicationContext());
+            params.leftMargin = 240;
+            TextView textView = new TextView(scrollingdayview.this);
+            textView.setLayoutParams(params);
+            textView.setText(event.getName());
+            textView.setHeight((int)convertDpToPixel((float)height, getApplicationContext()));
+            textView.setBackgroundColor(Color.parseColor("#3F51B5"));
+            textView.setPadding(24, 0, 24, 0);
+            textView.setWidth((int) convertDpToPixel(200, getApplicationContext()));
+            textView.setGravity(0x11);
+            m_relativeLayout.addView(textView);
         }
-        else if (startHour == 0) {
-            startHour = 12;
-        }
-        String timeStr;
-        if (startMin < 10) {
-            timeStr = PM ? startHour + ":0" + startMin + " PM" : startHour + ":0" + startMin + " AM";
-        }
-        else {
-            timeStr = PM ? startHour + ":" + startMin + " PM" : startHour + ":" + startMin + " AM";
-        }
-        TextView time = new TextView(this);
-        time.setText(timeStr);
-        TextView title = new TextView(this);
-        title.setText(event.getName());
-        TextView eventID = new TextView(this);
-        eventID.setText(event.getID());
-        eventID.setVisibility(View.INVISIBLE);
-        TableRow row = new TableRow(this);
-        row.addView(time, TIME_WIDTH, HEIGHT);
-        row.addView(title, TITLE_WIDTH, HEIGHT);
-        row.addView(eventID);
-        m_tableLayout.addView(row, index);
-        registerForContextMenu(row);
-        ++index;
-    }*/
     }
 }
