@@ -224,6 +224,8 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.event_context_menu, menu);
 
+
+
         //TODO Check to see if view clicked is a row. If it is, get the row and set it as the current context
         m_currentContextView = v;
     }
@@ -244,12 +246,21 @@ public class MainActivity extends AppCompatActivity {
                     drawEvents(getOrderedEventList());
                     return true;
                 case R.id.shareMenuItem:
+                    share(selectedEvent);
                     return true;
                 default:
                     m_currentContextView = null;
                     return false;
             }
+
         }
         return false;
+    }
+    public void  share(Event e){
+        Event[] events = {e};
+        shareEvent se = new shareEvent();
+        se.execute(e);
+
+
     }
 }
