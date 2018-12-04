@@ -226,8 +226,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        //AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-
         if (m_currentContextView != null) {
             TableRow row = (TableRow) m_currentContextView;
             TextView eventIDView = (TextView) row.getChildAt(2);
