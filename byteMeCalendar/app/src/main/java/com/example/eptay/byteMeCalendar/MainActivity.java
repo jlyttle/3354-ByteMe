@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         drawEvents(events);
 
         //On changing the date, change the text to be new date
+
         m_calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {

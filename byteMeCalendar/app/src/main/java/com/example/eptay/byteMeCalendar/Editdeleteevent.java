@@ -3,7 +3,7 @@ package com.example.eptay.byteMeCalendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class EditDeleteEvent extends AppCompatActivity {
+class EditDeleteEvent extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
