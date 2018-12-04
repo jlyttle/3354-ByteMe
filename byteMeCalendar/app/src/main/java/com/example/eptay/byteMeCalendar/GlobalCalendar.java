@@ -1,5 +1,7 @@
 package com.example.eptay.byteMeCalendar;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -31,15 +33,47 @@ public class GlobalCalendar {
     }
 
     public static void setNextDay() {
-        getInstance().add(Calendar.DATE, 1);
+        instance.add(Calendar.DATE, 1);
     }
 
     public static void setDay(int year, int month, int day) {
-        getInstance().set(year, month, day);
+        instance.set(year, month, day);
     }
 
     public static void setPrevDay() {
-        getInstance().add(Calendar.DATE, -1);
+        instance.add(Calendar.DATE, -1);
+    }
+
+    public static void setNextWeek() { instance.add(Calendar.DATE, 7); }
+
+    public static void setPrevWeek() { instance.add(Calendar.DATE, -7); }
+
+    public static Day[] getWeek() {
+        Day[] week = new Day[7];
+
+        int yearTemp = getYear();
+        int monthTemp = getMonth();
+        int dayTemp = getDayNum();
+        int dayOfWeek = getDayOfWeek() - 1;
+
+        for (int i = 0; i < dayOfWeek; ++i) {
+            setPrevDay();
+        }
+        for (int i = 0; i < 7; ++i) {
+            int year = getYear();
+            int month = getMonth();
+            int day = getDayNum();
+            week[i] = new Day(year, month, day);
+            setNextDay();
+        }
+        setDay(yearTemp, monthTemp, dayTemp);
+
+        return week;
+    }
+
+    public static String getDate() {
+        DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        return dateFormat.format(instance.getTime());
     }
 
     public static int getHour() {

@@ -14,8 +14,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.widget.AdapterView;
 import android.widget.CalendarView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -68,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.menu);
 
         //Instantiate each widget on the layout
+
         m_calendarView = findViewById(R.id.calendarView);
         m_fab = findViewById(R.id.floatingActionButton);
         m_drawerLayout = findViewById(R.id.drawer_layout);
@@ -122,8 +121,7 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(new Intent(MainActivity.this, scrollingdayview.class));
                                 break;
                             case R.id.week_view:
-                                //TODO: Fill out switch case for every activity in the drawer
-                                //startActivity(new Intent(MainActivity.this, ActivityName.class));
+                                startActivity(new Intent(MainActivity.this, WeeklyView.class));
                                 break;
                             default:
                                 break;

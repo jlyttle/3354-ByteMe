@@ -5,16 +5,11 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Day {
-    public Day(int year, int month, int day) {
-        m_year = year;
-        m_month = month;
-        m_day = day;
-        //Calendar calendar = new GregorianCalendar(year, month, day);
-        m_dayOfWeek = GlobalCalendar.getDayOfWeek();
-        m_dayName = m_weekdays[m_dayOfWeek - 1];
-    }
 
-    String[] m_weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
+    private String dayName;
+    private String date;
+    private int eventCount;
     private ArrayList<Event> m_events = new ArrayList<>();
     private int m_year;
     private int m_month;
@@ -22,13 +17,52 @@ public class Day {
     private String m_dayName;
     private int m_dayOfWeek;
 
+
+    public Day(String dayName, String date, int eventCount) {
+            this.m_dayName = dayName;
+            this.date = date;
+            this.eventCount = eventCount;
+    }
+
+    public Day(int year, int month, int day) {
+        m_year = year;
+        m_month = month;
+        m_day = day;
+        //Calendar calendar = new GregorianCalendar(year, month, day);
+        m_dayOfWeek = GlobalCalendar.getDayOfWeek();
+        m_dayName = m_weekdays[m_dayOfWeek - 1];
+        date = GlobalCalendar.getDate();
+    }
+
+    public void setDayName(String dayName) {
+        this.dayName = dayName;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getEventCount() {
+        return eventCount;
+    }
+
+    public void setEventCount(int eventCount) {
+        this.eventCount = eventCount;
+    }
+
+
+    String[] m_weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
     public int getYear() { return m_year; }
     public int getMonth() { return m_month; }
     public int getDayNum() { return m_day; }
-    public String getDayName() { return m_dayName; }
+    public String getDayName() {return m_dayName; }
     public int getDayOfWeek() { return m_dayOfWeek; }
     public ArrayList<Event> getEvents() { return m_events; }
-
     public void addEvent(Event event) { m_events.add(event); }
     public void removeEvent(Event event) throws Exception {
         if (m_events.contains(event))
@@ -42,3 +76,4 @@ public class Day {
         }
     }
 }
+
