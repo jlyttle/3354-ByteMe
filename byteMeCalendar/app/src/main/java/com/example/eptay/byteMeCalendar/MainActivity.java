@@ -73,12 +73,15 @@ public class MainActivity extends AppCompatActivity {
         m_drawerLayout = findViewById(R.id.drawer_layout);
         m_tableLayout = findViewById(R.id.tableLayout);
 
+        //TODO Remove test events
+        m_eventCache.add(new Event("Test 1", "Description 1", 12, 0, 13, 0, Event.RepeatingType.NONE, m_currentDay, m_currentDay, null));
+        m_eventCache.add(new Event("Test 2", "Description 2", 14, 30, 15, 0, Event.RepeatingType.NONE, m_currentDay, m_currentDay, null));
+
         //Create any event views that are in the cache
         List<Event> events = getOrderedEventList();
         drawEvents(events);
 
         //On changing the date, change the text to be new date
-
         m_calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
@@ -161,8 +164,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void drawEvents(List<Event> events) {
         //Draws all events to the tablelayout
+        //TODO Change to percentages
         final int HEIGHT = 100;
-        final int TIME_WIDTH = 200;
+        final int TIME_WIDTH = 250;
         final int TITLE_WIDTH = 500;
 
         m_tableLayout.removeAllViews();

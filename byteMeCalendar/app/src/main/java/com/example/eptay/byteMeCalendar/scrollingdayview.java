@@ -1,29 +1,17 @@
 package com.example.eptay.byteMeCalendar;
-//imports
+
 import android.annotation.SuppressLint;
-import android.provider.Settings;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.text.DateFormatSymbols;
-
-
-import org.w3c.dom.Text;
 
 import java.text.DateFormat;
-import java.util.Calendar;
+import java.text.DateFormatSymbols;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 //scrollingdayview class
@@ -43,6 +31,7 @@ public class scrollingdayview extends AppCompatActivity {
     int currentDay = GlobalCalendar.getDayNum();
     Day selectedDay = new Day(currentYear, currentMonth, currentDay);
     String nameOfDay = selectedDay.getDayName();
+    private LinearLayout m_linearLayout;
 
     public String getMonth(int month) {
         return new DateFormatSymbols().getMonths()[month - 1];
@@ -54,8 +43,9 @@ public class scrollingdayview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrollingdayview);
         scrollView = findViewById(R.id.scrollView);
+        m_linearLayout = findViewById(R.id.eventLayout);
 
-        View m_calendarView = findViewById(R.id.calendarView);
+       // View m_calendarView = findViewById(R.id.calendarView);
 
         //TODO refactor
         //Calendar calendar = Calendar.getInstance();
@@ -66,22 +56,22 @@ public class scrollingdayview extends AppCompatActivity {
         textViewDate.setText(currentDate);
 
 
-        List<Event> events = getOrderedEventList();
-        drawEvents(events);
-
         scrollView.setOnTouchListener(new OnSwipeTouchListener(scrollingdayview.this) {
             public void onSwipeRight() {
                 GlobalCalendar.setPrevDay();
+                m_linearLayout.removeAllViews();
                 Day prevDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
                 List<Event> prevEvents = EventCache.getInstance().get(prevDay);
                 for (Event event : prevEvents) {
                     double height = calculateHeightOfEvent(event);
                     double topMargin = calculateTimeDifference(event);
 
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     TextView textView = new TextView(scrollingdayview.this);
-                    params.setMargins(LEFT, (int) topMargin, RIGHT, 50);
+                    //params.setMargins(LEFT, (int) topMargin, RIGHT, 50);
                     textView.setText(event.getName());
+                    textView.setHeight((int) height);
+                    m_linearLayout.addView(textView);
                 }
 
                 String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(GlobalCalendar.getInstance().getTime());
@@ -92,16 +82,19 @@ public class scrollingdayview extends AppCompatActivity {
 
             public void onSwipeLeft() {
                 GlobalCalendar.setNextDay();
+                m_linearLayout.removeAllViews();
                 Day nextDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
                 List<Event> nextEvents = EventCache.getInstance().get(nextDay);
                 for (Event event : nextEvents) {
                     double height = calculateHeightOfEvent(event);
                     double topMargin = calculateTimeDifference(event);
 
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     TextView textView = new TextView(scrollingdayview.this);
-                    params.setMargins(LEFT, (int) topMargin, RIGHT, 50);
+                    //params.setMargins(LEFT, (int) topMargin, RIGHT, 500);
                     textView.setText(event.getName());
+                    textView.setHeight((int) height);
+                    m_linearLayout.addView(textView);
                 }
 
                 String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(GlobalCalendar.getInstance().getTime());

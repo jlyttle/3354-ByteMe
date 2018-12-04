@@ -332,7 +332,11 @@
             <LinearLayout
                 android:id="@+id/eventLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="1464dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
                 android:orientation="vertical">
 
 
