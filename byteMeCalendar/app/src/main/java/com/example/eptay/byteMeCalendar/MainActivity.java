@@ -1,5 +1,6 @@
 package com.example.eptay.byteMeCalendar;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
@@ -18,14 +19,8 @@ import android.widget.CalendarView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import com.google.gson.Gson;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,11 +32,13 @@ public class MainActivity extends AppCompatActivity {
     private TableLayout m_tableLayout;
     private EventCache m_eventCache;
     private View m_currentContextView = null;
+    private Event m_selectedEvent = null;
 
     private int m_day = GlobalCalendar.getDayNum();
     private int m_month = GlobalCalendar.getMonth();
     private int m_year = GlobalCalendar.getYear();
     private Day m_currentDay = new Day(m_year, m_month, m_day);
+    private final int EDIT_EVENT = 0;
 
     /* METHODS */
     @Override
@@ -211,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.getMenu().getItem(0).setChecked(true);
         m_calendarView.setDate(GlobalCalendar.getInstance().getTimeInMillis());
+        m_currentDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
 
         //Check to see if any events were added to current day and draw again
         List<Event> events = getOrderedEventList();
@@ -232,17 +230,25 @@ public class MainActivity extends AppCompatActivity {
             TableRow row = (TableRow) m_currentContextView;
             TextView eventIDView = (TextView) row.getChildAt(2);
             String eventID = eventIDView.getText().toString();
-            Event selectedEvent = m_eventCache.find(eventID);
+            m_selectedEvent = m_eventCache.find(eventID);
 
             switch (item.getItemId()) {
                 case R.id.editMenuItem:
+                    Intent intent = new Intent(MainActivity.this, EventView.class);
+                    intent.putExtra("title", m_selectedEvent.getName());
+                    intent.putExtra("description", m_selectedEvent.getDescription());
+                    intent.putExtra("startHour", m_selectedEvent.getStartingHour());
+                    intent.putExtra("startMin", m_selectedEvent.getStartingMin());
+                    intent.putExtra("endHour", m_selectedEvent.getEndingHour());
+                    intent.putExtra("endMin", m_selectedEvent.getEndingMin());
+                    startActivityForResult(intent, EDIT_EVENT);
                     return true;
                 case R.id.deleteMenuItem:
-                    m_eventCache.remove(selectedEvent);
+                    m_eventCache.remove(m_selectedEvent);
                     drawEvents(getOrderedEventList());
                     return true;
                 case R.id.shareMenuItem:
-                    share(selectedEvent);
+                    share(m_selectedEvent);
                     return true;
                 default:
                     m_currentContextView = null;
@@ -252,9 +258,21 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-    public void  share(Event e){
+    public void  share(Event e) {
         Event[] events = {e};
         shareEvent se = new shareEvent();
         se.execute(e);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case EDIT_EVENT:
+                if (resultCode == Activity.RESULT_OK) {
+                    m_eventCache.remove(m_selectedEvent);
+                    drawEvents(getOrderedEventList());
+                }
+        }
     }
 }

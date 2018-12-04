@@ -16,8 +16,8 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 public class EventView extends AppCompatActivity {
-    private TextView startTimeText;
-    private TextView endTimeText;
+    private TextView m_startTimeText;
+    private TextView m_endTimeText;
     private TextView title;
     private TextView description;
     private EventCategory category;
@@ -58,15 +58,27 @@ public class EventView extends AppCompatActivity {
         repeatMode = findViewById(R.id.spinner);
         selectCategory = findViewById(R.id.spinner2);
         addEvent = findViewById(R.id.accept);
+        m_startTimeText = findViewById(R.id.startingTimeID);
+        m_endTimeText = findViewById(R.id.endingTimeID);
 
-        if (savedInstanceState != null) {
+        /*if (savedInstanceState != null) {
             title.setText(savedInstanceState.getString("title"));
             description.setText(savedInstanceState.getString("description"));
             startHour = savedInstanceState.getInt("startHour");
             startMinute = savedInstanceState.getInt("startMin");
             endHour = savedInstanceState.getInt("endHour");
             endMinute = savedInstanceState.getInt("endMin");
-        }
+        }*/
+        title.setText(getIntent().getStringExtra("title"));
+        description.setText(getIntent().getStringExtra("description"));
+        startHour = getIntent().getIntExtra("startHour", 0);
+        startMinute = getIntent().getIntExtra("startMin", 0);
+        endHour = getIntent().getIntExtra("endHour", 0);
+        endMinute = getIntent().getIntExtra("endMin", 0);
+        String startTime = convertTime(startHour, startMinute);
+        m_startTimeText.setText(startTime);
+        String endTime = convertTime(endHour, endMinute);
+        m_endTimeText.setText(endTime);
 
         String[] modes = {"None", "Daily", "Weekly", "Monthly"};
         repeatMode.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, modes));
@@ -146,8 +158,7 @@ public class EventView extends AppCompatActivity {
                     startHour = data.getIntExtra("hour", GlobalCalendar.getHour());
                     startMinute = data.getIntExtra("minute", GlobalCalendar.getMinute());
                     String startTime = convertTime(startHour,startMinute);
-                    TextView startTimeText = (TextView) findViewById(R.id.startingTimeID);
-                    startTimeText.setText(startTime);
+                    m_startTimeText.setText(startTime);
                     System.out.println(startMinute);
                 }
                 break;
@@ -168,8 +179,7 @@ public class EventView extends AppCompatActivity {
                     endHour = data.getIntExtra("hour", GlobalCalendar.getHour());
                     endMinute = data.getIntExtra("minute", GlobalCalendar.getMinute());
                     String endTime = convertTime(endHour,endMinute);
-                    endTimeText = findViewById(R.id.endingTimeID);
-                    endTimeText.setText(endTime);
+                    m_endTimeText.setText(endTime);
                 }
                 break;
         }

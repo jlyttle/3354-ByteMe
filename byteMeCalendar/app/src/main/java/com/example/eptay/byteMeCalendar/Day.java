@@ -75,5 +75,9 @@ public class Day {
             throw new Exception("Could not find event to remove: " + event);
         }
     }
+
+    public String toString() {
+        return m_dayName + ", " + (m_month + 1) + "/" + m_day + "/" + m_year;
+    }
 }
 

@@ -23,7 +23,7 @@ app.post("/send", (req, res) => {
 
     const receivingPhoneNumber = '+19564550732';
     const url = 'http://calender.com/share/?' +title +'/' +desc +'/' + startDay +
-    '/' + endDay +'/' +startMin + '/' +endDay + '/' +startMin +'/'+startHour+'/'+endMin+'/'+endHour;
+    '/' + endDay +'/' + startHour + ':' + startMin +'/'+endHour + ':' + endMin;
 
     console.log(url);
    

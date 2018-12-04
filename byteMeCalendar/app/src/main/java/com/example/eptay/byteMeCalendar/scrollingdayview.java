@@ -55,6 +55,7 @@ public class scrollingdayview extends AppCompatActivity {
         //TODO refactor
         String currentDate = (nameOfDay + ", " + getMonth(currentMonth + 1) + " " + currentDay + ", " + currentYear);
         final TextView textViewDate = findViewById(R.id.textViewDate);
+        textViewDate.setTextColor(Color.parseColor("#FFFFFF"));
         textViewDate.setText(currentDate);
 
         scrollView.setOnTouchListener(new OnSwipeTouchListener(scrollingdayview.this) {
@@ -151,7 +152,8 @@ public class scrollingdayview extends AppCompatActivity {
             textView.setLayoutParams(params);
             textView.setText(event.getName());
             textView.setHeight((int)convertDpToPixel((float)height, getApplicationContext()));
-            textView.setBackgroundColor(Color.parseColor("#3F51B5"));
+            textView.setBackgroundColor(Color.parseColor("#C75B12"));
+            textView.setTextColor(Color.parseColor("#FFFFFF"));
             textView.setPadding(24, 0, 24, 0);
             textView.setWidth((int) convertDpToPixel(200, getApplicationContext()));
             textView.setGravity(0x11);
