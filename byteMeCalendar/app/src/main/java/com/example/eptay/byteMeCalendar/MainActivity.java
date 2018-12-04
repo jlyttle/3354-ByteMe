@@ -232,8 +232,16 @@ public class MainActivity extends AppCompatActivity {
                 m_eventCache.remove(selectedEvent);
                 return true;
             case R.id.shareMenuItem:
+                share(selectedEvent);
                 return true;
         }
         return false;
+    }
+    public void  share(Event e){
+        Event[] events = {e};
+        shareEvent se = new shareEvent();
+        se.execute(e);
+
+
     }
 }
