@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton m_fab;
     private SharedPreferences m_preferences;
     private TableLayout m_tableLayout;
+    private NavigationView m_navigationView;
     private EventCache m_eventCache;
     private View m_currentContextView = null;
     private Event m_selectedEvent = null;
@@ -56,42 +57,36 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Setup toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.menu);
 
         //Instantiate each widget on the layout
-
         m_calendarView = findViewById(R.id.calendarView);
         m_fab = findViewById(R.id.floatingActionButton);
         m_drawerLayout = findViewById(R.id.drawer_layout);
         m_tableLayout = findViewById(R.id.tableLayout);
-
-        //TODO Remove test events
-        m_eventCache.add(new Event("Test 1", "Description 1", 12, 0, 13, 0, Event.RepeatingType.NONE, m_currentDay, m_currentDay, null));
-        m_eventCache.add(new Event("Test 2", "Description 2", 14, 30, 15, 0, Event.RepeatingType.NONE, m_currentDay, m_currentDay, null));
+        m_navigationView = findViewById(R.id.nav_view);
 
         //Create any event views that are in the cache
-        List<Event> events = getOrderedEventList();
-        drawEvents(events);
+        drawEvents(getOrderedEventList());
 
-        //On changing the date, change the text to be new date
+        //On changing the date, set the date in the global calendar and draw any events
         m_calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
                 m_year = year;
                 m_month = month;
                 m_day = day;
-                //setTitle("Date: " + (month + 1) + " / " + day + " / " + year);
                 GlobalCalendar.setDay(m_year, m_month, m_day);
                 m_currentDay = new Day(m_year, m_month, m_day);
                 drawEvents(getOrderedEventList());
             }
         });
 
-        //TODO: On clicking the action button, should change view to event adding form
+        //Go to the event add view when clicking on the action button
         m_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,22 +94,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.bringToFront();
-        navigationView.setNavigationItemSelectedListener(
+        //Set menu items in the navigation view to start their respective activities
+        m_navigationView.bringToFront();
+        m_navigationView.getMenu().getItem(0).setChecked(true);
+        m_navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
+                        //Set item as selected to persist highlight
                         menuItem.setChecked(true);
 
-                        // close drawer when item is tapped
+                        //Close drawer when item is tapped
                         m_drawerLayout.closeDrawers();
 
                         switch (menuItem.getItemId()) {
                             case R.id.day_view:
-                                //TODO: Fill out switch case for every activity in the drawer
-                                //setContentView(R.layout.activity_dayviewactivity);
                                 startActivity(new Intent(MainActivity.this, scrollingdayview.class));
                                 break;
                             case R.id.week_view:
@@ -127,10 +121,9 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-
-        navigationView.getMenu().getItem(0).setChecked(true);
     }
 
+    //Open the navigation drawer when the menu is clicked
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -141,8 +134,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //On closing the app, save the event cache to storage
     @Override
     protected void onDestroy() {
+        //TODO Check if this works
         super.onDestroy();
         SharedPreferences.Editor prefsEditor = m_preferences.edit();
         Gson gson = new Gson();
@@ -159,10 +154,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void drawEvents(List<Event> events) {
         //Draws all events to the tablelayout
-        //TODO Change to percentages
-        final int HEIGHT = 100;
-        final int TIME_WIDTH = 250;
-        final int TITLE_WIDTH = 500;
+        final int HEIGHT = (int)ViewUtils.convertDpToPixel(25, MainActivity.this);
+        final int TIME_WIDTH = (int)ViewUtils.convertDpToPixel(100, MainActivity.this);
+        final int TITLE_WIDTH = (int)ViewUtils.convertDpToPixel(350, MainActivity.this);
 
         m_tableLayout.removeAllViews();
         for (Event event: events) {

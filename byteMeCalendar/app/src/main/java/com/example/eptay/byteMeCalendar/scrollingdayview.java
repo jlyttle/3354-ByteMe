@@ -19,14 +19,10 @@ import java.text.DateFormatSymbols;
 import java.util.Collections;
 import java.util.List;
 
-//scrollingdayview class
 public class scrollingdayview extends AppCompatActivity {
-
-
-    //variables
+    /* MEMBER VARIABLES */
     private static final String TAG = "scrollingdayview";
-    private static final int HOUR_HEIGHT = 61; //Each hour
-    // in the scroll view is 61dp
+    private static final int HOUR_HEIGHT = 61; //Each hour in the scroll view is 61dp
     private ScrollView scrollView;
     private final int LEFT = 100;
     private final int RIGHT = 300;
@@ -88,19 +84,7 @@ public class scrollingdayview extends AppCompatActivity {
             }
         });
         Log.d(TAG, "onCreate: Started.");
-
-        Day day = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
-        EventCache eventCache = EventCache.getInstance();
-        List<Event> eventArrayList = eventCache.get(day);
-        for (Event event : eventArrayList) {
-
-        }
-
     }
-
-
-
-    //Method to calculate the height of the event object in dp
 
     /**
      * This method takes in an event and calculates the height of the event object in dp
@@ -132,13 +116,6 @@ public class scrollingdayview extends AppCompatActivity {
         return (factor * HOUR_HEIGHT);
     }
 
-    public static float convertDpToPixel(float dp, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        return px;
-    }
-
     private void drawEvents(List<Event> events) {
         for (Event event : events) {
             double height = calculateHeightOfEvent(event);
@@ -146,16 +123,16 @@ public class scrollingdayview extends AppCompatActivity {
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-            params.topMargin = (int)convertDpToPixel((float)topMargin, getApplicationContext());
+            params.topMargin = (int)ViewUtils.convertDpToPixel((float)topMargin, getApplicationContext());
             params.leftMargin = 240;
             TextView textView = new TextView(scrollingdayview.this);
             textView.setLayoutParams(params);
             textView.setText(event.getName());
-            textView.setHeight((int)convertDpToPixel((float)height, getApplicationContext()));
+            textView.setHeight((int)ViewUtils.convertDpToPixel((float)height, getApplicationContext()));
             textView.setBackgroundColor(Color.parseColor("#C75B12"));
             textView.setTextColor(Color.parseColor("#FFFFFF"));
             textView.setPadding(24, 0, 24, 0);
-            textView.setWidth((int) convertDpToPixel(200, getApplicationContext()));
+            textView.setWidth((int)ViewUtils.convertDpToPixel(200, getApplicationContext()));
             textView.setGravity(0x11);
             m_relativeLayout.addView(textView);
         }
