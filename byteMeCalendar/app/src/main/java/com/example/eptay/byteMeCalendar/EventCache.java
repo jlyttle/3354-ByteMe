@@ -171,7 +171,7 @@ public class EventCache {
         return null;
     }
 
-    public void remove(Event event) {
+    public void remove(Event event) throws NullPointerException {
         if (m_nonRepeatingEvents != null) {
             m_nonRepeatingEvents.remove(event);
         }

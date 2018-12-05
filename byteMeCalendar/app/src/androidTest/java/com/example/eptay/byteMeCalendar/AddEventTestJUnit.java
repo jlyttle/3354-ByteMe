@@ -17,6 +17,7 @@ public class AddEventTestJUnit {
     public void testAddEvent1() {
         Event event = new Event("Name", "Description", 12, 0, 13, 0, Event.RepeatingType.NONE, today, today, null);
         eventCache.add(event);
+        eventCache.remove(event);
     }
 
     @Test (expected = IllegalArgumentException.class) //Test with null values for members of the event
