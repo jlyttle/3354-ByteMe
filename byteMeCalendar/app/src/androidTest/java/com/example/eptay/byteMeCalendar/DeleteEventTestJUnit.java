@@ -17,7 +17,7 @@ public class DeleteEventTestJUnit {
     }
 
     @Test
-    public void testDelete1() {
+    public void testDelete1() { //Test with valid values
         event = new Event("Name", "Description", 12, 0, 13, 0, Event.RepeatingType.NONE, today, today, null);
         eventCache.add(event);
         eventCache.remove(event);
@@ -25,7 +25,7 @@ public class DeleteEventTestJUnit {
         assertTrue(event == null);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = NullPointerException.class) //Test for removing a null event
     public void testDelete2(){
         event = null;
         eventCache.remove(event);
