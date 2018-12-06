@@ -4,27 +4,16 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.GestureDetector;
-import android.view.GestureDetector.OnGestureListener;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TableLayout;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 
-public class WeeklyView extends AppCompatActivity {
+public class WeekView extends AppCompatActivity {
 
     public static ArrayList<Day> weekList = new ArrayList<>();
     private ConstraintLayout m_constraintLayout;
@@ -35,9 +24,9 @@ public class WeeklyView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         weekList.clear();
-        final WeekListAdapter adapter = new WeekListAdapter(this, R.layout.weekly_view_layout, weekList);
+        final WeekListAdapter adapter = new WeekListAdapter(this, R.layout.week_view_layout, weekList);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weekly_view);
+        setContentView(R.layout.activity_week_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -53,7 +42,7 @@ public class WeeklyView extends AppCompatActivity {
 
         m_constraintLayout = findViewById(R.id.weekLayout);
 
-        m_constraintLayout.setOnTouchListener(new OnSwipeTouchListener(WeeklyView.this) {
+        m_constraintLayout.setOnTouchListener(new OnSwipeTouchListener(WeekView.this) {
             public void onSwipeRight() {
                 //Go to previous week
                 GlobalCalendar.setPrevWeek();
@@ -84,7 +73,7 @@ public class WeeklyView extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Day currentDay = m_week[position];
                 GlobalCalendar.setDay(currentDay.getYear(), currentDay.getMonth(), currentDay.getDayNum());
-                startActivity(new Intent(WeeklyView.this, scrollingdayview.class));
+                startActivity(new Intent(WeekView.this, DayView.class));
             }
         });
 

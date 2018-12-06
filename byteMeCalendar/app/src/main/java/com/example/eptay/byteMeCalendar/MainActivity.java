@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private int m_year = GlobalCalendar.getYear();
     private Day m_currentDay = new Day(m_year, m_month, m_day);
     private final int EDIT_EVENT = 0;
+    private final int SHARE_EVENT = 1;
 
     /* METHODS */
     @Override
@@ -109,10 +110,10 @@ public class MainActivity extends AppCompatActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.day_view:
-                                startActivity(new Intent(MainActivity.this, scrollingdayview.class));
+                                startActivity(new Intent(MainActivity.this, DayView.class));
                                 break;
                             case R.id.week_view:
-                                startActivity(new Intent(MainActivity.this, WeeklyView.class));
+                                startActivity(new Intent(MainActivity.this, WeekView.class));
                                 break;
                             default:
                                 break;
@@ -242,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
                     drawEvents(getOrderedEventList());
                     return true;
                 case R.id.shareMenuItem:
+                    startActivityForResult(new Intent(MainActivity.this, ShareView.class), SHARE_EVENT);
                     share(m_selectedEvent);
                     return true;
                 default:
@@ -252,9 +254,9 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-    public void  share(Event e) {
-        Event[] events = {e};
-        shareEvent se = new shareEvent();
+
+    public void share(Event e) {
+        ShareEvent se = new ShareEvent();
         se.execute(e);
     }
 
@@ -266,6 +268,12 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == Activity.RESULT_OK) {
                     m_eventCache.remove(m_selectedEvent);
                     drawEvents(getOrderedEventList());
+                }
+                break;
+            case SHARE_EVENT:
+                if (resultCode == Activity.RESULT_OK) {
+                    //int phoneNum = data.
+                    share(m_selectedEvent);
                 }
         }
     }
