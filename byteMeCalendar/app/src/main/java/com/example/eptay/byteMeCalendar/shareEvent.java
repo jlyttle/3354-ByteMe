@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 
 import com.goebl.david.Webb;
 
-public class ShareEvent extends AsyncTask <Event, Void, String> {
+public class shareEvent extends AsyncTask <Event, Void, String> {
     @Override
     protected String doInBackground(Event... events) {
         String title, desc, start, end;

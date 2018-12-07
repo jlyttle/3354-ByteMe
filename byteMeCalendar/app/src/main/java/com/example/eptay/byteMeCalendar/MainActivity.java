@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void share(Event e) {
-        ShareEvent se = new ShareEvent();
+        shareEvent se = new shareEvent();
         se.execute(e);
     }
 

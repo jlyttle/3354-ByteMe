@@ -31,4 +31,30 @@ public class DeleteEventTestJUnit {
         eventCache.remove(event);
     }
 
-}
+    @Test // Test for removing a repeating event that repeats daily
+    public void testDelete3(){
+        event = new Event("Name", "Description", 12, 0, 13, 0, Event.RepeatingType.DAILY, today, today, null);
+        eventCache.add(event);
+        eventCache.remove(event);
+        event = eventCache.find(event.getID());
+        assertTrue(event == null);
+    }
+
+    @Test // Test for removing a repeating event that repeats monthly
+    public void testDelete4(){
+        event = new Event("Name", "Description", 12, 0, 13, 0, Event.RepeatingType.MONTHLY, today, today, null);
+        eventCache.add(event);
+        eventCache.remove(event);
+        event = eventCache.find(event.getID());
+        assertTrue(event == null);
+    }
+
+
+
+
+
+
+
+
+
+    }
