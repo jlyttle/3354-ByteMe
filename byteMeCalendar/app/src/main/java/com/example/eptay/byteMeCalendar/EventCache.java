@@ -21,11 +21,15 @@ public class EventCache {
     static {
         instance = new EventCache();
     }
-
     public static EventCache getInstance() {
         return instance;
     }
 
+    /**
+     * This method takes an event and runs various logic statements to determine add
+     * @param event
+     * @return void
+     */
     public void add(Event event) throws IllegalArgumentException {
         if (event == null) {
             throw new IllegalArgumentException("Cannot add a null event object.");
@@ -73,6 +77,11 @@ public class EventCache {
         }
     }
 
+    /**
+     * This method takes in a day object and determines if repeating and how often
+     * @param day
+     * @return events
+     */
     public List<Event> get(Day day) {
         List<Event> events = new ArrayList<>();
 
@@ -161,6 +170,11 @@ public class EventCache {
         return events;
     }
 
+    /**
+     * This method takes in a string id and finds events
+     * @param id
+     * @return null or event
+     */
     public Event find(String id) {
         for (Event event: m_nonRepeatingEvents) {
             if (event.getID().equals(id)) {
@@ -183,6 +197,11 @@ public class EventCache {
         return null;
     }
 
+    /**
+     * This method takes in a event object and removes it
+     * @param event
+     * @return void
+     */
     public void remove(Event event) throws NullPointerException {
         if (event == null) {
             throw new NullPointerException("Could not remove a null event.");
@@ -201,6 +220,10 @@ public class EventCache {
         }
     }
 
+    /**
+     * This method returns event categories
+     * @return m_eventCategories
+     */
     public List<Event.CategoryType> getCategories() {
         return m_eventCategories;
     }

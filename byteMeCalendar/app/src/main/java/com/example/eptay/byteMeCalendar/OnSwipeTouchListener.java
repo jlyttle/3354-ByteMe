@@ -19,6 +19,11 @@ public class OnSwipeTouchListener implements OnTouchListener {
     private final GestureDetector gestureDetector;
 
     /* METHODS */
+    /**
+     * This method takes in a context and determines gesture
+     * @param context
+     * @return n/a
+     */
     public OnSwipeTouchListener(Context context) {
         gestureDetector = new GestureDetector(context, new GestureListener());
     }
@@ -29,6 +34,12 @@ public class OnSwipeTouchListener implements OnTouchListener {
     public void onSwipeRight() {
     }
 
+    /**
+     * This method detects event touch
+     * @param v
+     * @param event
+     * @return detector on event
+     */
     public boolean onTouch(View v, MotionEvent event) {
         return gestureDetector.onTouchEvent(event);
     }
@@ -40,10 +51,23 @@ public class OnSwipeTouchListener implements OnTouchListener {
         private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
         @Override
+        /**
+         * Method for down gesture
+         * @param e
+         * @return true
+         */
         public boolean onDown(MotionEvent e) {
             return true;
         }
 
+        /**
+         * Method for fling gesture
+         * @param e1
+         * @param e2
+         * @param velocityX
+         * @param velocityY
+         * @return boolean
+         */
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             float distanceX = e2.getX() - e1.getX();

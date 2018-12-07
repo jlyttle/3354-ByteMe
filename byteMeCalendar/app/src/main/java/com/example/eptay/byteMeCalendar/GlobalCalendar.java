@@ -49,10 +49,18 @@ public class GlobalCalendar {
         instance.add(Calendar.DATE, -1);
     }
 
-    public static void setNextWeek() { instance.add(Calendar.DATE, 7); }
+    public static void setNextWeek() {
+        instance.add(Calendar.DATE, 7);
+    }
 
-    public static void setPrevWeek() { instance.add(Calendar.DATE, -7); }
+    public static void setPrevWeek() {
+        instance.add(Calendar.DATE, -7);
+    }
 
+    /**
+     * This method does not take any parameters. This method calculates the days and gets the week
+     * @return week
+     */
     public static Day[] getWeek() {
         Day[] week = new Day[7];
 
@@ -76,6 +84,10 @@ public class GlobalCalendar {
         return week;
     }
 
+    /**
+     * This method does not take in any parameters. It returns the date in a specific format
+     * @return formated date
+     */
     public static String getDate() {
         DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
         return dateFormat.format(instance.getTime());
