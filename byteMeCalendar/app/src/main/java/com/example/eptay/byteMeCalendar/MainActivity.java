@@ -53,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
         m_preferences = getPreferences(MODE_PRIVATE);
 
         //Retrieve event cache from shared preferences
-     /*   Gson gson = new Gson();
+        Gson gson = new Gson();
         String json = m_preferences.getString("EventCache", "");
-        m_eventCache = gson.fromJson(json, EventCache.class);*/
+        m_eventCache = gson.fromJson(json, EventCache.class);
         if (m_eventCache == null) {
             m_eventCache = EventCache.getInstance();
         }
