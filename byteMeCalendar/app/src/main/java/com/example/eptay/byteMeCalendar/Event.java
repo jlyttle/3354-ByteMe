@@ -26,7 +26,6 @@ public class Event implements Comparable {
     private RepeatingType m_repeatingType;
     private String m_eventID = UUID.randomUUID().toString();
 
-
     /* METHODS */
     public Event(String name, String description, int startHour, int startMin, int endHour, int endMin, RepeatingType repeatingType, Day startDay, Day endDay, CategoryType categoryType) {
         m_name = name;
