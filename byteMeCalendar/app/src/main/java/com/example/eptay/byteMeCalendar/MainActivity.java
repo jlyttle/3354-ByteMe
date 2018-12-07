@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     private int m_year = GlobalCalendar.getYear();
     private Day m_currentDay = new Day(m_year, m_month, m_day);
     private final int EDIT_EVENT = 0;
-    private final int SHARE_EVENT = 1;
 
     /* METHODS */
     @Override
@@ -54,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
         m_preferences = getPreferences(MODE_PRIVATE);
 
         //Retrieve event cache from shared preferences
-        Gson gson = new Gson();
+     /*   Gson gson = new Gson();
         String json = m_preferences.getString("EventCache", "");
-        m_eventCache = gson.fromJson(json, EventCache.class);
+        m_eventCache = gson.fromJson(json, EventCache.class);*/
         if (m_eventCache == null) {
             m_eventCache = EventCache.getInstance();
         }
@@ -233,10 +232,11 @@ public class MainActivity extends AppCompatActivity {
             TextView eventIDView = (TextView) row.getChildAt(2);
             String eventID = eventIDView.getText().toString();
             m_selectedEvent = m_eventCache.find(eventID);
+            Intent intent;
 
             switch (item.getItemId()) {
                 case R.id.editMenuItem:
-                    Intent intent = new Intent(MainActivity.this, EventView.class);
+                    intent = new Intent(MainActivity.this, EventView.class);
                     intent.putExtra("title", m_selectedEvent.getName());
                     intent.putExtra("description", m_selectedEvent.getDescription());
                     intent.putExtra("startHour", m_selectedEvent.getStartingHour());
@@ -250,8 +250,9 @@ public class MainActivity extends AppCompatActivity {
                     drawEvents(getOrderedEventList());
                     return true;
                 case R.id.shareMenuItem:
-                    startActivityForResult(new Intent(MainActivity.this, ShareView.class), SHARE_EVENT);
-                    //share(m_selectedEvent);
+                    intent = new Intent(MainActivity.this, ShareView.class);
+                    intent.putExtra("eventID", m_selectedEvent.getID());
+                    startActivity(intent);
                     return true;
                 default:
                     m_currentContextView = null;
@@ -260,11 +261,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
         return false;
-    }
-
-    public void share(Event e, String phoneNum) {
-        ShareEvent se = new ShareEvent(phoneNum);
-        se.execute(e);
     }
 
     @Override
@@ -277,11 +273,6 @@ public class MainActivity extends AppCompatActivity {
                     drawEvents(getOrderedEventList());
                 }
                 break;
-            case SHARE_EVENT:
-                if (resultCode == Activity.RESULT_OK) {
-                    //String phoneNum = data.getStringExtra("phoneNum");
-                    //share(m_selectedEvent, phoneNum);
-                }
         }
     }
 }

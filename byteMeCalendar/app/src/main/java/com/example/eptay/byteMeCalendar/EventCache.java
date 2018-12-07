@@ -11,7 +11,6 @@ import java.util.List;
 
 
 public class EventCache {
-
     /* MEMBER VARIABLES */
     private static EventCache instance;
     private List<Event> m_nonRepeatingEvents = new ArrayList<>();
@@ -164,7 +163,7 @@ public class EventCache {
 
     public Event find(String id) {
         for (Event event: m_nonRepeatingEvents) {
-            if (event.getID() == id) {
+            if (event.getID().equals(id)) {
                 return event;
             }
         }
@@ -175,7 +174,7 @@ public class EventCache {
             List<Event> repeatingEvents = (List)pair.getValue();
 
             for (Event event: repeatingEvents) {
-                if (event.getID() == id) {
+                if (event.getID().equals(id)) {
                     return event;
                 }
             }
