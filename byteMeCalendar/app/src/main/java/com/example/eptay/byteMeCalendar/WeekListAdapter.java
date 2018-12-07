@@ -2,7 +2,6 @@ package com.example.eptay.byteMeCalendar;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +10,22 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/*
+    Class used to format information that will be passed into an adapter for the weeklist. 
+*/
+
 public class WeekListAdapter extends ArrayAdapter<Day> {
 
+    /* MEMBER VARIABLES */
     private static final String TAG = "WeekListAdapter";
-    private Context mContext;
-    int mResource;
+    private Context m_Context;
+    private int m_Resource;
 
+    /* METHODS */
     public WeekListAdapter(Context context, int resource, ArrayList<Day> objects ) {
         super(context, resource, objects);
-        mContext = context;
-        mResource = resource;
+        m_Context = context;
+        m_Resource = resource;
     }
 
     @Override
@@ -32,8 +37,8 @@ public class WeekListAdapter extends ArrayAdapter<Day> {
         String stringEventCount = Integer.toString(eventCount);
         //Day day = new Day(dayName,date,eventCount);
 
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        convertView = inflater.inflate(mResource,parent,false);
+        LayoutInflater inflater = LayoutInflater.from(m_Context);
+        convertView = inflater.inflate(m_Resource,parent,false);
 
         TextView tvDayName = (TextView) convertView.findViewById(R.id.textView1);
         TextView tvDate = (TextView) convertView.findViewById(R.id.textView2);

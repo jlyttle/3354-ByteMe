@@ -17,11 +17,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+/*
+
+*/
+
 public class ShareView extends AppCompatActivity {
     private Button button;
     private TextView numField;
     private String m_phoneNum;
 
+    /* METHODS */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

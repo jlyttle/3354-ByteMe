@@ -5,12 +5,20 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+/*
+    Singleton class store event objects
+*/
+
+
 public class EventCache {
+
+    /* MEMBER VARIABLES */
     private static EventCache instance;
     private List<Event> m_nonRepeatingEvents = new ArrayList<>();
     private HashMap<Integer, List<Event>> m_repeatingEvents = new HashMap();
     private List<EventCategory> m_eventCategories = new ArrayList<>();
 
+    /* METHODS */
     static {
         instance = new EventCache();
     }

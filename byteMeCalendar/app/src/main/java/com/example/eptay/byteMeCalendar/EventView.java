@@ -2,20 +2,18 @@ package com.example.eptay.byteMeCalendar;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class EventView extends AppCompatActivity {
+    /* MEMBER VARIABLES */
     private TextView m_startTimeText;
     private TextView m_endTimeText;
     private TextView title;
@@ -30,7 +28,6 @@ public class EventView extends AppCompatActivity {
     private final int TIME_START_SELECTOR = 1;
     private final int DATE_END_SELECTOR = 2;
     private final int TIME_END_SELECTOR = 3;
-
     private int startYear = GlobalCalendar.getYear();
     private int startMonth = GlobalCalendar.getMonth();
     private int startDayNum = GlobalCalendar.getDayNum();
@@ -39,14 +36,13 @@ public class EventView extends AppCompatActivity {
     private int endDayNum = GlobalCalendar.getDayNum();
     private Day startDay = new Day(startYear, startMonth, startDayNum);
     private Day endDay = new Day(endYear, endMonth, endDayNum);
-
     private int startHour;
     private int startMinute;
     private int endHour;
     private int endMinute;
-
     private Event.RepeatingType repeatType;
 
+    /* METHODS */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -176,6 +172,7 @@ public class EventView extends AppCompatActivity {
                 break;
         }
     }
+
 
     public String convertTime(int hour , int minute){
         String min = Integer.toString(minute);

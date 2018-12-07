@@ -4,8 +4,10 @@ import android.os.AsyncTask;
 import com.goebl.david.Webb;
 
 public class ShareEvent extends AsyncTask <Event, Void, String> {
+    /* MEMBER VARIABLES */
     String m_phoneNum;
 
+    /* METHODS */
     public ShareEvent(String phoneNum) {
         //TODO Check this is a good number
         m_phoneNum = phoneNum;
@@ -13,7 +15,6 @@ public class ShareEvent extends AsyncTask <Event, Void, String> {
 
     @Override
     protected String doInBackground(Event... events) {
-        //String title, desc, start, end;
         Webb webb = Webb.create();
         Event e = events[0];
         webb.post("http://10.0.2.2:5000/send")

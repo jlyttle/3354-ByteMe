@@ -5,9 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/*
+    Singleton Class used for getting Calendar information
+*/
+
 public class GlobalCalendar {
+
     private static GregorianCalendar instance = new GregorianCalendar();
 
+    /* METHODS */
     private GlobalCalendar() {
         getInstance();
     }
@@ -16,7 +22,6 @@ public class GlobalCalendar {
         if (instance == null) {
             instance = new GregorianCalendar();
         }
-
         return instance;
     }
 

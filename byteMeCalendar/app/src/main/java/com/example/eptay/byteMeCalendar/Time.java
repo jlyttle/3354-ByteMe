@@ -1,10 +1,16 @@
 package com.example.eptay.byteMeCalendar;
 
+/*
+    Class for creating a Time object that will be used within the Hour list adapter in dayview
+ */
     public class Time {
+
+        /* MEMBER VARIABLES */
         private String hour;
         private String title;
         private String desc;
 
+        /* METHODS */
         public Time(String hour, String title, String desc) {
             this.hour = hour;
             this.title = title;
