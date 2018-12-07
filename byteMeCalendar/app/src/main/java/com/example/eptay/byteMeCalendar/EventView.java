@@ -117,6 +117,14 @@ public class EventView extends AppCompatActivity {
         });
         repeatMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
+            /**
+             * This method takes in parent, view, pos, and id and determines if repeating daily, weekly, or monthly
+             * @param parent
+             * @param view
+             * @param pos
+             * @param id
+             * @return void
+             */
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 switch (pos) {
                     case 0:
@@ -148,12 +156,17 @@ public class EventView extends AppCompatActivity {
                         break;
                 }
             }
+            //nothing selected
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
         selectCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
+            /**
+             * This method takes in parent, view, pos, and id and determines which event color/category
+             * @param event
+             * @return factor * HOUR_HEIGHT
+             */
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 switch (pos) {
                     case 0:
@@ -179,7 +192,7 @@ public class EventView extends AppCompatActivity {
                         break;
                 }
             }
-
+            //nothing selected
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
@@ -197,6 +210,13 @@ public class EventView extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method takes in requedtCode, resultCode, and data, and gets specific date and time
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     * @return void
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -246,6 +266,12 @@ public class EventView extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method takes in hour and minute and determine AM or PM
+     * @param hour
+     * @param minute
+     * @return hour + min + am or pm
+     */
     public String convertTime(int hour , int minute){
         String min = Integer.toString(minute);
         String amPm;

@@ -40,23 +40,54 @@ public class Event implements Comparable {
         m_endingDay = endDay;
         m_category = categoryType;
     }
-    public RepeatingType getRepeatingType() { return m_repeatingType; }
-    public String getName() { return m_name; }
-    public String getDescription() { return m_description; }
-    public int getStartingHour() { return m_startHour; }
-    public int getStartingMin() { return m_startMin; }
-    public int getEndingHour() { return m_endHour; }
-    public int getEndingMin() { return m_endMin; }
-    public CategoryType getCategory() { return m_category; }
-    public boolean isRepeating() { return m_repeating; }
-    public Day getStartDay() { return m_startingDay; }
-    public Day getEndDay() { return m_endingDay; }
-    public String getID() { return m_eventID; }
-    public void setRepeatingType(RepeatingType repeatingType) { m_repeatingType = repeatingType; }
-    public void setName(String name) { m_name = name; }
-    public void setDescription(String description) { m_description = description; }
-    public void setCategory(CategoryType category) { m_category = category; }
-
+    public RepeatingType getRepeatingType() {
+        return m_repeatingType;
+    }
+    public String getName() {
+        return m_name;
+    }
+    public String getDescription() {
+        return m_description;
+    }
+    public int getStartingHour() {
+        return m_startHour;
+    }
+    public int getStartingMin() {
+        return m_startMin;
+    }
+    public int getEndingHour() {
+        return m_endHour;
+    }
+    public int getEndingMin() {
+        return m_endMin;
+    }
+    public CategoryType getCategory() {
+        return m_category;
+    }
+    public boolean isRepeating() {
+        return m_repeating;
+    }
+    public Day getStartDay() {
+        return m_startingDay;
+    }
+    public Day getEndDay() {
+        return m_endingDay;
+    }
+    public String getID() {
+        return m_eventID;
+    }
+    public void setRepeatingType(RepeatingType repeatingType) {
+        m_repeatingType = repeatingType;
+    }
+    public void setName(String name) {
+        m_name = name;
+    }
+    public void setDescription(String description) {
+        m_description = description;
+    }
+    public void setCategory(CategoryType category) {
+        m_category = category;
+    }
     public void setStartingTime(int startingHour, int startingMin) {
         m_startHour = startingHour;
         m_startMin = startingMin;
@@ -72,6 +103,11 @@ public class Event implements Comparable {
     }
 
     @Override
+    /**
+     * This method takes in an Object o and checks for event time
+     * @param o
+     * @return int based on logic
+     */
     public int compareTo(Object o) {
         if (o instanceof Event) {
             if (((Event) o).m_startHour == this.m_startHour) {
@@ -90,6 +126,11 @@ public class Event implements Comparable {
         return -1;
     }
 
+    /**
+     * This boolean method takes in Object o and returns true or false depending on whether object id is equal to this.eventid
+     * @param o
+     * @return boolean
+     */
     public boolean equals(Object o) {
         if (o instanceof Event) {
             if (((Event) o).m_eventID == this.m_eventID) {

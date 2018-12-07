@@ -129,6 +129,11 @@ public class MainActivity extends AppCompatActivity {
 
     //Open the navigation drawer when the menu is clicked
     @Override
+    /**
+     * This method takes in an item. Determines which item to open based on what was selected
+     * @param item
+     * @return true
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -140,6 +145,10 @@ public class MainActivity extends AppCompatActivity {
 
     //On closing the app, save the event cache to storage
     @Override
+    /**
+     * This method does not take in any parameters. Saves events on closing app
+     * @return void
+     */
     protected void onDestroy() {
         //TODO Check if this works
         super.onDestroy();
@@ -150,7 +159,11 @@ public class MainActivity extends AppCompatActivity {
         prefsEditor.commit();
     }
 
-    //sorts the list of events
+
+    /**
+     * This method sorts the list of events
+     * @return events
+     */
     private List<Event> getOrderedEventList() {
         List<Event> events = m_eventCache.get(m_currentDay);
         Collections.sort(events);
@@ -158,6 +171,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //displays all events on tablelayout
+    /**
+     * This method takes in events list and displays all events on tablelayout
+     * @param events
+     * @return void
+     */
     private void drawEvents(List<Event> events) {
         //Draws all events to the tablelayout
         final int HEIGHT = (int)ViewUtils.convertDpToPixel(25, MainActivity.this);
@@ -204,6 +222,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * This method allows for the navigation drawer to keep the current view highlighted on close
+     * @return void
+     */
     public void onResume() {
         super.onResume();
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -217,6 +239,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    /**
+     * This method creates context menu for edit, delete, and share
+     * @param menu
+     * @param v
+     * @param menuInfo
+     * @return void
+     */
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.event_context_menu, menu);
@@ -225,6 +254,11 @@ public class MainActivity extends AppCompatActivity {
         m_currentContextView = v;
     }
 
+    /**
+     * This method takes in an item and performs tasks based on which was selected
+     * @param item
+     * @return boolean
+     */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         if (m_currentContextView != null) {
@@ -263,6 +297,13 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * This method edits and deletes old event
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     * @return void
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

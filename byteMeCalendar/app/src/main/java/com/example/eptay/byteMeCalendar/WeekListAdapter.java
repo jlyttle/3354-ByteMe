@@ -22,6 +22,7 @@ public class WeekListAdapter extends ArrayAdapter<Day> {
     private int m_Resource;
 
     /* METHODS */
+
     public WeekListAdapter(Context context, int resource, ArrayList<Day> objects ) {
         super(context, resource, objects);
         m_Context = context;
@@ -30,6 +31,13 @@ public class WeekListAdapter extends ArrayAdapter<Day> {
 
     @Override
     @NonNull
+    /**
+     * This method gets the view
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return convertView
+     */
     public View getView(int position , View convertView , ViewGroup parent) {
         String dayName = getItem(position).getDayName();
         String date = getItem(position).getDate();

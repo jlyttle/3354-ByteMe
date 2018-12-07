@@ -36,6 +36,12 @@ public class DayView extends AppCompatActivity {
     String nameOfDay = selectedDay.getDayName();
     private RelativeLayout m_relativeLayout;
 
+
+    /**
+     * This method takes in a month and returns it in a specific format
+     * @param month
+     * @return month symbol
+     */
     public String getMonth(int month) {
         return new DateFormatSymbols().getMonths()[month - 1];
     }
@@ -57,6 +63,7 @@ public class DayView extends AppCompatActivity {
         textViewDate.setText(currentDate);
 
         scrollView.setOnTouchListener(new OnSwipeTouchListener(DayView.this) {
+            //method for swipe right gesture
             public void onSwipeRight() {
                 GlobalCalendar.setPrevDay();
                 Day prevDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
@@ -71,6 +78,7 @@ public class DayView extends AppCompatActivity {
                 drawEvents(prevEvents);
             }
 
+            //method for swipeleft gesture
             public void onSwipeLeft() {
                 GlobalCalendar.setNextDay();
                 Day nextDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
@@ -103,24 +111,45 @@ public class DayView extends AppCompatActivity {
         return (factor * HOUR_HEIGHT);
     }
 
+    /**
+     * This method gets events from selected day, then sorts them by hour
+     * @return events from ordered list
+     */
     private List<Event> getOrderedEventList() {
         List<Event> events = m_eventCache.get(selectedDay);
         Collections.sort(events);
         return events;
     }
 
-    //method to determine difference from 12am to event start time
+    /**
+     * This method takes in an event and calculates the difference from 12am to the given event's start time
+     * @param event
+     * @return factor * HOUR_HEIGHT
+     */
     public double calculateTimeDifference(Event event) {
         int startHour = event.getStartingHour();
         int startMinute = event.getStartingMin();
         double factor = (startMinute / 60.0) + startHour;
         return (factor * HOUR_HEIGHT);
     }
+
+    /**
+     * This void method is used to create the context menu that contains edit, delete, and share
+     * @param menu
+     * @param v
+     * @param menuInfo
+     * @return void
+     */
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.event_context_menu, menu);
         m_currentContextView = v;
     }
+    /**
+     * This method takes in an item and does various things depending on if the user selects edit, delete, or share
+     * @param item
+     * @return boolean
+     */
     public boolean onContextItemSelected(MenuItem item) {
         if (m_currentContextView != null) {
             TextView textView = (TextView) m_currentContextView;
@@ -158,6 +187,11 @@ public class DayView extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * This method takes in a list of events and draws the event box
+     * @param events
+     * @return void
+     */
     private void drawEvents(List<Event> events) {
         m_relativeLayout.removeAllViews();
         for (Event event : events) {
@@ -206,6 +240,13 @@ public class DayView extends AppCompatActivity {
     }
 
     @Override
+    /**
+     * This method edits the event by requesting the updated request and deleting the old event
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     * @return void
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
