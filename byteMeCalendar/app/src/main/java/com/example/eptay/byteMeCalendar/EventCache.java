@@ -194,7 +194,7 @@ public class EventCache {
         if (m_repeatingEvents != null) {
             int key = event.getStartDay().getDayOfWeek();
             List<Event> events = m_repeatingEvents.get(key);
-            if (events != null) {
+            if (events != null && events.size() != 0) {
                 events.remove(event);
                 m_repeatingEvents.put(key, events);
             }

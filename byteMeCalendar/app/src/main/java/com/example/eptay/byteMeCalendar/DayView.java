@@ -158,6 +158,7 @@ public class DayView extends AppCompatActivity {
     }
 
     private void drawEvents(List<Event> events) {
+        m_relativeLayout.removeAllViews();
         for (Event event : events) {
             double height = calculateHeightOfEvent(event);
             double topMargin = calculateTimeDifference(event);
