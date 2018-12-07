@@ -201,12 +201,10 @@ public class EventView extends AppCompatActivity {
                 break;
             case (TIME_END_SELECTOR):
                 if (resultCode == Activity.RESULT_OK) {
-                    Toast error = new Toast(EventView.this);
-                    //TODO Check that the user entered a time after or on the start time
                     endHour = data.getIntExtra("hour", GlobalCalendar.getHour());
                     endMinute = data.getIntExtra("minute", GlobalCalendar.getMinute());
                     if (endHour < startHour || (endHour == startHour && endMinute < startMinute)) {
-                        error.setText("Cannot enter an end time before a start time");
+                        Toast.makeText(EventView.this, "Cannot enter an end time before a start time", Toast.LENGTH_SHORT).show();
                         endHour = startHour;
                         endMinute = startMinute;
                     }
