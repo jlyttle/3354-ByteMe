@@ -22,9 +22,10 @@ import android.widget.TextView;
 */
 
 public class ShareView extends AppCompatActivity {
-    private Button button;
-    private TextView numField;
+    private Button m_Button;
+    private TextView m_numField;
     private String m_phoneNum;
+    private Event m_event;
 
     /* METHODS */
     @Override
@@ -33,20 +34,21 @@ public class ShareView extends AppCompatActivity {
         setContentView(R.layout.activity_share_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        button = findViewById(R.id.phoneSelect);
-        numField = findViewById(R.id.phoneNumField);
+        m_Button = findViewById(R.id.phoneSelect);
+        m_numField = findViewById(R.id.phoneNumField);
+        m_event = EventCache.getInstance().find(getIntent().getStringExtra("eventID"));
 
-        button.setOnClickListener(new View.OnClickListener() {
+        m_Button.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
                 //TODO Check that this is a valid phone number
-                m_phoneNum = numField.getText().toString();
+                m_phoneNum = m_numField.getText().toString();
                 SmsManager sms = SmsManager.getDefault();
                 PendingIntent sentPI;
                 String SENT = "SMS_SENT";
 
-                sentPI = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent(SENT), 0);
+                sentPI = PendingIntent.getBroadcast(ShareView.this, 0, new Intent(SENT), 0);
 
                 String[] permissions = {Manifest.permission.SEND_SMS};
 
@@ -57,11 +59,12 @@ public class ShareView extends AppCompatActivity {
                     ActivityCompat.requestPermissions(ShareView.this, permissions, 1);
                 }
                 else {
+                    String message = m_event.toString();
                     // Permission has already been granted
-                    sms.sendTextMessage(m_phoneNum, null, "Test message", sentPI, null);
+                    sms.sendTextMessage(m_phoneNum, null, message, sentPI, null);
                 }
+
                 Intent intent = new Intent();
-                intent.putExtra("phoneNum", m_phoneNum);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }
