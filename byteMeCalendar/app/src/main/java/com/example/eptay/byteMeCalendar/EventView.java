@@ -59,10 +59,30 @@ public class EventView extends AppCompatActivity {
 
         title.setText(getIntent().getStringExtra("title"));
         description.setText(getIntent().getStringExtra("description"));
-        startHour = getIntent().getIntExtra("startHour", 0);
-        startMinute = getIntent().getIntExtra("startMin", 0);
-        endHour = getIntent().getIntExtra("endHour", 0);
-        endMinute = getIntent().getIntExtra("endMin", 0);
+        if (getIntent().hasExtra("startHour")) {
+            startHour = getIntent().getIntExtra("startHour", 0);
+        }
+        else {
+            startHour = GlobalCalendar.getHour();
+        }
+        if (getIntent().hasExtra("startMin")) {
+            startMinute = getIntent().getIntExtra("startMin", 0);
+        }
+        else {
+            startMinute = GlobalCalendar.getMinute();
+        }
+        if (getIntent().hasExtra("endHour")) {
+            endHour = getIntent().getIntExtra("endHour", 0);
+        }
+        else {
+            endHour = startHour == 23 ? 0 : startHour + 1;
+        }
+        if (getIntent().hasExtra("endMinute")) {
+            endMinute = getIntent().getIntExtra("endMin", 0);
+        }
+        else {
+            endMinute = startMinute;
+        }
         String startTime = convertTime(startHour, startMinute);
         m_startTimeText.setText(startTime);
         String endTime = convertTime(endHour, endMinute);
@@ -199,14 +219,19 @@ public class EventView extends AppCompatActivity {
     public String convertTime(int hour , int minute){
         String min = Integer.toString(minute);
         String amPm;
-        if(hour > 12 ){
+        if (hour == 0) {
+            hour = 12;
+        }
+
+        if(hour > 12) {
             hour = hour - 12;
             amPm = " PM";
-        }else{
+        }
+        else {
             amPm = " AM";
         }
-        if(min.length()==1){
-            min = "0"+min;
+        if(min.length() == 1){
+            min = "0" + min;
         }
         return hour+":"+min+amPm;
 
