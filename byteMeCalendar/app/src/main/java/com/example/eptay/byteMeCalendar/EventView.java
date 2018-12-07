@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.List;
 
 public class EventView extends AppCompatActivity {
@@ -151,7 +153,6 @@ public class EventView extends AppCompatActivity {
                         categoryType = Event.CategoryType.PURPLE;
                         break;
                 }
-                categoryType = categories.get(pos);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -204,10 +205,15 @@ public class EventView extends AppCompatActivity {
                 break;
             case (TIME_END_SELECTOR):
                 if (resultCode == Activity.RESULT_OK) {
-                    //TODO Make the default end time an hour after the start time
+                    Toast error = new Toast(EventView.this);
                     //TODO Check that the user entered a time after or on the start time
                     endHour = data.getIntExtra("hour", GlobalCalendar.getHour());
                     endMinute = data.getIntExtra("minute", GlobalCalendar.getMinute());
+                    if (endHour < startHour || (endHour == startHour && endMinute < startMinute)) {
+                        error.setText("Cannot enter an end time before a start time");
+                        endHour = startHour;
+                        endMinute = startMinute;
+                    }
                     String endTime = convertTime(endHour,endMinute);
                     m_endTimeText.setText(endTime);
                 }
