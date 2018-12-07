@@ -151,7 +151,7 @@ public class EventView extends AppCompatActivity {
                         categoryType = Event.CategoryType.PURPLE;
                         break;
                 }
-                categoryType = categories.get(pos);
+                //categoryType = categories.get(pos);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {

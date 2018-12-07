@@ -122,7 +122,29 @@ public class DayView extends AppCompatActivity {
             textView.setLayoutParams(params);
             textView.setText(event.getName());
             textView.setHeight((int)ViewUtils.convertDpToPixel((float)height, getApplicationContext()));
-            textView.setBackgroundColor(Color.parseColor("#C75B12"));
+            switch(event.getCategory()){
+                case NONE:
+                    textView.setBackgroundColor(Color.parseColor("#000000"));
+                    break;
+                case BLUE:
+                    textView.setBackgroundColor(Color.parseColor("#0000FF"));
+                    break;
+                case ORANGE:
+                    textView.setBackgroundColor(Color.parseColor("#C75B12"));
+                    break;
+                case GREEN:
+                    textView.setBackgroundColor(Color.parseColor("#008542"));
+                    break;
+                case YELLOW:
+                    textView.setBackgroundColor(Color.parseColor("#FFFF00"));
+                    break;
+                case RED:
+                    textView.setBackgroundColor(Color.parseColor("#FF0000"));
+                    break;
+                case PURPLE:
+                    textView.setBackgroundColor(Color.parseColor("#800080"));
+                    break;
+            }
             textView.setTextColor(Color.parseColor("#FFFFFF"));
             textView.setPadding(24, 0, 24, 0);
             textView.setWidth((int)ViewUtils.convertDpToPixel(200, getApplicationContext()));
