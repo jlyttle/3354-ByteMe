@@ -23,6 +23,7 @@ public class DeleteEventTestJUnit {
         eventCache.remove(event);
         event = eventCache.find(event.getID());
         assertTrue(event == null);
+
     }
 
     @Test (expected = NullPointerException.class) //Test for removing a null event
