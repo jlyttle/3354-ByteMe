@@ -12,13 +12,14 @@ public class Event implements Comparable {
 
     /* MEMBER VARIABLES */
     public enum RepeatingType { NONE, DAILY, WEEKLY, MONTHLY, YEARLY }
+    public enum CategoryType {NONE, BLUE, ORANGE, GREEN, YELLOW, RED, PURPLE}
     private String m_name;
     private String m_description;
     private int m_startHour;
     private int m_startMin;
     private int m_endHour;
     private int m_endMin;
-    private EventCategory m_category;
+    private CategoryType m_category;
     private boolean m_repeating = false;
     private Day m_startingDay;
     private Day m_endingDay;
@@ -27,7 +28,7 @@ public class Event implements Comparable {
 
 
     /* METHODS */
-    public Event(String name, String description, int startHour, int startMin, int endHour, int endMin, RepeatingType repeatingType, Day startDay, Day endDay, EventCategory category) {
+    public Event(String name, String description, int startHour, int startMin, int endHour, int endMin, RepeatingType repeatingType, Day startDay, Day endDay, CategoryType categoryType) {
         m_name = name;
         m_description = description;
         m_startHour = startHour;
@@ -40,7 +41,7 @@ public class Event implements Comparable {
         }
         m_startingDay = startDay;
         m_endingDay = endDay;
-        m_category = category;
+        m_category = categoryType;
     }
     public RepeatingType getRepeatingType() { return m_repeatingType; }
     public String getName() { return m_name; }
@@ -49,7 +50,7 @@ public class Event implements Comparable {
     public int getStartingMin() { return m_startMin; }
     public int getEndingHour() { return m_endHour; }
     public int getEndingMin() { return m_endMin; }
-    public EventCategory getCategory() { return m_category; }
+    public CategoryType getCategory() { return m_category; }
     public boolean isRepeating() { return m_repeating; }
     public Day getStartDay() { return m_startingDay; }
     public Day getEndDay() { return m_endingDay; }
@@ -57,7 +58,7 @@ public class Event implements Comparable {
     public void setRepeatingType(RepeatingType repeatingType) { m_repeatingType = repeatingType; }
     public void setName(String name) { m_name = name; }
     public void setDescription(String description) { m_description = description; }
-    public void setCategory(EventCategory category) { m_category = category; }
+    public void setCategory(CategoryType category) { m_category = category; }
 
     public void setStartingTime(int startingHour, int startingMin) {
         m_startHour = startingHour;

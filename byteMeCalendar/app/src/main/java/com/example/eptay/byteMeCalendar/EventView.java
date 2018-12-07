@@ -18,7 +18,6 @@ public class EventView extends AppCompatActivity {
     private TextView m_endTimeText;
     private TextView title;
     private TextView description;
-    private EventCategory category;
     private Spinner repeatMode;
     private Spinner selectCategory;
     private Button startingTimeViewButton;
@@ -41,6 +40,7 @@ public class EventView extends AppCompatActivity {
     private int endHour;
     private int endMinute;
     private Event.RepeatingType repeatType;
+    private Event.CategoryType categoryType;
 
     /* METHODS */
     @Override
@@ -69,11 +69,12 @@ public class EventView extends AppCompatActivity {
         m_endTimeText.setText(endTime);
 
         String[] modes = {"None", "Daily", "Weekly", "Monthly"};
+        String[] category = {"None", "Blue", "Orange", "Green", "Yellow", "Red", "Purple"};
         repeatMode.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, modes));
-        final List<EventCategory> categories = EventCache.getInstance().getCategories();
+        final List<Event.CategoryType> categories = EventCache.getInstance().getCategories();
         String[] categoriesStr = new String[categories.size()];
         categoriesStr = categories.toArray(categoriesStr);
-        selectCategory.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categoriesStr));
+        selectCategory.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, category));
 
         startingTimeViewButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -110,8 +111,29 @@ public class EventView extends AppCompatActivity {
         selectCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                category = categories.get(pos);
+                switch (pos) {
+                    case 0:
+                        categoryType = Event.CategoryType.BLUE;
+                        break;
+                    case 1:
+                        categoryType = Event.CategoryType.ORANGE;
+                        break;
+                    case 2:
+                        categoryType = Event.CategoryType.GREEN;
+                        break;
+                    case 3:
+                        categoryType = Event.CategoryType.YELLOW;
+                        break;
+                    case 4:
+                        categoryType = Event.CategoryType.RED;
+                        break;
+                    case 5:
+                        categoryType = Event.CategoryType.PURPLE;
+                        break;
+                }
+                categoryType = categories.get(pos);
             }
+
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
@@ -121,7 +143,7 @@ public class EventView extends AppCompatActivity {
             public void onClick(View v) {
                 String titleText = title.getText().toString();
                 String descriptionText = description.getText().toString();
-                Event event = new Event(titleText, descriptionText, startHour, startMinute, endHour, endMinute, repeatType, startDay, endDay, category);
+                Event event = new Event(titleText, descriptionText, startHour, startMinute, endHour, endMinute, repeatType, startDay, endDay, categoryType);
                 EventCache.getInstance().add(event);
                 setResult(Activity.RESULT_OK, new Intent());
                 finish();

@@ -16,7 +16,7 @@ public class EventCache {
     private static EventCache instance;
     private List<Event> m_nonRepeatingEvents = new ArrayList<>();
     private HashMap<Integer, List<Event>> m_repeatingEvents = new HashMap();
-    private List<EventCategory> m_eventCategories = new ArrayList<>();
+    private List<Event.CategoryType> m_eventCategories = new ArrayList<>();
 
     /* METHODS */
     static {
@@ -202,7 +202,7 @@ public class EventCache {
         }
     }
 
-    public List<EventCategory> getCategories() {
+    public List<Event.CategoryType> getCategories() {
         return m_eventCategories;
     }
 }
