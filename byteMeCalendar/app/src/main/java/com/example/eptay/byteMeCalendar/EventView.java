@@ -10,10 +10,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import java.util.List;
 
+/*
+    Class for the event view
+*/
+
 public class EventView extends AppCompatActivity {
+
+    /* MEMBER VARIABLES */
     private TextView m_startTimeText;
     private TextView m_endTimeText;
     private TextView title;
@@ -28,7 +33,6 @@ public class EventView extends AppCompatActivity {
     private final int TIME_START_SELECTOR = 1;
     private final int DATE_END_SELECTOR = 2;
     private final int TIME_END_SELECTOR = 3;
-
     private int startYear = GlobalCalendar.getYear();
     private int startMonth = GlobalCalendar.getMonth();
     private int startDayNum = GlobalCalendar.getDayNum();
@@ -37,14 +41,14 @@ public class EventView extends AppCompatActivity {
     private int endDayNum = GlobalCalendar.getDayNum();
     private Day startDay = new Day(startYear, startMonth, startDayNum);
     private Day endDay = new Day(endYear, endMonth, endDayNum);
-
     private int startHour;
     private int startMinute;
     private int endHour;
     private int endMinute;
-
     private Event.RepeatingType repeatType;
 
+
+    /* METHODS */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,15 +62,6 @@ public class EventView extends AppCompatActivity {
         addEvent = findViewById(R.id.accept);
         m_startTimeText = findViewById(R.id.startingTimeID);
         m_endTimeText = findViewById(R.id.endingTimeID);
-
-        /*if (savedInstanceState != null) {
-            title.setText(savedInstanceState.getString("title"));
-            description.setText(savedInstanceState.getString("description"));
-            startHour = savedInstanceState.getInt("startHour");
-            startMinute = savedInstanceState.getInt("startMin");
-            endHour = savedInstanceState.getInt("endHour");
-            endMinute = savedInstanceState.getInt("endMin");
-        }*/
         title.setText(getIntent().getStringExtra("title"));
         description.setText(getIntent().getStringExtra("description"));
         startHour = getIntent().getIntExtra("startHour", 0);
@@ -182,6 +177,7 @@ public class EventView extends AppCompatActivity {
                 break;
         }
     }
+
 
     public String convertTime(int hour , int minute){
         String min = Integer.toString(minute);

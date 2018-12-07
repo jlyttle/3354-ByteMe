@@ -22,10 +22,8 @@
         <activity android:name=".WeekView" />
         <activity android:name=".EventView" />
         <activity android:name=".TimeSelector" />
-        <activity android:name=".EditDeleteEvent" />
         <activity android:name=".DateSelector" />
         <activity android:name=".DayView" />
-        <activity android:name=".Editdeleteevent" />
         <activity
             android:name=".ShareView"
             android:label="@string/title_activity_share_view"

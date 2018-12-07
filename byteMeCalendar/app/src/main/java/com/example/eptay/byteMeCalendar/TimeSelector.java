@@ -8,12 +8,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
 
+/*
+    Class to get information for the time selector ussed within event creation and altering
+ */
+
 public class TimeSelector extends AppCompatActivity {
+    /* MEMBER VARIABLES */
     private TimePicker timePicker1;
     private Button select;
     private int m_hour;
     private int m_min;
 
+    /* METHODS */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

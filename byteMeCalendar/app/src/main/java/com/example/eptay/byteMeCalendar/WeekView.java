@@ -12,45 +12,44 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+/*
+    Weekly view display
+*/
 
 public class WeekView extends AppCompatActivity {
-
-    public static ArrayList<Day> weekList = new ArrayList<>();
+    /* MEMBER VARIABLES  */
+    public static ArrayList<Day> m_weekList = new ArrayList<>();
     private ConstraintLayout m_constraintLayout;
     private Day[] m_week;
 
-
+    /* METHODS */
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        weekList.clear();
-        final WeekListAdapter adapter = new WeekListAdapter(this, R.layout.week_view_layout, weekList);
+        m_weekList.clear();
+        final WeekListAdapter adapter = new WeekListAdapter(this, R.layout.week_view_layout, m_weekList);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_week_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         m_week = GlobalCalendar.getWeek();
 
         for (int i = 0; i < m_week.length; ++i) {
-            weekList.add(m_week[i]);
+            m_weekList.add(m_week[i]);
         }
-
 
         ListView list = findViewById(R.id.WeekList);
         list.setAdapter(adapter);
-
         m_constraintLayout = findViewById(R.id.weekLayout);
 
         m_constraintLayout.setOnTouchListener(new OnSwipeTouchListener(WeekView.this) {
             public void onSwipeRight() {
                 //Go to previous week
                 GlobalCalendar.setPrevWeek();
-                weekList.clear();
+                m_weekList.clear();
                 m_week = GlobalCalendar.getWeek();
-
                 for (int i = 0; i < m_week.length; ++i) {
-                    weekList.add(m_week[i]);
+                    m_weekList.add(m_week[i]);
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -58,11 +57,10 @@ public class WeekView extends AppCompatActivity {
             public void onSwipeLeft() {
                 //Go to next week
                 GlobalCalendar.setNextWeek();
-                weekList.clear();
+                m_weekList.clear();
                 m_week = GlobalCalendar.getWeek();
-
                 for (int i = 0; i < m_week.length; ++i) {
-                    weekList.add(m_week[i]);
+                    m_weekList.add(m_week[i]);
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -76,11 +74,6 @@ public class WeekView extends AppCompatActivity {
                 startActivity(new Intent(WeekView.this, DayView.class));
             }
         });
-
-
-
-
-
 
     }
 }

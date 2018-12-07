@@ -1,18 +1,16 @@
 package com.example.eptay.byteMeCalendar;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Date;
+
+/*
+    Hour List adapter used within day view
+ */
 
 public class HourListAdapter extends ArrayAdapter<Time>{
 
@@ -33,17 +31,17 @@ public class HourListAdapter extends ArrayAdapter<Time>{
        String desc = getItem(position).getDesc();
 
        Time time = new Time(hour, title, desc);
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        convertView = inflater.inflate(mResource, parent, false);
+       LayoutInflater inflater = LayoutInflater.from(mContext);
+       convertView = inflater.inflate(mResource, parent, false);
 
-        TextView tvHour = (TextView) convertView.findViewById(R.id.textView1);
-        TextView tvTitle = (TextView) convertView.findViewById(R.id.textView2);
-        TextView tvDesc = (TextView) convertView.findViewById(R.id.textView3);
+       TextView tvHour =  convertView.findViewById(R.id.textView1);
+       TextView tvTitle = convertView.findViewById(R.id.textView2);
+       TextView tvDesc =  convertView.findViewById(R.id.textView3);
 
-        tvHour.setText(hour);
-        tvTitle.setText(title);
-        tvDesc.setText(desc);
+       tvHour.setText(hour);
+       tvTitle.setText(title);
+       tvDesc.setText(desc);
 
-        return convertView;
+       return convertView;
     }
 }

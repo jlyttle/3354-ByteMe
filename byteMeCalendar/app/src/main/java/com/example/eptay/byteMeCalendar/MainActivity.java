@@ -23,6 +23,11 @@ import com.google.gson.Gson;
 import java.util.Collections;
 import java.util.List;
 
+/*
+    Main class from which monthly view is displayed
+    This view is the first view that is displayed on opening of the program
+ */
+
 public class MainActivity extends AppCompatActivity {
     /* MEMBER VARIABLES */
     private DrawerLayout m_drawerLayout;
@@ -34,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private EventCache m_eventCache;
     private View m_currentContextView = null;
     private Event m_selectedEvent = null;
-
     private int m_day = GlobalCalendar.getDayNum();
     private int m_month = GlobalCalendar.getMonth();
     private int m_year = GlobalCalendar.getYear();
@@ -147,12 +151,14 @@ public class MainActivity extends AppCompatActivity {
         prefsEditor.commit();
     }
 
+    //sorts the list of events
     private List<Event> getOrderedEventList() {
         List<Event> events = m_eventCache.get(m_currentDay);
         Collections.sort(events);
         return events;
     }
 
+    //displays all events on tablelayout
     private void drawEvents(List<Event> events) {
         //Draws all events to the tablelayout
         final int HEIGHT = (int)ViewUtils.convertDpToPixel(25, MainActivity.this);
@@ -197,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
             ++index;
         }
     }
+
 
     public void onResume() {
         super.onResume();
@@ -255,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    // method to share event objects
     public void share(Event e) {
         shareEvent se = new shareEvent();
         se.execute(e);

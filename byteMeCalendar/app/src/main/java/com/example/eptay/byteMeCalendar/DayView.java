@@ -20,8 +20,6 @@ public class DayView extends AppCompatActivity {
     private static final String TAG = "DayView";
     private static final int HOUR_HEIGHT = 61; //Each hour in the scroll view is 61dp
     private ScrollView scrollView;
-    private final int LEFT = 100;
-    private final int RIGHT = 300;
     private EventCache m_eventCache = EventCache.getInstance();
     int currentYear = GlobalCalendar.getYear();
     int currentMonth = GlobalCalendar.getMonth();
@@ -84,7 +82,6 @@ public class DayView extends AppCompatActivity {
 
     /**
      * This method takes in an event and calculates the height of the event object in dp
-     *
      * @param event
      * @return factor * HOUR_HEIGHT
      */

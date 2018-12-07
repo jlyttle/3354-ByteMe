@@ -3,22 +3,30 @@ package com.example.eptay.byteMeCalendar;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Event implements Comparable {
-    public enum RepeatingType { NONE, DAILY, WEEKLY, MONTHLY, YEARLY }
+/*
+    Class used to store information of an event within an event object
+*/
 
+
+public class Event implements Comparable {
+
+    /* MEMBER VARIABLES */
+    public enum RepeatingType { NONE, DAILY, WEEKLY, MONTHLY, YEARLY }
     private String m_name;
     private String m_description;
     private int m_startHour;
     private int m_startMin;
     private int m_endHour;
     private int m_endMin;
-    private EventCategory m_category = null;
+    private EventCategory m_category;
     private boolean m_repeating = false;
     private Day m_startingDay;
     private Day m_endingDay;
     private RepeatingType m_repeatingType;
     private String m_eventID = UUID.randomUUID().toString();
 
+
+    /* METHODS */
     public Event(String name, String description, int startHour, int startMin, int endHour, int endMin, RepeatingType repeatingType, Day startDay, Day endDay, EventCategory category) {
         m_name = name;
         m_description = description;
@@ -46,7 +54,6 @@ public class Event implements Comparable {
     public Day getStartDay() { return m_startingDay; }
     public Day getEndDay() { return m_endingDay; }
     public String getID() { return m_eventID; }
-
     public void setRepeatingType(RepeatingType repeatingType) { m_repeatingType = repeatingType; }
     public void setName(String name) { m_name = name; }
     public void setDescription(String description) { m_description = description; }

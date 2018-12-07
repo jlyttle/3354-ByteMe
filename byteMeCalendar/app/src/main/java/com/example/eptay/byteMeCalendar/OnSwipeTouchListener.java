@@ -1,4 +1,5 @@
 package com.example.eptay.byteMeCalendar;
+
 import android.content.Context;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -6,10 +7,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
+
+/*
+    Class to create an object that can detect the direction of a swipe event.
+*/
+
+
 public class OnSwipeTouchListener implements OnTouchListener {
 
+    /* MEMBER VARIABLES */
     private final GestureDetector gestureDetector;
 
+    /* METHODS */
     public OnSwipeTouchListener(Context context) {
         gestureDetector = new GestureDetector(context, new GestureListener());
     }
@@ -24,6 +33,7 @@ public class OnSwipeTouchListener implements OnTouchListener {
         return gestureDetector.onTouchEvent(event);
     }
 
+    /* FINAL CLASS */
     private final class GestureListener extends SimpleOnGestureListener {
 
         private static final int SWIPE_DISTANCE_THRESHOLD = 100;

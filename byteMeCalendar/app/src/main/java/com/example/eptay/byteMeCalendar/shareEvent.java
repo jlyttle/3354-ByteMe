@@ -1,13 +1,13 @@
 package com.example.eptay.byteMeCalendar;
 
 import android.os.AsyncTask;
-
 import com.goebl.david.Webb;
 
 public class shareEvent extends AsyncTask <Event, Void, String> {
+
+    /* METHODS */
     @Override
     protected String doInBackground(Event... events) {
-        String title, desc, start, end;
         Webb webb = Webb.create();
         Event e = events[0];
         webb.post("http://10.0.2.2:5000/send")
