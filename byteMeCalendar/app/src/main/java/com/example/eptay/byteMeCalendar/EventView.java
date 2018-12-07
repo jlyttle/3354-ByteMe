@@ -93,9 +93,6 @@ public class EventView extends AppCompatActivity {
         String[] modes = {"None", "Daily", "Weekly", "Monthly"};
         String[] category = {"None", "Blue", "Orange", "Green", "Yellow", "Red", "Purple"};
         repeatMode.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, modes));
-        final List<Event.CategoryType> categories = EventCache.getInstance().getCategories();
-        String[] categoriesStr = new String[categories.size()];
-        categoriesStr = categories.toArray(categoriesStr);
         selectCategory.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, category));
 
         startingTimeViewButton.setOnClickListener(new View.OnClickListener() {
