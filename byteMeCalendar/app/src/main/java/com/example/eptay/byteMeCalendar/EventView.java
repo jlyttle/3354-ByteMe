@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import java.util.List;
+import android.widget.Toast;
 
 public class EventView extends AppCompatActivity {
     /* MEMBER VARIABLES */
@@ -91,9 +91,6 @@ public class EventView extends AppCompatActivity {
         String[] modes = {"None", "Daily", "Weekly", "Monthly"};
         String[] category = {"None", "Blue", "Orange", "Green", "Yellow", "Red", "Purple"};
         repeatMode.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, modes));
-        final List<Event.CategoryType> categories = EventCache.getInstance().getCategories();
-        String[] categoriesStr = new String[categories.size()];
-        categoriesStr = categories.toArray(categoriesStr);
         selectCategory.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, category));
 
         startingTimeViewButton.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +148,7 @@ public class EventView extends AppCompatActivity {
                         categoryType = Event.CategoryType.PURPLE;
                         break;
                 }
-                //categoryType = categories.get(pos);
+
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -204,10 +201,15 @@ public class EventView extends AppCompatActivity {
                 break;
             case (TIME_END_SELECTOR):
                 if (resultCode == Activity.RESULT_OK) {
-                    //TODO Make the default end time an hour after the start time
+                    Toast error = new Toast(EventView.this);
                     //TODO Check that the user entered a time after or on the start time
                     endHour = data.getIntExtra("hour", GlobalCalendar.getHour());
                     endMinute = data.getIntExtra("minute", GlobalCalendar.getMinute());
+                    if (endHour < startHour || (endHour == startHour && endMinute < startMinute)) {
+                        error.setText("Cannot enter an end time before a start time");
+                        endHour = startHour;
+                        endMinute = startMinute;
+                    }
                     String endTime = convertTime(endHour,endMinute);
                     m_endTimeText.setText(endTime);
                 }
