@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.shareMenuItem:
                     startActivityForResult(new Intent(MainActivity.this, ShareView.class), SHARE_EVENT);
-                    share(m_selectedEvent);
+                    //share(m_selectedEvent);
                     return true;
                 default:
                     m_currentContextView = null;
@@ -255,8 +255,8 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public void share(Event e) {
-        ShareEvent se = new ShareEvent();
+    public void share(Event e, String phoneNum) {
+        ShareEvent se = new ShareEvent(phoneNum);
         se.execute(e);
     }
 
@@ -272,8 +272,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case SHARE_EVENT:
                 if (resultCode == Activity.RESULT_OK) {
-                    //int phoneNum = data.
-                    share(m_selectedEvent);
+                    //String phoneNum = data.getStringExtra("phoneNum");
+                    //share(m_selectedEvent, phoneNum);
                 }
         }
     }

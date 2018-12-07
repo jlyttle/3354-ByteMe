@@ -61,14 +61,6 @@ public class EventView extends AppCompatActivity {
         m_startTimeText = findViewById(R.id.startingTimeID);
         m_endTimeText = findViewById(R.id.endingTimeID);
 
-        /*if (savedInstanceState != null) {
-            title.setText(savedInstanceState.getString("title"));
-            description.setText(savedInstanceState.getString("description"));
-            startHour = savedInstanceState.getInt("startHour");
-            startMinute = savedInstanceState.getInt("startMin");
-            endHour = savedInstanceState.getInt("endHour");
-            endMinute = savedInstanceState.getInt("endMin");
-        }*/
         title.setText(getIntent().getStringExtra("title"));
         description.setText(getIntent().getStringExtra("description"));
         startHour = getIntent().getIntExtra("startHour", 0);
