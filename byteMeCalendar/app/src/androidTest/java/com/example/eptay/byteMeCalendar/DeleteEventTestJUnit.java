@@ -21,7 +21,7 @@ public class DeleteEventTestJUnit {
         event = new Event("Name", "Description", 12, 0, 13, 0, Event.RepeatingType.NONE, today, today, null);
         eventCache.add(event);
         event = eventCache.find(event.getID());
-        eventCache.remove(event.getID());
+        //eventCache.remove(event.getID());
     }
 
     @Test (expected = NullPointerException.class)
