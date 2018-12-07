@@ -42,6 +42,11 @@ public class EventCache {
         if (event.isRepeating()) {
             Integer dayOfWeek = event.getStartDay().getDayOfWeek();
             List<Event> eventsForDay = m_repeatingEvents.get(dayOfWeek);
+            if (eventsForDay == null) {
+                m_repeatingEvents.put(dayOfWeek, new ArrayList<Event>());
+                eventsForDay = m_repeatingEvents.get(dayOfWeek);
+            }
+
             eventsForDay.add(event);
             if (event.getRepeatingType() == Event.RepeatingType.DAILY) {
                 for (int i = 1; i < 8; ++i) {
@@ -172,14 +177,20 @@ public class EventCache {
     }
 
     public void remove(Event event) throws NullPointerException {
+        if (event == null) {
+            throw new NullPointerException("Could not remove a null event.");
+        }
+
         if (m_nonRepeatingEvents != null) {
             m_nonRepeatingEvents.remove(event);
         }
         if (m_repeatingEvents != null) {
             int key = event.getStartDay().getDayOfWeek();
             List<Event> events = m_repeatingEvents.get(key);
-            events.remove(event);
-            m_repeatingEvents.put(key, events);
+            if (events != null) {
+                events.remove(event);
+                m_repeatingEvents.put(key, events);
+            }
         }
     }
 

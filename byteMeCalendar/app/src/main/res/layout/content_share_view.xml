@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".WeeklyView"
-    tools:showIn="@layout/activity_weekly_view">
+    tools:context=".ShareView"
+    tools:showIn="@layout/activity_share_view">
 
 </android.support.constraint.ConstraintLayout>

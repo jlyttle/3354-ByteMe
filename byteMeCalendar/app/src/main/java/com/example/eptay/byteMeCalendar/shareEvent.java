@@ -4,14 +4,9 @@ import android.os.AsyncTask;
 
 import com.goebl.david.Webb;
 
-public class shareEvent extends AsyncTask <Event, Void, String>{
-    public shareEvent(){
-
-    }
-
+public class ShareEvent extends AsyncTask <Event, Void, String> {
     @Override
     protected String doInBackground(Event... events) {
-
         String title, desc, start, end;
         Webb webb = Webb.create();
         Event e = events[0];
@@ -33,6 +28,4 @@ public class shareEvent extends AsyncTask <Event, Void, String>{
     //update server route
     // give button functionality
     // add intent filter
-
-
 }

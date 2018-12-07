@@ -3,6 +3,7 @@ package com.example.eptay.byteMeCalendar;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.LinearLayout;
@@ -14,9 +15,9 @@ import java.text.DateFormatSymbols;
 import java.util.Collections;
 import java.util.List;
 
-public class scrollingdayview extends AppCompatActivity {
+public class DayView extends AppCompatActivity {
     /* MEMBER VARIABLES */
-    private static final String TAG = "scrollingdayview";
+    private static final String TAG = "DayView";
     private static final int HOUR_HEIGHT = 61; //Each hour in the scroll view is 61dp
     private ScrollView scrollView;
     private final int LEFT = 100;
@@ -37,7 +38,7 @@ public class scrollingdayview extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrollingdayview);
+        setContentView(R.layout.activity_day_view);
         scrollView = findViewById(R.id.scrollView);
         m_relativeLayout = findViewById(R.id.eventLayout);
 
@@ -49,7 +50,7 @@ public class scrollingdayview extends AppCompatActivity {
         textViewDate.setTextColor(Color.parseColor("#FFFFFF"));
         textViewDate.setText(currentDate);
 
-        scrollView.setOnTouchListener(new OnSwipeTouchListener(scrollingdayview.this) {
+        scrollView.setOnTouchListener(new OnSwipeTouchListener(DayView.this) {
             public void onSwipeRight() {
                 GlobalCalendar.setPrevDay();
                 Day prevDay = new Day(GlobalCalendar.getYear(), GlobalCalendar.getMonth(), GlobalCalendar.getDayNum());
@@ -120,7 +121,7 @@ public class scrollingdayview extends AppCompatActivity {
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             params.topMargin = (int)ViewUtils.convertDpToPixel((float)topMargin, getApplicationContext());
             params.leftMargin = 240;
-            TextView textView = new TextView(scrollingdayview.this);
+            TextView textView = new TextView(DayView.this);
             textView.setLayoutParams(params);
             textView.setText(event.getName());
             textView.setHeight((int)ViewUtils.convertDpToPixel((float)height, getApplicationContext()));
