@@ -199,7 +199,6 @@ public class EventView extends AppCompatActivity {
                     endYear = data.getIntExtra("year", GlobalCalendar.getYear());
                     endMonth = data.getIntExtra("month", GlobalCalendar.getMonth());
                     endDayNum = data.getIntExtra("day", GlobalCalendar.getDayNum());
-
                 }
                 break;
             case (TIME_END_SELECTOR):
@@ -218,7 +217,6 @@ public class EventView extends AppCompatActivity {
         }
     }
 
-
     public String convertTime(int hour , int minute){
         String min = Integer.toString(minute);
         String amPm;
@@ -226,8 +224,10 @@ public class EventView extends AppCompatActivity {
             hour = 12;
         }
 
-        if(hour > 12) {
-            hour = hour - 12;
+        if (hour >= 12) {
+            if (hour > 12) {
+                hour = hour - 12;
+            }
             amPm = " PM";
         }
         else {
@@ -239,8 +239,4 @@ public class EventView extends AppCompatActivity {
         return hour+":"+min+amPm;
 
     }
-
-
-
-
 }

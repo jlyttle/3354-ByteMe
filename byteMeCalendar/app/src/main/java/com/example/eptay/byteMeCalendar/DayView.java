@@ -1,6 +1,7 @@
 package com.example.eptay.byteMeCalendar;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -201,6 +202,19 @@ public class DayView extends AppCompatActivity {
             textView.setGravity(0x11);
             m_relativeLayout.addView(textView);
             registerForContextMenu(textView);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case EDIT_EVENT:
+                if (resultCode == Activity.RESULT_OK) {
+                    m_eventCache.remove(m_selectedEvent);
+                    drawEvents(getOrderedEventList());
+                }
+                break;
         }
     }
 }

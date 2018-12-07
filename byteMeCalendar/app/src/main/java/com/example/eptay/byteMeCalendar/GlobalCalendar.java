@@ -82,7 +82,7 @@ public class GlobalCalendar {
     }
 
     public static int getHour() {
-        return instance.get(Calendar.HOUR);
+        return instance.get(Calendar.HOUR_OF_DAY);
     }
 
     public static int getMinute() {
