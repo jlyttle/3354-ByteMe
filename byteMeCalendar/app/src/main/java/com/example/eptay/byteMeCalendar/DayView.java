@@ -1,11 +1,15 @@
 package com.example.eptay.byteMeCalendar;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -20,6 +24,9 @@ public class DayView extends AppCompatActivity {
     private static final String TAG = "DayView";
     private static final int HOUR_HEIGHT = 61; //Each hour in the scroll view is 61dp
     private ScrollView scrollView;
+    private View m_currentContextView;
+    private Event m_selectedEvent = null;
+    private final int EDIT_EVENT = 0;
     private EventCache m_eventCache = EventCache.getInstance();
     int currentYear = GlobalCalendar.getYear();
     int currentMonth = GlobalCalendar.getMonth();
@@ -108,6 +115,47 @@ public class DayView extends AppCompatActivity {
         double factor = (startMinute / 60.0) + startHour;
         return (factor * HOUR_HEIGHT);
     }
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.event_context_menu, menu);
+        m_currentContextView = v;
+    }
+    public boolean onContextItemSelected(MenuItem item) {
+        if (m_currentContextView != null) {
+            TextView textView = (TextView) m_currentContextView;
+            textView.getTag();
+            String id = (String) textView.getTag();
+            m_selectedEvent = m_eventCache.find(id);
+            Intent intent;
+
+            switch (item.getItemId()) {
+                case R.id.editMenuItem:
+                    intent = new Intent(DayView.this, EventView.class);
+                    intent.putExtra("title", m_selectedEvent.getName());
+                    intent.putExtra("description", m_selectedEvent.getDescription());
+                    intent.putExtra("startHour", m_selectedEvent.getStartingHour());
+                    intent.putExtra("startMin", m_selectedEvent.getStartingMin());
+                    intent.putExtra("endHour", m_selectedEvent.getEndingHour());
+                    intent.putExtra("endMin", m_selectedEvent.getEndingMin());
+                    startActivityForResult(intent, EDIT_EVENT);
+                    return true;
+                case R.id.deleteMenuItem:
+                    m_eventCache.remove(m_selectedEvent);
+                    drawEvents(getOrderedEventList());
+                    return true;
+                case R.id.shareMenuItem:
+                    intent = new Intent(DayView.this, ShareView.class);
+                    intent.putExtra("eventID", m_selectedEvent.getID());
+                    startActivity(intent);
+                    return true;
+                default:
+                    m_currentContextView = null;
+                    return false;
+            }
+
+        }
+        return false;
+    }
 
     private void drawEvents(List<Event> events) {
         for (Event event : events) {
@@ -116,13 +164,14 @@ public class DayView extends AppCompatActivity {
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-            params.topMargin = (int)ViewUtils.convertDpToPixel((float)topMargin, getApplicationContext());
+            params.topMargin = (int) ViewUtils.convertDpToPixel((float) topMargin, getApplicationContext());
             params.leftMargin = 240;
             TextView textView = new TextView(DayView.this);
             textView.setLayoutParams(params);
             textView.setText(event.getName());
-            textView.setHeight((int)ViewUtils.convertDpToPixel((float)height, getApplicationContext()));
-            switch(event.getCategory()){
+            textView.setTag(event.getID());
+            textView.setHeight((int) ViewUtils.convertDpToPixel((float) height, getApplicationContext()));
+            switch (event.getCategory()) {
                 case NONE:
                     textView.setBackgroundColor(Color.parseColor("#000000"));
                     break;
@@ -136,7 +185,7 @@ public class DayView extends AppCompatActivity {
                     textView.setBackgroundColor(Color.parseColor("#008542"));
                     break;
                 case YELLOW:
-                    textView.setBackgroundColor(Color.parseColor("#FFFF00"));
+                    textView.setBackgroundColor(Color.parseColor("#999900"));
                     break;
                 case RED:
                     textView.setBackgroundColor(Color.parseColor("#FF0000"));
@@ -147,9 +196,10 @@ public class DayView extends AppCompatActivity {
             }
             textView.setTextColor(Color.parseColor("#FFFFFF"));
             textView.setPadding(24, 0, 24, 0);
-            textView.setWidth((int)ViewUtils.convertDpToPixel(200, getApplicationContext()));
+            textView.setWidth((int) ViewUtils.convertDpToPixel(200, getApplicationContext()));
             textView.setGravity(0x11);
             m_relativeLayout.addView(textView);
+            registerForContextMenu(textView);
         }
     }
 }

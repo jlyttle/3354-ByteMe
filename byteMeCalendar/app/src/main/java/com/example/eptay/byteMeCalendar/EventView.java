@@ -130,21 +130,24 @@ public class EventView extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 switch (pos) {
                     case 0:
-                        categoryType = Event.CategoryType.BLUE;
+                        categoryType = Event.CategoryType.NONE;
                         break;
                     case 1:
-                        categoryType = Event.CategoryType.ORANGE;
+                        categoryType = Event.CategoryType.BLUE;
                         break;
                     case 2:
-                        categoryType = Event.CategoryType.GREEN;
+                        categoryType = Event.CategoryType.ORANGE;
                         break;
                     case 3:
-                        categoryType = Event.CategoryType.YELLOW;
+                        categoryType = Event.CategoryType.GREEN;
                         break;
                     case 4:
-                        categoryType = Event.CategoryType.RED;
+                        categoryType = Event.CategoryType.YELLOW;
                         break;
                     case 5:
+                        categoryType = Event.CategoryType.RED;
+                        break;
+                    case 6:
                         categoryType = Event.CategoryType.PURPLE;
                         break;
                 }
