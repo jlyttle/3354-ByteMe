@@ -25,7 +25,7 @@ public class DateSelector extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_time_selector);
+        setContentView(R.layout.activity_date_selector);
         select = findViewById(R.id.selectDate);
         datePicker1 = findViewById(R.id.datePicker1);
         datePicker1.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);

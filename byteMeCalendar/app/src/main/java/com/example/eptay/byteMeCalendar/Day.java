@@ -1,14 +1,8 @@
 package com.example.eptay.byteMeCalendar;
 
-import java.util.ArrayList;
-
 public class Day {
-
-
-    private String dayName;
     private String date;
     private int eventCount;
-    private ArrayList<Event> m_events = new ArrayList<>();
     private int m_year;
     private int m_month;
     private int m_day;
@@ -26,14 +20,9 @@ public class Day {
         m_year = year;
         m_month = month;
         m_day = day;
-        //Calendar calendar = new GregorianCalendar(year, month, day);
         m_dayOfWeek = GlobalCalendar.getDayOfWeek();
         m_dayName = m_weekdays[m_dayOfWeek - 1];
         date = GlobalCalendar.getDate();
-    }
-
-    public void setDayName(String dayName) {
-        this.dayName = dayName;
     }
 
     public String getDate() {
@@ -48,11 +37,6 @@ public class Day {
         return eventCount;
     }
 
-    public void setEventCount(int eventCount) {
-        this.eventCount = eventCount;
-    }
-
-
     String[] m_weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
     public int getYear() { return m_year; }
@@ -60,19 +44,6 @@ public class Day {
     public int getDayNum() { return m_day; }
     public String getDayName() {return m_dayName; }
     public int getDayOfWeek() { return m_dayOfWeek; }
-    public ArrayList<Event> getEvents() { return m_events; }
-    public void addEvent(Event event) { m_events.add(event); }
-    public void removeEvent(Event event) throws Exception {
-        if (m_events.contains(event))
-        {
-            m_events.remove(event);
-        }
-        else
-        {
-            //Could not find the event to remove
-            throw new Exception("Could not find event to remove: " + event);
-        }
-    }
 
     public String toString() {
         return m_dayName + ", " + (m_month + 1) + "/" + m_day + "/" + m_year;

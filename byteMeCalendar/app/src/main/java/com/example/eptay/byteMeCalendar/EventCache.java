@@ -9,7 +9,6 @@ import java.util.List;
     Singleton class store event objects
 */
 
-
 public class EventCache {
     /* MEMBER VARIABLES */
     private static EventCache instance;
@@ -55,7 +54,7 @@ public class EventCache {
             }
 
             eventsForDay.add(event);
-            if (event.getRepeatingType() == Event.RepeatingType.DAILY) {
+            if (event.getRepeatingType() == Event.RepeatingType.DAILY || event.getRepeatingType() == Event.RepeatingType.MONTHLY) {
                 for (int i = 1; i < 8; ++i) {
                     m_repeatingEvents.put(i, eventsForDay);
                 }
@@ -116,7 +115,7 @@ public class EventCache {
                     inMonthRange = false;
                 }
             }
-            else if (startYear == year) {
+            if (startYear == year) {
                 if (month < startMonth) {
                     inMonthRange = false;
                 }
@@ -127,7 +126,7 @@ public class EventCache {
                     inDayRange = false;
                 }
             }
-            else if (startMonth == month) {
+            if (startMonth == month) {
                 if (dayNum < startDayNum) {
                     inDayRange = false;
                 }

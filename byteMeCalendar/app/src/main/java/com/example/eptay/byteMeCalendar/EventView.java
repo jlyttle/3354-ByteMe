@@ -23,6 +23,9 @@ public class EventView extends AppCompatActivity {
     private Button startingTimeViewButton;
     private Button endingTimeViewButton;
     private Button addEvent;
+    private Button m_selectDay;
+    private TextView m_endDayText;
+    private TextView m_endDayField;
     private final int DATE_START_SELECTOR = 0;
     private final int TIME_START_SELECTOR = 1;
     private final int DATE_END_SELECTOR = 2;
@@ -56,7 +59,11 @@ public class EventView extends AppCompatActivity {
         addEvent = findViewById(R.id.accept);
         m_startTimeText = findViewById(R.id.startingTimeID);
         m_endTimeText = findViewById(R.id.endingTimeID);
+        m_selectDay = findViewById(R.id.endDaySelect);
+        m_endDayText = findViewById(R.id.endDay);
+        m_endDayField = findViewById(R.id.endDayField);
 
+        m_endDayField.setText(endDay.toString());
         title.setText(getIntent().getStringExtra("title"));
         description.setText(getIntent().getStringExtra("description"));
         if (getIntent().hasExtra("startHour")) {
@@ -103,21 +110,41 @@ public class EventView extends AppCompatActivity {
                 startActivityForResult(new Intent(EventView.this, TimeSelector.class), TIME_END_SELECTOR);
             }
         });
+        m_selectDay.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivityForResult(new Intent(EventView.this, DateSelector.class), DATE_END_SELECTOR);
+            }
+        });
         repeatMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 switch (pos) {
                     case 0:
                         repeatType = Event.RepeatingType.NONE;
+                        m_endDayField.setVisibility(View.INVISIBLE);
+                        m_endDayText.setVisibility(View.INVISIBLE);
+                        m_selectDay.setVisibility(View.INVISIBLE);
                         break;
                     case 1:
                         repeatType = Event.RepeatingType.DAILY;
+                        m_endDayField.setVisibility(View.VISIBLE);
+                        m_endDayText.setVisibility(View.VISIBLE);
+                        m_selectDay.setVisibility(View.VISIBLE);
+                        m_selectDay.setClickable(true);
                         break;
                     case 2:
                         repeatType = Event.RepeatingType.WEEKLY;
+                        m_endDayField.setVisibility(View.VISIBLE);
+                        m_endDayText.setVisibility(View.VISIBLE);
+                        m_selectDay.setVisibility(View.VISIBLE);
+                        m_selectDay.setClickable(true);
                         break;
                     case 3:
                         repeatType = Event.RepeatingType.MONTHLY;
+                        m_endDayField.setVisibility(View.VISIBLE);
+                        m_endDayText.setVisibility(View.VISIBLE);
+                        m_selectDay.setVisibility(View.VISIBLE);
+                        m_selectDay.setClickable(true);
                         break;
                 }
             }
@@ -151,7 +178,6 @@ public class EventView extends AppCompatActivity {
                         categoryType = Event.CategoryType.PURPLE;
                         break;
                 }
-
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -199,6 +225,9 @@ public class EventView extends AppCompatActivity {
                     endYear = data.getIntExtra("year", GlobalCalendar.getYear());
                     endMonth = data.getIntExtra("month", GlobalCalendar.getMonth());
                     endDayNum = data.getIntExtra("day", GlobalCalendar.getDayNum());
+                    endDay = new Day(endYear, endMonth, endDayNum);
+
+                    m_endDayField.setText(endDay.toString());
                 }
                 break;
             case (TIME_END_SELECTOR):

@@ -7,9 +7,7 @@ import java.util.UUID;
     Class used to store information of an event within an event object
 */
 
-
 public class Event implements Comparable {
-
     /* MEMBER VARIABLES */
     public enum RepeatingType { NONE, DAILY, WEEKLY, MONTHLY, YEARLY }
     public enum CategoryType {NONE, BLUE, ORANGE, GREEN, YELLOW, RED, PURPLE}
@@ -67,19 +65,12 @@ public class Event implements Comparable {
         m_endHour = endingHour;
         m_endMin = endingMin;
     }
-    public void deleteCategory(EventCategory category) {
-        ArrayList<Event> events = category.getEvents();
-        for (int i = 0; i < events.size(); ++i) {
-            events.set(i, null);
-        }
-    }
 
     @Override
     public String toString() {
         return m_name + ": \"" + m_description + "\" " + m_startHour + ":" + m_startMin + "-" + m_endHour + ":" + m_endMin;
     }
 
-    //TODO compareTo should also compare title, description, and days
     @Override
     public int compareTo(Object o) {
         if (o instanceof Event) {
