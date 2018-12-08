@@ -20,7 +20,7 @@ public class IsValidPhone {
 
         assertTrue(valid);
     }
-
+    //Test for less than 10 digits
     public void testAddEvent2() {
         String phone = "95640732";
         android.text.TextUtils.isDigitsOnly(phone);
@@ -30,7 +30,7 @@ public class IsValidPhone {
 
         assertTrue(valid);
     }
-
+    //Test for more than 10 digits
     public void testAddEvent3() {
         String phone = "956455073002";
         android.text.TextUtils.isDigitsOnly(phone);
@@ -41,6 +41,7 @@ public class IsValidPhone {
         assertTrue(valid);
     }
 
+    //Test for invalid character
     public void testAddEvent4() {
         String phone = "9564550a32";
         android.text.TextUtils.isDigitsOnly(phone);
