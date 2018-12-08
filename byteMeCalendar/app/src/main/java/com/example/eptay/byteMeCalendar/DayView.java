@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -25,6 +26,7 @@ public class DayView extends AppCompatActivity {
     private static final String TAG = "DayView";
     private static final int HOUR_HEIGHT = 61; //Each hour in the scroll view is 61dp
     private ScrollView scrollView;
+    private FloatingActionButton m_fab;
     private View m_currentContextView;
     private Event m_selectedEvent = null;
     private final int EDIT_EVENT = 0;
@@ -51,11 +53,17 @@ public class DayView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_view);
+        m_fab = findViewById(R.id.fab);
         scrollView = findViewById(R.id.scrollView);
         m_relativeLayout = findViewById(R.id.eventLayout);
-
         drawEvents(getOrderedEventList());
 
+        m_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DayView.this, EventView.class));
+            }
+        });
         //TODO refactor
         String currentDate = (nameOfDay + ", " + getMonth(currentMonth + 1) + " " + currentDay + ", " + currentYear);
         final TextView textViewDate = findViewById(R.id.textViewDate);
