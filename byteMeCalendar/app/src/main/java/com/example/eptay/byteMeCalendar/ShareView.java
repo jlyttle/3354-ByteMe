@@ -43,7 +43,9 @@ public class ShareView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO Check that this is a valid phone number
-                m_phoneNum = m_numField.getText().toString();
+                if(isValidPhone(m_numField.getText().toString())){
+                    m_phoneNum = m_numField.getText().toString();
+                }
                 SmsManager sms = SmsManager.getDefault();
                 PendingIntent sentPI;
                 String SENT = "SMS_SENT";
@@ -69,6 +71,13 @@ public class ShareView extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public boolean isValidPhone(String phone){
+        if(phone.length() == 10 & android.text.TextUtils.isDigitsOnly(phone)){
+             return true;
+        }
+        return false;
     }
 
 }
