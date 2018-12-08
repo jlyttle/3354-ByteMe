@@ -16,11 +16,18 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".WeekView" />
+        <activity android:name=".EventCache" >
+            <intent-filter >
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="launchactivity.com" android:scheme="http"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".EventView" />
         <activity android:name=".TimeSelector" />
         <activity android:name=".DateSelector" />

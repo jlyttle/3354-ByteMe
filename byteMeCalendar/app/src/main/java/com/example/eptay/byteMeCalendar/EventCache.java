@@ -5,11 +5,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+
 /*
     Singleton class store event objects
 */
 
-public class EventCache {
+public class EventCache extends AppCompatActivity{
     /* MEMBER VARIABLES */
     private static EventCache instance;
     private List<Event> m_nonRepeatingEvents = new ArrayList<>();
@@ -22,6 +26,11 @@ public class EventCache {
     }
     public static EventCache getInstance() {
         return instance;
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     /**

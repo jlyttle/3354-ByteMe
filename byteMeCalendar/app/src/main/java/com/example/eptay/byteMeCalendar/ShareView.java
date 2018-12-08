@@ -63,7 +63,7 @@ public class ShareView extends AppCompatActivity {
                 else {
                     String message = m_event.toString();
                     // Permission has already been granted
-                    sms.sendTextMessage(m_phoneNum, null, message, sentPI, null);
+                    sms.sendTextMessage(m_phoneNum, null, "http://launchactivity.com", sentPI, null);
                 }
 
                 Intent intent = new Intent();
